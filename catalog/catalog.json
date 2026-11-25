@@ -126,8 +126,8 @@
             {
               "name": "Сторінка завантаження Hipster",
               "kind": "guide",
-              "url": "https://www.openindiana.org/download/",
-              "source": "https://www.openindiana.org/download/",
+              "url": "https://openindiana.org/downloads",
+              "source": "https://openindiana.org/downloads",
               "verified": true
             }
           ]
