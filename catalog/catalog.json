@@ -1,0 +1,220 @@
+{
+  "schema": 1,
+  "updated": "2026-11-25",
+  "systems": [
+    {
+      "id": "linux",
+      "name": "Linux",
+      "childrenTitle": "Дистрибутив",
+      "children": [
+        {
+          "id": "debian",
+          "name": "Debian",
+          "note": "Стабільний, універсальний.",
+          "files": [
+            {
+              "name": "netinst (мінімальний, ставить з інтернету)",
+              "arch": "amd64",
+              "resolve": {
+                "base": "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/",
+                "pattern": "debian-[\\d.]+-amd64-netinst\\.iso"
+              },
+              "checksum": {
+                "algo": "sha256",
+                "url": "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA256SUMS"
+              },
+              "source": "https://www.debian.org/distrib/",
+              "verified": true
+            }
+          ]
+        },
+        {
+          "id": "alpine",
+          "name": "Alpine Linux",
+          "note": "Крихітний, для серверів і контейнерів.",
+          "files": [
+            {
+              "name": "standard",
+              "arch": "x86_64",
+              "resolve": {
+                "base": "https://dl-cdn.alpinelinux.org/alpine/latest-stable/releases/x86_64/",
+                "pattern": "alpine-standard-[\\d.]+-x86_64\\.iso"
+              },
+              "checksum": {
+                "algo": "sha256",
+                "url": "https://dl-cdn.alpinelinux.org/alpine/latest-stable/releases/x86_64/{file}.sha256"
+              },
+              "source": "https://alpinelinux.org/downloads/",
+              "verified": true
+            }
+          ]
+        },
+        {
+          "id": "arch",
+          "name": "Arch Linux",
+          "note": "Rolling, завжди свіжий образ.",
+          "files": [
+            {
+              "name": "archlinux-x86_64",
+              "arch": "x86_64",
+              "url": "https://geo.mirror.pkgbuild.com/iso/latest/archlinux-x86_64.iso",
+              "checksum": {
+                "algo": "sha256",
+                "url": "https://geo.mirror.pkgbuild.com/iso/latest/sha256sums.txt"
+              },
+              "source": "https://archlinux.org/download/",
+              "verified": false
+            }
+          ]
+        },
+        {
+          "id": "lfs",
+          "name": "Linux From Scratch",
+          "note": "Офіційного ISO для нових версій немає: збірка вручну за книгою.",
+          "files": [
+            {
+              "name": "Книга LFS (актуальна)",
+              "kind": "guide",
+              "url": "https://www.linuxfromscratch.org/lfs/view/stable/",
+              "source": "https://www.linuxfromscratch.org/lfs/",
+              "verified": true
+            },
+            {
+              "name": "LFS LiveCD 6.3 (старий, ~2007)",
+              "kind": "archived",
+              "url": "https://www.linuxfromscratch.org/livecd/",
+              "note": "Дуже старий образ. Сторінка проєкту; пряме посилання перевіряється в CI.",
+              "source": "https://www.linuxfromscratch.org/livecd/",
+              "verified": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bsd",
+      "name": "BSD",
+      "childrenTitle": "Система",
+      "children": [
+        {
+          "id": "freebsd",
+          "name": "FreeBSD",
+          "files": [
+            {
+              "name": "disc1 (повний)",
+              "arch": "amd64",
+              "resolve": {
+                "base": "https://download.freebsd.org/releases/ISO-IMAGES/15.1/",
+                "pattern": "FreeBSD-[\\d.]+-RELEASE-amd64-disc1\\.iso"
+              },
+              "source": "https://www.freebsd.org/where/",
+              "verified": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "illumos",
+      "name": "illumos / OpenIndiana",
+      "childrenTitle": "Система",
+      "children": [
+        {
+          "id": "openindiana",
+          "name": "OpenIndiana Hipster",
+          "files": [
+            {
+              "name": "Сторінка завантаження Hipster",
+              "kind": "guide",
+              "url": "https://www.openindiana.org/download/",
+              "source": "https://www.openindiana.org/download/",
+              "verified": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "other",
+      "name": "Інше",
+      "childrenTitle": "Система",
+      "children": [
+        {
+          "id": "templeos",
+          "name": "TempleOS",
+          "files": [
+            {
+              "name": "Сторінка завантаження",
+              "kind": "guide",
+              "url": "https://templeos.org/",
+              "source": "https://templeos.org/",
+              "verified": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "windows",
+      "name": "Windows",
+      "childrenTitle": "Версія",
+      "children": [
+        {
+          "id": "win11",
+          "name": "Windows 11",
+          "note": "Прямі білди (наприклад 26200.xxxx) з'являться в наступній фазі. Поки що офіційна сторінка Microsoft.",
+          "files": [
+            {
+              "name": "Завантаження Windows 11 (microsoft.com)",
+              "kind": "guide",
+              "url": "https://www.microsoft.com/software-download/windows11",
+              "source": "https://www.microsoft.com/software-download/windows11",
+              "verified": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "macos",
+      "name": "macOS",
+      "childrenTitle": "Версія",
+      "children": [
+        {
+          "id": "macos-guide",
+          "name": "macOS",
+          "note": "Apple не дає ISO. Образи інсталятора качаються з App Store / Software Update.",
+          "files": [
+            {
+              "name": "Як отримати macOS (Apple)",
+              "kind": "guide",
+              "url": "https://support.apple.com/102662",
+              "source": "https://support.apple.com/102662",
+              "verified": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "android",
+      "name": "Android",
+      "childrenTitle": "Проєкт",
+      "children": [
+        {
+          "id": "android-x86",
+          "name": "Android-x86 / BlissOS",
+          "files": [
+            {
+              "name": "Сторінка проєкту Android-x86",
+              "kind": "guide",
+              "url": "https://www.android-x86.org/download",
+              "source": "https://www.android-x86.org/download",
+              "verified": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

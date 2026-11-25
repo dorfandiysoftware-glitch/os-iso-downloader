@@ -1,0 +1,22 @@
+name: catalog
+on:
+  push:
+    paths: ['catalog/**', 'tools/**']
+  pull_request:
+    paths: ['catalog/**', 'tools/**']
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/validate_catalog.py
+      - name: Check links
+        run: python3 tools/check_links.py | tee links.txt
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: link-report
+          path: links.txt

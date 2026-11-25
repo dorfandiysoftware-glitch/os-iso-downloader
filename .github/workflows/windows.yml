@@ -1,0 +1,42 @@
+name: windows
+on:
+  push:
+    paths: ['windows/**', '.github/workflows/windows.yml', 'catalog/**']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release tag, e.g. v0.1.0 (empty = only build)'
+        required: false
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Test core
+        run: dotnet test windows/OsIsoDownloader.Core.Tests -c Release
+      - name: Publish app
+        run: >
+          dotnet publish windows/OsIsoDownloader.App/OsIsoDownloader.App.csproj
+          -c Release -r win-x64 --self-contained true -p:Platform=x64
+          -p:WindowsAppSDKSelfContained=true -o out
+      - name: Bundle catalog
+        shell: bash
+        run: cp catalog/catalog.json out/catalog.json
+      - name: Zip
+        shell: pwsh
+        run: Compress-Archive -Path out\* -DestinationPath OsIsoDownloader-win-x64.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: OsIsoDownloader-win-x64
+          path: OsIsoDownloader-win-x64.zip
+      - name: Release
+        if: ${{ github.event.inputs.version != '' }}
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release create "${{ github.event.inputs.version }}" OsIsoDownloader-win-x64.zip --title "${{ github.event.inputs.version }}" --notes "Тестова збірка. Розпакуй і запусти OsIsoDownloader.App.exe." --prerelease
