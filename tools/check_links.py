@@ -53,6 +53,16 @@ for s in d["systems"]:
         else:
             status = alive(url) if url else "NO URL"
         ok = status in (200, 206, 301, 302)
+        c = f.get("checksum")
+        if ok and url and c and c.get("url"):
+            fname = urllib.parse.unquote(url.rstrip("/").split("/")[-1])
+            try:
+                txt = urllib.request.urlopen(urllib.request.Request(c["url"].replace("{file}", fname), headers=UA), timeout=40).read().decode("utf-8", "replace")
+                lines = [l for l in txt.splitlines() if l.strip() and not l.startswith(("#", "-----", "Hash:"))]
+                if fname.lower() not in txt.lower() and len(lines) != 1:
+                    ok, status = False, f"checksum file does not list {fname}"
+            except Exception as e:
+                ok, status = False, f"checksum file error: {e}"
         flag = "OK " if ok else "BAD"
         print(f"{flag} [{node['id']}] {f['name']}: {status}{note}  (verified={f.get('verified', False)})")
         if not ok and f.get("verified"):

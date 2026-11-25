@@ -11,6 +11,7 @@ using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
+using Windows.UI;
 using OsIsoDownloader.Core;
 using Windows.Storage.Pickers;
 using WinRT.Interop;
@@ -21,6 +22,9 @@ namespace OsIsoDownloader.App
     {
         public string Title { get; set; }
         public string Subtitle { get; set; }
+        public string Initials { get; set; }
+        public string Star { get; set; } = "";
+        public Brush Brush { get; set; }
         public Node Node;
         public FileEntry File;
     }
@@ -33,6 +37,7 @@ namespace OsIsoDownloader.App
         private readonly ObservableCollection<DownloadItem> _items = new ObservableCollection<DownloadItem>();
         private readonly Stack<Node> _path = new Stack<Node>();
         private Catalog _catalog;
+        private List<Choice> _level = new List<Choice>();
         private string _folder;
 
         public MainWindow()
@@ -47,6 +52,17 @@ namespace OsIsoDownloader.App
             Downloads.ItemsSource = _items;
             _folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", "ISO");
             FolderText.Text = _folder;
+            foreach (HistoryEntry h in History.Load())
+            {
+                if (File.Exists(h.Path))
+                {
+                    _items.Add(new DownloadItem
+                    {
+                        Title = h.Title, Path = h.Path, Vm = h.Vm, State = DownloadState.Done, Percent = 100,
+                        Status = "Готово: " + h.Path, ActionLabel = "Показати",
+                    });
+                }
+            }
             _ = LoadCatalogAsync();
         }
 
@@ -104,7 +120,7 @@ namespace OsIsoDownloader.App
                 StepText.Text = "";
                 foreach (Node n in _catalog.Systems)
                 {
-                    list.Add(new Choice { Title = n.Name, Subtitle = n.Note ?? "", Node = n });
+                    list.Add(Tile(n.Name, n.Note ?? "", n.Id, false, n, null));
                 }
             }
             else
@@ -116,18 +132,70 @@ namespace OsIsoDownloader.App
                 {
                     foreach (Node n in cur.Children)
                     {
-                        list.Add(new Choice { Title = n.Name, Subtitle = n.Note ?? "", Node = n });
+                        list.Add(Tile(n.Name, n.Note ?? "", n.Id, false, n, null));
                     }
                 }
                 else
                 {
                     foreach (FileEntry f in cur.Files)
                     {
-                        list.Add(new Choice { Title = f.Name, Subtitle = Describe(f), File = f });
+                        list.Add(Tile(f.Name, Describe(f), f.Name, f.Recommended, null, f));
                     }
                 }
             }
+            _level = list;
+            SearchBox.Text = "";
             Choices.ItemsSource = list;
+        }
+
+        private static readonly Color[] Palette =
+        {
+            Color.FromArgb(255, 0, 120, 212), Color.FromArgb(255, 16, 124, 16), Color.FromArgb(255, 202, 80, 16),
+            Color.FromArgb(255, 136, 23, 152), Color.FromArgb(255, 0, 153, 188), Color.FromArgb(255, 194, 57, 179),
+            Color.FromArgb(255, 74, 84, 89), Color.FromArgb(255, 186, 20, 40),
+        };
+
+        private static Choice Tile(string title, string subtitle, string key, bool star, Node node, FileEntry file)
+        {
+            int h = 0;
+            foreach (char c in key ?? title)
+            {
+                h = h * 31 + c;
+            }
+            string initials = "";
+            foreach (string w in title.Split(new[] { ' ', '/', '-' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                if (char.IsLetterOrDigit(w[0]) && initials.Length < 2)
+                {
+                    initials += char.ToUpperInvariant(w[0]);
+                }
+            }
+            return new Choice
+            {
+                Title = title, Subtitle = subtitle, Node = node, File = file,
+                Initials = initials.Length == 0 ? "?" : initials, Star = star ? "★" : "",
+                Brush = new SolidColorBrush(Palette[(h & 0x7fffffff) % Palette.Length]),
+            };
+        }
+
+        private void OnSearch(object sender, TextChangedEventArgs e)
+        {
+            string q = SearchBox.Text.Trim();
+            if (q.Length == 0)
+            {
+                Choices.ItemsSource = _level;
+                return;
+            }
+            var filtered = new List<Choice>();
+            foreach (Choice c in _level)
+            {
+                if (c.Title.Contains(q, StringComparison.OrdinalIgnoreCase)
+                    || (c.Subtitle ?? "").Contains(q, StringComparison.OrdinalIgnoreCase))
+                {
+                    filtered.Add(c);
+                }
+            }
+            Choices.ItemsSource = filtered;
         }
 
         private string PathTitle()
@@ -198,9 +266,21 @@ namespace OsIsoDownloader.App
 
         private void Start(FileEntry entry, string title)
         {
-            var item = new DownloadItem { Entry = entry, Title = title, Folder = _folder };
+            var item = new DownloadItem { Entry = entry, Title = title, Folder = _folder, Vm = FindVm() };
             _items.Insert(0, item);
             _ = RunAsync(item);
+        }
+
+        private VmHint FindVm()
+        {
+            foreach (Node n in _path)
+            {
+                if (n.Vm != null)
+                {
+                    return n.Vm;
+                }
+            }
+            return new VmHint();
         }
 
         private async Task RunAsync(DownloadItem item)
@@ -237,6 +317,7 @@ namespace OsIsoDownloader.App
                 item.Path = r.Path;
                 item.State = DownloadState.Done;
                 item.ActionLabel = "Показати";
+                History.Save(_items);
                 if (r.HashOk == true)
                 {
                     item.Status = "Готово, хеш збігається ✓  " + r.Path;
@@ -308,6 +389,106 @@ namespace OsIsoDownloader.App
                 item.Cts?.Cancel();
             }
             _items.Remove(item);
+            History.Save(_items);
+        }
+
+        // ---- virtual machines ----
+
+        private async Task Info(string title, string text, string primary = null, string secondary = null, Action onPrimary = null, Action onSecondary = null)
+        {
+            var d = new ContentDialog
+            {
+                Title = title, Content = new TextBlock { Text = text, TextWrapping = TextWrapping.Wrap, IsTextSelectionEnabled = true },
+                CloseButtonText = "Закрити", XamlRoot = Root.XamlRoot,
+            };
+            if (primary != null)
+            {
+                d.PrimaryButtonText = primary;
+            }
+            if (secondary != null)
+            {
+                d.SecondaryButtonText = secondary;
+            }
+            ContentDialogResult r = await d.ShowAsync();
+            if (r == ContentDialogResult.Primary)
+            {
+                onPrimary?.Invoke();
+            }
+            else if (r == ContentDialogResult.Secondary)
+            {
+                onSecondary?.Invoke();
+            }
+        }
+
+        private static void Open(string url)
+        {
+            _ = Windows.System.Launcher.LaunchUriAsync(new Uri(url));
+        }
+
+        private async void OnItemVm(object sender, RoutedEventArgs e)
+        {
+            var item = (DownloadItem)((Button)sender).Tag;
+            string vbm = VmTools.FindVBoxManage();
+            string qemu = VmTools.FindQemu("qemu-system-x86_64.exe");
+            string qimg = VmTools.FindQemu("qemu-img.exe");
+            bool hasQemu = qemu != null && qimg != null;
+            if (vbm == null && !hasQemu)
+            {
+                await Info("Немає ні VirtualBox, ні QEMU",
+                    "Встанови одну з програм і спробуй ще раз.", "VirtualBox", "QEMU",
+                    () => Open("https://www.virtualbox.org/wiki/Downloads"),
+                    () => Open("https://qemu.weilnetz.de/w64/"));
+                return;
+            }
+
+            VmHint h = item.Vm ?? new VmHint();
+            var name = new TextBox { Header = "Назва", Text = Path.GetFileNameWithoutExtension(item.Path) };
+            var ram = new NumberBox { Header = "ОЗП, МБ", Value = h.Ram, Minimum = 256, SmallChange = 256, SpinButtonPlacementMode = NumberBoxSpinButtonPlacementMode.Inline };
+            var cpus = new NumberBox { Header = "Ядра", Value = h.Cpus, Minimum = 1, Maximum = 32, SpinButtonPlacementMode = NumberBoxSpinButtonPlacementMode.Inline };
+            var disk = new NumberBox { Header = "Диск, ГБ", Value = h.Disk, Minimum = 1, SmallChange = 5, SpinButtonPlacementMode = NumberBoxSpinButtonPlacementMode.Inline };
+            var efi = new CheckBox { Content = "UEFI (замість BIOS)", IsChecked = h.Efi };
+            var start = new CheckBox { Content = "Запустити після створення", IsChecked = true };
+            var kind = new RadioButtons { Header = "Чим створити" };
+            kind.Items.Add(new RadioButton { Content = vbm != null ? "VirtualBox" : "VirtualBox (не знайдено)", IsEnabled = vbm != null });
+            kind.Items.Add(new RadioButton { Content = hasQemu ? "QEMU" : "QEMU (не знайдено)", IsEnabled = hasQemu });
+            kind.SelectedIndex = vbm != null ? 0 : 1;
+            var panel = new StackPanel { Spacing = 10, MinWidth = 340 };
+            foreach (UIElement u in new UIElement[] { name, kind, ram, cpus, disk, efi, start })
+            {
+                panel.Children.Add(u);
+            }
+            var dlg = new ContentDialog
+            {
+                Title = "Створити віртуальну машину", Content = panel, PrimaryButtonText = "Створити",
+                CloseButtonText = "Скасувати", DefaultButton = ContentDialogButton.Primary, XamlRoot = Root.XamlRoot,
+            };
+            if (await dlg.ShowAsync() != ContentDialogResult.Primary)
+            {
+                return;
+            }
+
+            bool useVbox = kind.SelectedIndex == 0;
+            string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            VmSpec spec = VmSpec.From(h, name.Text, item.Path, Path.Combine(home, useVbox ? "VirtualBox VMs" : "VMs"));
+            spec.RamMb = (int)ram.Value;
+            spec.Cpus = (int)cpus.Value;
+            spec.DiskGb = (int)disk.Value;
+            spec.Efi = efi.IsChecked == true;
+            string before = item.Status;
+            item.Status = "Створюю віртуальну машину…";
+            try
+            {
+                string log = useVbox
+                    ? await VmTools.CreateVBoxAsync(vbm, spec, start.IsChecked == true, CancellationToken.None)
+                    : await VmTools.CreateQemuAsync(qemu, qimg, spec, start.IsChecked == true, CancellationToken.None);
+                item.Status = before;
+                await Info("Машину створено", log.Length > 1500 ? log.Substring(log.Length - 1500) : log);
+            }
+            catch (Exception ex)
+            {
+                item.Status = before;
+                await Info("Не вдалося створити машину", ex.Message);
+            }
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel;
 using System.Net.Http;
 using System.Threading;
+using Microsoft.UI.Xaml;
 using OsIsoDownloader.Core;
 
 namespace OsIsoDownloader.App
@@ -16,6 +17,7 @@ namespace OsIsoDownloader.App
         public CancellationTokenSource Cts;
         public ResolvedFile Resolved;
         public bool Resumable = true;
+        public VmHint Vm;
 
         private string _title;
         private string _status = "У черзі";
@@ -29,7 +31,9 @@ namespace OsIsoDownloader.App
         public double Percent { get => _percent; set { _percent = value; Raise("Percent"); } }
         public string Detail { get => _detail; set { _detail = value; Raise("Detail"); } }
         public string ActionLabel { get => _actionLabel; set { _actionLabel = value; Raise("ActionLabel"); } }
-        public string Path { get => _path; set { _path = value; Raise("Path"); } }
+        public string Path { get => _path; set { _path = value; Raise("Path"); Raise("VmVisibility"); } }
+        public Visibility VmVisibility =>
+            _path != null && _path.EndsWith(".iso", StringComparison.OrdinalIgnoreCase) ? Visibility.Visible : Visibility.Collapsed;
         public DownloadState State = DownloadState.Waiting;
 
         private void Raise(string n)

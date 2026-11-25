@@ -48,6 +48,8 @@ namespace OsIsoDownloader.Core
         public string ChildrenTitle { get; set; }
         public List<Node> Children { get; set; } = new List<Node>();
         public List<FileEntry> Files { get; set; } = new List<FileEntry>();
+        /// <summary>Settings for a virtual machine made from files under this node.</summary>
+        public VmHint Vm { get; set; }
 
         [JsonIgnore]
         public bool HasChildren => Children != null && Children.Count > 0;
@@ -70,11 +72,24 @@ namespace OsIsoDownloader.Core
         /// <summary>True only when somebody saw this exact link on the official page.</summary>
         public bool Verified { get; set; }
         public string Note { get; set; }
+        public bool Recommended { get; set; }
 
         [JsonIgnore]
         public bool IsGuide => string.Equals(Kind, "guide", StringComparison.OrdinalIgnoreCase);
         [JsonIgnore]
         public bool IsArchived => string.Equals(Kind, "archived", StringComparison.OrdinalIgnoreCase);
+    }
+
+    public sealed class VmHint
+    {
+        /// <summary>VirtualBox OS type id, e.g. "Debian_64".</summary>
+        public string VboxType { get; set; } = "Other_64";
+        public int Ram { get; set; } = 2048;
+        public int Cpus { get; set; } = 2;
+        public int Disk { get; set; } = 20;
+        public bool Efi { get; set; }
+        /// <summary>Use virtio devices in QEMU (Linux guests).</summary>
+        public bool Virtio { get; set; }
     }
 
     /// <summary>Finds the newest file in a directory listing, so a new release needs no new catalog.</summary>

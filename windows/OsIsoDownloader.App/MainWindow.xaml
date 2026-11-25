@@ -25,6 +25,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
@@ -36,19 +37,37 @@
                                Style="{StaticResource SubtitleTextBlockStyle}" />
                 </StackPanel>
                 <TextBlock x:Name="StepText" Grid.Row="1" Text="" Opacity="0.7" TextWrapping="Wrap" />
-                <ListView x:Name="Choices" Grid.Row="2" IsItemClickEnabled="True" ItemClick="OnChoice"
+                <TextBox x:Name="SearchBox" Grid.Row="2" PlaceholderText="Пошук…" TextChanged="OnSearch" />
+                <GridView x:Name="Choices" Grid.Row="3" IsItemClickEnabled="True" ItemClick="OnChoice"
                           SelectionMode="None">
-                    <ListView.ItemTemplate>
+                    <GridView.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Padding="4,8" Spacing="2">
-                                <TextBlock Text="{Binding Title}" Style="{StaticResource BodyStrongTextBlockStyle}" />
-                                <TextBlock Text="{Binding Subtitle}" Opacity="0.7" TextWrapping="Wrap"
+                            <Grid Width="190" Height="120" Padding="12" RowSpacing="6" CornerRadius="8"
+                                  Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                  BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}" BorderThickness="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid Width="34" Height="34" HorizontalAlignment="Left">
+                                        <Ellipse Fill="{Binding Brush}" />
+                                        <TextBlock Text="{Binding Initials}" Foreground="White" FontWeight="SemiBold"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Grid>
+                                    <TextBlock Text="{Binding Star}" HorizontalAlignment="Right" FontSize="18" />
+                                </Grid>
+                                <TextBlock Grid.Row="1" Text="{Binding Title}" Style="{StaticResource BodyStrongTextBlockStyle}"
+                                           TextTrimming="CharacterEllipsis" />
+                                <TextBlock Grid.Row="2" Text="{Binding Subtitle}" Opacity="0.7" TextWrapping="Wrap"
+                                           TextTrimming="CharacterEllipsis" MaxLines="3"
                                            Style="{StaticResource CaptionTextBlockStyle}" />
-                            </StackPanel>
+                            </Grid>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <TextBlock x:Name="CatalogText" Grid.Row="3" Opacity="0.6"
+                    </GridView.ItemTemplate>
+                </GridView>
+                <TextBlock x:Name="CatalogText" Grid.Row="4" Opacity="0.6"
                            Style="{StaticResource CaptionTextBlockStyle}" TextWrapping="Wrap" />
             </Grid>
 
@@ -72,6 +91,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -80,9 +100,11 @@
                                 </Grid.RowDefinitions>
                                 <TextBlock Text="{Binding Title}" Style="{StaticResource BodyStrongTextBlockStyle}" TextTrimming="CharacterEllipsis" />
                                 <Button Grid.Column="1" Content="{Binding ActionLabel}" Click="OnItemAction" Tag="{Binding}" />
-                                <Button Grid.Column="2" Content="Скасувати" Click="OnItemCancel" Tag="{Binding}" />
-                                <ProgressBar Grid.Row="1" Grid.ColumnSpan="3" Minimum="0" Maximum="100" Value="{Binding Percent}" />
-                                <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Text="{Binding Status}" TextWrapping="Wrap"
+                                <Button Grid.Column="2" Content="Створити ВМ" Click="OnItemVm" Tag="{Binding}"
+                                        Visibility="{Binding VmVisibility}" />
+                                <Button Grid.Column="3" Content="Прибрати" Click="OnItemCancel" Tag="{Binding}" />
+                                <ProgressBar Grid.Row="1" Grid.ColumnSpan="4" Minimum="0" Maximum="100" Value="{Binding Percent}" />
+                                <TextBlock Grid.Row="2" Grid.ColumnSpan="4" Text="{Binding Status}" TextWrapping="Wrap"
                                            Style="{StaticResource CaptionTextBlockStyle}" />
                             </Grid>
                         </DataTemplate>
