@@ -11,296 +11,401 @@
           "id": "debian",
           "name": "Debian",
           "note": "Стабільний, універсальний.",
-          "files": [
+          "childrenTitle": "Що саме",
+          "children": [
             {
-              "name": "netinst (мінімальний, ставить з інтернету)",
-              "arch": "amd64",
-              "resolve": {
-                "base": "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/",
-                "pattern": "debian-[\\d.]+-amd64-netinst\\.iso"
-              },
-              "checksum": {
-                "algo": "sha512",
-                "url": "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA512SUMS"
-              },
-              "source": "https://www.debian.org/distrib/",
-              "verified": true,
-              "recommended": true
+              "id": "debian-self",
+              "name": "Debian",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "debian-v",
+                  "name": "Стабільна (актуальна)",
+                  "files": [
+                    {
+                      "name": "netinst (мінімальний, ставить з інтернету)",
+                      "arch": "amd64",
+                      "resolve": {
+                        "base": "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/",
+                        "pattern": "debian-[\\d.]+-amd64-netinst\\.iso"
+                      },
+                      "checksum": {
+                        "algo": "sha512",
+                        "url": "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA512SUMS"
+                      },
+                      "source": "https://www.debian.org/distrib/",
+                      "verified": true,
+                      "recommended": true
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "Debian_64",
+                    "ram": 2048,
+                    "disk": 20,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": true
+                  }
+                }
+              ]
+            },
+            {
+              "id": "debian-based",
+              "name": "Дистрибутиви на базі Debian",
+              "childrenTitle": "Дистрибутив",
+              "children": [
+                {
+                  "id": "ubuntu",
+                  "name": "Ubuntu",
+                  "note": "LTS, найпопулярніший настільний Linux.",
+                  "childrenTitle": "Що саме",
+                  "children": [
+                    {
+                      "id": "ubuntu-self",
+                      "name": "Ubuntu",
+                      "childrenTitle": "Версія",
+                      "children": [
+                        {
+                          "id": "ubuntu-v",
+                          "name": "Desktop LTS (актуальна)",
+                          "vm": {
+                            "vboxType": "Ubuntu_64",
+                            "ram": 4096,
+                            "disk": 25,
+                            "cpus": 2,
+                            "efi": false,
+                            "virtio": true
+                          },
+                          "files": [
+                            {
+                              "name": "Desktop LTS",
+                              "arch": "amd64",
+                              "recommended": true,
+                              "resolve": {
+                                "base": "https://releases.ubuntu.com/26.04/",
+                                "pattern": "ubuntu-[\\d.]+-desktop-amd64\\.iso"
+                              },
+                              "checksum": {
+                                "algo": "sha256",
+                                "url": "https://releases.ubuntu.com/26.04/SHA256SUMS"
+                              },
+                              "source": "https://ubuntu.com/download/desktop",
+                              "verified": false
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "id": "ubuntu-based",
+                      "name": "Дистрибутиви на базі Ubuntu",
+                      "childrenTitle": "Дистрибутив",
+                      "children": [
+                        {
+                          "id": "mint",
+                          "name": "Linux Mint",
+                          "childrenTitle": "Версія",
+                          "children": [
+                            {
+                              "id": "mint-v",
+                              "name": "22.3 «Zena»",
+                              "vm": {
+                                "vboxType": "Ubuntu_64",
+                                "ram": 4096,
+                                "disk": 25,
+                                "cpus": 2,
+                                "efi": false,
+                                "virtio": true
+                              },
+                              "files": [
+                                {
+                                  "name": "Cinnamon",
+                                  "arch": "amd64",
+                                  "recommended": true,
+                                  "resolve": {
+                                    "base": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/",
+                                    "pattern": "linuxmint-[\\d.]+-cinnamon-64bit\\.iso"
+                                  },
+                                  "checksum": {
+                                    "algo": "sha256",
+                                    "url": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/sha256sum.txt"
+                                  },
+                                  "source": "https://www.linuxmint.com/download.php",
+                                  "verified": false
+                                },
+                                {
+                                  "name": "MATE",
+                                  "arch": "amd64",
+                                  "recommended": false,
+                                  "resolve": {
+                                    "base": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/",
+                                    "pattern": "linuxmint-[\\d.]+-mate-64bit\\.iso"
+                                  },
+                                  "checksum": {
+                                    "algo": "sha256",
+                                    "url": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/sha256sum.txt"
+                                  },
+                                  "source": "https://www.linuxmint.com/download.php",
+                                  "verified": false
+                                },
+                                {
+                                  "name": "Xfce",
+                                  "arch": "amd64",
+                                  "recommended": false,
+                                  "resolve": {
+                                    "base": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/",
+                                    "pattern": "linuxmint-[\\d.]+-xfce-64bit\\.iso"
+                                  },
+                                  "checksum": {
+                                    "algo": "sha256",
+                                    "url": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/sha256sum.txt"
+                                  },
+                                  "source": "https://www.linuxmint.com/download.php",
+                                  "verified": false
+                                }
+                              ]
+                            }
+                          ],
+                          "note": "Просте перехідне середовище для новачків. Версія 22.3 «Zena».",
+                          "vm": {
+                            "vboxType": "Ubuntu_64",
+                            "ram": 4096,
+                            "disk": 25,
+                            "cpus": 2,
+                            "efi": false,
+                            "virtio": true
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
             }
-          ],
-          "vm": {
-            "vboxType": "Debian_64",
-            "ram": 2048,
-            "disk": 20,
-            "cpus": 2,
-            "efi": false,
-            "virtio": true
-          }
+          ]
         },
         {
           "id": "alpine",
           "name": "Alpine Linux",
-          "note": "Крихітний, для серверів і контейнерів.",
-          "files": [
+          "childrenTitle": "Версія",
+          "children": [
             {
-              "name": "standard",
-              "arch": "x86_64",
-              "resolve": {
-                "base": "https://dl-cdn.alpinelinux.org/alpine/latest-stable/releases/x86_64/",
-                "pattern": "alpine-standard-[\\d.]+-x86_64\\.iso"
-              },
-              "checksum": {
-                "algo": "sha256",
-                "url": "https://dl-cdn.alpinelinux.org/alpine/latest-stable/releases/x86_64/{file}.sha256"
-              },
-              "source": "https://alpinelinux.org/downloads/",
-              "verified": true
+              "id": "alpine-v",
+              "name": "Актуальна",
+              "files": [
+                {
+                  "name": "standard",
+                  "arch": "x86_64",
+                  "resolve": {
+                    "base": "https://dl-cdn.alpinelinux.org/alpine/latest-stable/releases/x86_64/",
+                    "pattern": "alpine-standard-[\\d.]+-x86_64\\.iso"
+                  },
+                  "checksum": {
+                    "algo": "sha256",
+                    "url": "https://dl-cdn.alpinelinux.org/alpine/latest-stable/releases/x86_64/{file}.sha256"
+                  },
+                  "source": "https://alpinelinux.org/downloads/",
+                  "verified": true
+                }
+              ],
+              "vm": {
+                "vboxType": "Linux26_64",
+                "ram": 1024,
+                "disk": 8,
+                "cpus": 2,
+                "efi": false,
+                "virtio": true
+              }
             }
           ],
-          "vm": {
-            "vboxType": "Linux26_64",
-            "ram": 1024,
-            "disk": 8,
-            "cpus": 2,
-            "efi": false,
-            "virtio": true
-          }
+          "note": "Крихітний, для серверів і контейнерів."
         },
         {
           "id": "arch",
           "name": "Arch Linux",
-          "note": "Rolling, завжди свіжий образ.",
-          "files": [
+          "childrenTitle": "Версія",
+          "children": [
             {
-              "name": "archlinux-x86_64",
-              "arch": "x86_64",
-              "url": "https://geo.mirror.pkgbuild.com/iso/latest/archlinux-x86_64.iso",
-              "checksum": {
-                "algo": "sha256",
-                "url": "https://geo.mirror.pkgbuild.com/iso/latest/sha256sums.txt"
-              },
-              "source": "https://archlinux.org/download/",
-              "verified": false
+              "id": "arch-v",
+              "name": "Актуальна (щомісячний образ)",
+              "files": [
+                {
+                  "name": "archlinux-x86_64",
+                  "arch": "x86_64",
+                  "url": "https://geo.mirror.pkgbuild.com/iso/latest/archlinux-x86_64.iso",
+                  "checksum": {
+                    "algo": "sha256",
+                    "url": "https://geo.mirror.pkgbuild.com/iso/latest/sha256sums.txt"
+                  },
+                  "source": "https://archlinux.org/download/",
+                  "verified": false
+                }
+              ],
+              "vm": {
+                "vboxType": "ArchLinux_64",
+                "ram": 2048,
+                "disk": 20,
+                "cpus": 2,
+                "efi": false,
+                "virtio": true
+              }
             }
           ],
-          "vm": {
-            "vboxType": "ArchLinux_64",
-            "ram": 2048,
-            "disk": 20,
-            "cpus": 2,
-            "efi": false,
-            "virtio": true
-          }
+          "note": "Rolling, завжди свіжий образ."
         },
         {
-          "id": "ubuntu",
-          "name": "Ubuntu Desktop",
-          "note": "LTS, найпопулярніший настільний Linux.",
-          "vm": {
-            "vboxType": "Ubuntu_64",
-            "ram": 4096,
-            "disk": 25,
-            "cpus": 2,
-            "efi": false,
-            "virtio": true
-          },
-          "files": [
+          "id": "fedora",
+          "name": "Fedora",
+          "childrenTitle": "Версія",
+          "children": [
             {
-              "name": "Desktop LTS",
-              "arch": "amd64",
-              "recommended": true,
-              "resolve": {
-                "base": "https://releases.ubuntu.com/26.04/",
-                "pattern": "ubuntu-[\\d.]+-desktop-amd64\\.iso"
+              "id": "fedora-kde",
+              "name": "KDE Plasma (актуальна)",
+              "note": "Зараз Fedora 45 має позначку BETA на офіційній сторінці.",
+              "vm": {
+                "vboxType": "Fedora_64",
+                "ram": 4096,
+                "disk": 25,
+                "cpus": 2,
+                "efi": false,
+                "virtio": true
               },
-              "checksum": {
-                "algo": "sha256",
-                "url": "https://releases.ubuntu.com/26.04/SHA256SUMS"
-              },
-              "source": "https://ubuntu.com/download/desktop",
-              "verified": false
+              "files": [
+                {
+                  "name": "KDE Plasma Desktop Live",
+                  "arch": "x86_64",
+                  "url": "https://download.fedoraproject.org/pub/fedora/linux/releases/45/KDE/x86_64/iso/Fedora-KDE-Desktop-Live-45-1.4.x86_64.iso",
+                  "checksum": {
+                    "algo": "sha256",
+                    "url": "https://dl.fedoraproject.org/pub/fedora/linux/releases/45/KDE/x86_64/iso/Fedora-KDE-45-1.4-x86_64-CHECKSUM"
+                  },
+                  "source": "https://fedoraproject.org/kde/download/",
+                  "verified": true
+                }
+              ]
             }
           ]
         },
         {
-          "id": "fedora-kde",
-          "name": "Fedora KDE Plasma",
-          "note": "Зараз Fedora 45 має позначку BETA на офіційній сторінці.",
-          "vm": {
-            "vboxType": "Fedora_64",
-            "ram": 4096,
-            "disk": 25,
-            "cpus": 2,
-            "efi": false,
-            "virtio": true
-          },
-          "files": [
+          "id": "opensuse",
+          "name": "openSUSE",
+          "childrenTitle": "Версія",
+          "children": [
             {
-              "name": "KDE Plasma Desktop Live",
-              "arch": "x86_64",
-              "url": "https://download.fedoraproject.org/pub/fedora/linux/releases/45/KDE/x86_64/iso/Fedora-KDE-Desktop-Live-45-1.4.x86_64.iso",
-              "checksum": {
-                "algo": "sha256",
-                "url": "https://dl.fedoraproject.org/pub/fedora/linux/releases/45/KDE/x86_64/iso/Fedora-KDE-45-1.4-x86_64-CHECKSUM"
+              "id": "opensuse-tw",
+              "name": "Tumbleweed (Desktop)",
+              "note": "Rolling, свіжі пакети.",
+              "vm": {
+                "vboxType": "OpenSUSE_64",
+                "ram": 4096,
+                "disk": 25,
+                "cpus": 2,
+                "efi": false,
+                "virtio": true
               },
-              "source": "https://fedoraproject.org/kde/download/",
-              "verified": true
-            }
-          ]
-        },
-        {
-          "id": "mint",
-          "name": "Linux Mint",
-          "note": "Просте перехідне середовище для новачків. Версія 22.3 «Zena».",
-          "vm": {
-            "vboxType": "Ubuntu_64",
-            "ram": 4096,
-            "disk": 25,
-            "cpus": 2,
-            "efi": false,
-            "virtio": true
-          },
-          "files": [
-            {
-              "name": "Cinnamon",
-              "arch": "amd64",
-              "recommended": true,
-              "resolve": {
-                "base": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/",
-                "pattern": "linuxmint-[\\d.]+-cinnamon-64bit\\.iso"
-              },
-              "checksum": {
-                "algo": "sha256",
-                "url": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/sha256sum.txt"
-              },
-              "source": "https://www.linuxmint.com/download.php",
-              "verified": false
-            },
-            {
-              "name": "MATE",
-              "arch": "amd64",
-              "recommended": false,
-              "resolve": {
-                "base": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/",
-                "pattern": "linuxmint-[\\d.]+-mate-64bit\\.iso"
-              },
-              "checksum": {
-                "algo": "sha256",
-                "url": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/sha256sum.txt"
-              },
-              "source": "https://www.linuxmint.com/download.php",
-              "verified": false
-            },
-            {
-              "name": "Xfce",
-              "arch": "amd64",
-              "recommended": false,
-              "resolve": {
-                "base": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/",
-                "pattern": "linuxmint-[\\d.]+-xfce-64bit\\.iso"
-              },
-              "checksum": {
-                "algo": "sha256",
-                "url": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/sha256sum.txt"
-              },
-              "source": "https://www.linuxmint.com/download.php",
-              "verified": false
-            }
-          ]
-        },
-        {
-          "id": "opensuse-tw",
-          "name": "openSUSE Tumbleweed",
-          "note": "Rolling, свіжі пакети.",
-          "vm": {
-            "vboxType": "OpenSUSE_64",
-            "ram": 4096,
-            "disk": 25,
-            "cpus": 2,
-            "efi": false,
-            "virtio": true
-          },
-          "files": [
-            {
-              "name": "DVD (офлайн)",
-              "arch": "x86_64",
-              "url": "https://download.opensuse.org/tumbleweed/iso/openSUSE-Tumbleweed-DVD-x86_64-Current.iso",
-              "checksum": {
-                "algo": "sha256",
-                "url": "https://download.opensuse.org/tumbleweed/iso/openSUSE-Tumbleweed-DVD-x86_64-Current.iso.sha256"
-              },
-              "source": "https://get.opensuse.org/tumbleweed/?type=desktop",
-              "verified": true
+              "files": [
+                {
+                  "name": "DVD (офлайн)",
+                  "arch": "x86_64",
+                  "url": "https://download.opensuse.org/tumbleweed/iso/openSUSE-Tumbleweed-DVD-x86_64-Current.iso",
+                  "checksum": {
+                    "algo": "sha256",
+                    "url": "https://download.opensuse.org/tumbleweed/iso/openSUSE-Tumbleweed-DVD-x86_64-Current.iso.sha256"
+                  },
+                  "source": "https://get.opensuse.org/tumbleweed/?type=desktop",
+                  "verified": true
+                }
+              ]
             }
           ]
         },
         {
           "id": "redstar",
-          "name": "Red Star OS 3.0",
-          "note": "Північнокорейський Linux. Неофіційне джерело: archive.org.",
-          "vm": {
-            "vboxType": "RedHat_64",
-            "ram": 2048,
-            "disk": 20,
-            "cpus": 2,
-            "efi": false,
-            "virtio": false
-          },
-          "files": [
+          "name": "Red Star OS",
+          "childrenTitle": "Версія",
+          "children": [
             {
-              "name": "Desktop (англ. інсталятор)",
-              "kind": "archived",
-              "resolve": {
-                "type": "archive",
-                "id": "redstar_desktop3.0_sign_202212",
-                "pattern": ".*\\.iso"
+              "id": "redstar-v",
+              "name": "3.0 Desktop",
+              "vm": {
+                "vboxType": "RedHat_64",
+                "ram": 2048,
+                "disk": 20,
+                "cpus": 2,
+                "efi": false,
+                "virtio": false
               },
-              "source": "https://archive.org/details/redstar_desktop3.0_sign_202212",
-              "verified": false,
-              "note": "Неофіційне джерело: archive.org.",
-              "arch": "x86_64"
+              "files": [
+                {
+                  "name": "Desktop (англ. інсталятор)",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "redstar_desktop3.0_sign_202212",
+                    "pattern": ".*\\.iso"
+                  },
+                  "source": "https://archive.org/details/redstar_desktop3.0_sign_202212",
+                  "verified": false,
+                  "note": "Неофіційне джерело: archive.org.",
+                  "arch": "x86_64"
+                }
+              ]
             }
-          ]
+          ],
+          "note": "Північнокорейський Linux. Неофіційне джерело: archive.org."
         },
         {
           "id": "lfs",
           "name": "Linux From Scratch",
-          "note": "Офіційного ISO для нових версій немає: збірка вручну за книгою.",
-          "files": [
+          "childrenTitle": "Версія",
+          "children": [
             {
-              "name": "Книга LFS (актуальна)",
-              "kind": "guide",
-              "url": "https://www.linuxfromscratch.org/lfs/view/stable/",
-              "source": "https://www.linuxfromscratch.org/lfs/",
-              "verified": true
+              "id": "lfs-book",
+              "name": "Книга (актуальна)",
+              "files": [
+                {
+                  "name": "Книга LFS (актуальна)",
+                  "kind": "guide",
+                  "url": "https://www.linuxfromscratch.org/lfs/view/stable/",
+                  "source": "https://www.linuxfromscratch.org/lfs/",
+                  "verified": true
+                }
+              ]
             },
             {
-              "name": "LiveCD 6.3-r2160 (x86_64)",
-              "arch": "x86_64",
-              "kind": "archived",
-              "resolve": {
-                "type": "index",
-                "base": "https://ftp.osuosl.org/pub/lfs-livecd/",
-                "pattern": "lfslivecd-x86_64-6\\.3-r2160\\.iso$"
-              },
-              "source": "https://www.linuxfromscratch.org/livecd/",
-              "verified": false,
-              "note": "Старий образ (~2007), контрольних сум немає."
-            },
-            {
-              "name": "LiveCD 6.3-r2160 (x86)",
-              "arch": "x86",
-              "kind": "archived",
-              "resolve": {
-                "type": "index",
-                "base": "https://ftp.osuosl.org/pub/lfs-livecd/",
-                "pattern": "lfslivecd-x86-6\\.3-r2160\\.iso$"
-              },
-              "source": "https://www.linuxfromscratch.org/livecd/",
-              "verified": false,
-              "note": "Старий образ (~2007), контрольних сум немає."
+              "id": "lfs-livecd",
+              "name": "LiveCD 6.3 (старий)",
+              "files": [
+                {
+                  "name": "LiveCD 6.3-r2160 (x86_64)",
+                  "arch": "x86_64",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "index",
+                    "base": "https://ftp.osuosl.org/pub/lfs-livecd/",
+                    "pattern": "lfslivecd-x86_64-6\\.3-r2160\\.iso$"
+                  },
+                  "source": "https://www.linuxfromscratch.org/livecd/",
+                  "verified": false,
+                  "note": "Старий образ (~2007), контрольних сум немає."
+                },
+                {
+                  "name": "LiveCD 6.3-r2160 (x86)",
+                  "arch": "x86",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "index",
+                    "base": "https://ftp.osuosl.org/pub/lfs-livecd/",
+                    "pattern": "lfslivecd-x86-6\\.3-r2160\\.iso$"
+                  },
+                  "source": "https://www.linuxfromscratch.org/livecd/",
+                  "verified": false,
+                  "note": "Старий образ (~2007), контрольних сум немає."
+                }
+              ]
             }
-          ]
+          ],
+          "note": "Офіційного ISO для нових версій немає: збірка вручну за книгою."
         }
       ]
     },
@@ -312,96 +417,117 @@
         {
           "id": "freebsd",
           "name": "FreeBSD",
-          "files": [
+          "childrenTitle": "Версія",
+          "children": [
             {
-              "name": "disc1 (повний)",
-              "arch": "amd64",
-              "resolve": {
-                "base": "https://download.freebsd.org/releases/ISO-IMAGES/15.1/",
-                "pattern": "FreeBSD-[\\d.]+-RELEASE-amd64-disc1\\.iso"
-              },
-              "source": "https://www.freebsd.org/where/",
-              "verified": false
+              "id": "freebsd-v",
+              "name": "Актуальна",
+              "files": [
+                {
+                  "name": "disc1 (повний)",
+                  "arch": "amd64",
+                  "resolve": {
+                    "base": "https://download.freebsd.org/releases/ISO-IMAGES/15.1/",
+                    "pattern": "FreeBSD-[\\d.]+-RELEASE-amd64-disc1\\.iso"
+                  },
+                  "source": "https://www.freebsd.org/where/",
+                  "verified": false
+                }
+              ],
+              "vm": {
+                "vboxType": "FreeBSD_64",
+                "ram": 2048,
+                "disk": 20,
+                "cpus": 2,
+                "efi": false,
+                "virtio": false
+              }
             }
-          ],
-          "vm": {
-            "vboxType": "FreeBSD_64",
-            "ram": 2048,
-            "disk": 20,
-            "cpus": 2,
-            "efi": false,
-            "virtio": false
-          }
+          ]
         },
         {
           "id": "openbsd",
           "name": "OpenBSD",
-          "note": "Версія 8.0. Для інших версій змінити каталог.",
-          "vm": {
-            "vboxType": "OpenBSD_64",
-            "ram": 1024,
-            "disk": 16,
-            "cpus": 2,
-            "efi": false,
-            "virtio": false
-          },
-          "files": [
+          "childrenTitle": "Версія",
+          "children": [
             {
-              "name": "cd80 (CD-образ)",
-              "arch": "amd64",
-              "resolve": {
-                "base": "https://cdn.openbsd.org/pub/OpenBSD/8.0/amd64/",
-                "pattern": "cd[\\d]+\\.iso"
+              "id": "openbsd-v",
+              "name": "8.0",
+              "vm": {
+                "vboxType": "OpenBSD_64",
+                "ram": 1024,
+                "disk": 16,
+                "cpus": 2,
+                "efi": false,
+                "virtio": false
               },
-              "checksum": {
-                "algo": "sha256",
-                "url": "https://cdn.openbsd.org/pub/OpenBSD/8.0/amd64/SHA256"
-              },
-              "source": "https://www.openbsd.org/faq/faq4.html",
-              "verified": true
-            },
-            {
-              "name": "install80.img (для флешки)",
-              "arch": "amd64",
-              "kind": "iso",
-              "resolve": {
-                "base": "https://cdn.openbsd.org/pub/OpenBSD/8.0/amd64/",
-                "pattern": "install[\\d]+\\.img"
-              },
-              "checksum": {
-                "algo": "sha256",
-                "url": "https://cdn.openbsd.org/pub/OpenBSD/8.0/amd64/SHA256"
-              },
-              "source": "https://www.openbsd.org/faq/faq4.html",
-              "verified": true
+              "files": [
+                {
+                  "name": "cd80 (CD-образ)",
+                  "arch": "amd64",
+                  "resolve": {
+                    "base": "https://cdn.openbsd.org/pub/OpenBSD/8.0/amd64/",
+                    "pattern": "cd[\\d]+\\.iso"
+                  },
+                  "checksum": {
+                    "algo": "sha256",
+                    "url": "https://cdn.openbsd.org/pub/OpenBSD/8.0/amd64/SHA256"
+                  },
+                  "source": "https://www.openbsd.org/faq/faq4.html",
+                  "verified": true
+                },
+                {
+                  "name": "install80.img (для флешки)",
+                  "arch": "amd64",
+                  "kind": "iso",
+                  "resolve": {
+                    "base": "https://cdn.openbsd.org/pub/OpenBSD/8.0/amd64/",
+                    "pattern": "install[\\d]+\\.img"
+                  },
+                  "checksum": {
+                    "algo": "sha256",
+                    "url": "https://cdn.openbsd.org/pub/OpenBSD/8.0/amd64/SHA256"
+                  },
+                  "source": "https://www.openbsd.org/faq/faq4.html",
+                  "verified": true
+                }
+              ]
             }
-          ]
+          ],
+          "note": "Версія 8.0. Для інших версій змінити каталог."
         },
         {
           "id": "netbsd",
           "name": "NetBSD",
-          "note": "Версія 11.1.",
-          "vm": {
-            "vboxType": "NetBSD_64",
-            "ram": 2048,
-            "disk": 20,
-            "cpus": 2,
-            "efi": false,
-            "virtio": false
-          },
-          "files": [
+          "childrenTitle": "Версія",
+          "children": [
             {
-              "name": "amd64 DVD",
-              "arch": "amd64",
-              "url": "https://cdn.NetBSD.org/pub/NetBSD/NetBSD-11.1/images/NetBSD-11.1-amd64-dvd.iso",
-              "checksum": {
-                "algo": "sha512",
-                "url": "https://cdn.NetBSD.org/pub/NetBSD/NetBSD-11.1/images/SHA512"
+              "id": "netbsd-v",
+              "name": "11.1",
+              "vm": {
+                "vboxType": "NetBSD_64",
+                "ram": 2048,
+                "disk": 20,
+                "cpus": 2,
+                "efi": false,
+                "virtio": false
               },
-              "source": "https://www.netbsd.org/",
-              "verified": false
+              "files": [
+                {
+                  "name": "amd64 DVD",
+                  "arch": "amd64",
+                  "url": "https://cdn.NetBSD.org/pub/NetBSD/NetBSD-11.1/images/NetBSD-11.1-amd64-dvd.iso",
+                  "checksum": {
+                    "algo": "sha512",
+                    "url": "https://cdn.NetBSD.org/pub/NetBSD/NetBSD-11.1/images/SHA512"
+                  },
+                  "source": "https://www.netbsd.org/",
+                  "verified": false
+                }
+              ]
             }
-          ]
+          ],
+          "note": "Версія 11.1."
         }
       ]
     },
@@ -412,86 +538,50 @@
       "children": [
         {
           "id": "openindiana",
-          "name": "OpenIndiana Hipster",
-          "files": [
+          "name": "OpenIndiana",
+          "childrenTitle": "Версія",
+          "children": [
             {
-              "name": "Hipster GUI (робочий стіл)",
-              "arch": "x86_64",
-              "url": "https://dlc.openindiana.org/isos/hipster/20261030/OI-hipster-gui-20261030.iso",
-              "checksum": {
-                "algo": "sha256",
-                "url": "https://dlc.openindiana.org/isos/hipster/20261030/OI-hipster-gui-20261030.iso.sha256sum"
-              },
-              "source": "https://openindiana.org/downloads",
-              "verified": true
-            },
-            {
-              "name": "Hipster Text (сервер)",
-              "arch": "x86_64",
-              "url": "https://dlc.openindiana.org/isos/hipster/20261030/OI-hipster-text-20261030.iso",
-              "checksum": {
-                "algo": "sha256",
-                "url": "https://dlc.openindiana.org/isos/hipster/20261030/OI-hipster-text-20261030.iso.sha256sum"
-              },
-              "source": "https://openindiana.org/downloads",
-              "verified": true
-            },
-            {
-              "name": "Hipster Minimal",
-              "arch": "x86_64",
-              "url": "https://dlc.openindiana.org/isos/hipster/20261030/OI-hipster-minimal-20261030.iso",
-              "checksum": {
-                "algo": "sha256",
-                "url": "https://dlc.openindiana.org/isos/hipster/20261030/OI-hipster-minimal-20261030.iso.sha256sum"
-              },
-              "source": "https://openindiana.org/downloads",
-              "verified": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "other",
-      "name": "Інше",
-      "childrenTitle": "Система",
-      "children": [
-        {
-          "id": "templeos",
-          "name": "TempleOS",
-          "files": [
-            {
-              "name": "TempleOS 5.03 (остання, CD)",
-              "kind": "archived",
-              "resolve": {
-                "type": "archive",
-                "id": "TempleOS_ISO_Archive",
-                "pattern": "^TempleOSCDV5\\.03\\.ISO$"
-              },
-              "source": "https://archive.org/details/TempleOS_ISO_Archive",
-              "verified": false,
-              "note": "Архів Інтернету; перевірка за sha1 з метаданих."
-            },
-            {
-              "name": "TempleOS 5.00",
-              "kind": "archived",
-              "resolve": {
-                "type": "archive",
-                "id": "TempleOS_ISO_Archive",
-                "pattern": "^TempleOSCDV5\\.00\\.ISO$"
-              },
-              "source": "https://archive.org/details/TempleOS_ISO_Archive",
-              "verified": false
+              "id": "openindiana-v",
+              "name": "Hipster 20261030",
+              "files": [
+                {
+                  "name": "Hipster GUI (робочий стіл)",
+                  "arch": "x86_64",
+                  "url": "https://dlc.openindiana.org/isos/hipster/20261030/OI-hipster-gui-20261030.iso",
+                  "checksum": {
+                    "algo": "sha256",
+                    "url": "https://dlc.openindiana.org/isos/hipster/20261030/OI-hipster-gui-20261030.iso.sha256sum"
+                  },
+                  "source": "https://openindiana.org/downloads",
+                  "verified": true
+                },
+                {
+                  "name": "Hipster Text (сервер)",
+                  "arch": "x86_64",
+                  "url": "https://dlc.openindiana.org/isos/hipster/20261030/OI-hipster-text-20261030.iso",
+                  "checksum": {
+                    "algo": "sha256",
+                    "url": "https://dlc.openindiana.org/isos/hipster/20261030/OI-hipster-text-20261030.iso.sha256sum"
+                  },
+                  "source": "https://openindiana.org/downloads",
+                  "verified": true
+                },
+                {
+                  "name": "Hipster Minimal",
+                  "arch": "x86_64",
+                  "url": "https://dlc.openindiana.org/isos/hipster/20261030/OI-hipster-minimal-20261030.iso",
+                  "checksum": {
+                    "algo": "sha256",
+                    "url": "https://dlc.openindiana.org/isos/hipster/20261030/OI-hipster-minimal-20261030.iso.sha256sum"
+                  },
+                  "source": "https://openindiana.org/downloads",
+                  "verified": true
+                }
+              ]
             }
           ],
-          "vm": {
-            "ram": 512,
-            "disk": 2,
-            "cpus": 1,
-            "efi": false,
-            "virtio": false,
-            "legacy": true
-          }
+          "note": "Спадкоємець OpenSolaris на ядрі illumos."
         }
       ]
     },
@@ -503,214 +593,219 @@
         {
           "id": "win11",
           "name": "Windows 11",
-          "note": "Офіційні сервери Microsoft: посилання діють ~24 год, але додаток бере свіже щоразу. Хеш Microsoft не публікує.",
-          "files": [],
-          "dynamic": "ms",
-          "param": "11"
+          "childrenTitle": "Випуск",
+          "children": [
+            {
+              "id": "win11-26h2",
+              "name": "26H2",
+              "childrenTitle": "Збірка",
+              "children": [
+                {
+                  "id": "win11-latest",
+                  "name": "Остання збірка (з серверів Microsoft)",
+                  "childrenTitle": "Мова та архітектура",
+                  "dynamic": "ms",
+                  "param": "11",
+                  "note": "Офіційні сервери Microsoft: посилання діють ~24 год, але додаток бере свіже щоразу. Хеш Microsoft не публікує."
+                }
+              ],
+              "note": "Microsoft віддає лише останню збірку; вибір інших білдів буде окремим етапом."
+            }
+          ]
         },
         {
           "id": "win10",
           "name": "Windows 10",
-          "note": "Офіційні сервери Microsoft (22H2). Хеш Microsoft не публікує.",
-          "files": [],
-          "dynamic": "ms",
-          "param": "10"
+          "childrenTitle": "Випуск",
+          "children": [
+            {
+              "id": "win10-22h2",
+              "name": "22H2",
+              "childrenTitle": "Збірка",
+              "children": [
+                {
+                  "id": "win10-latest",
+                  "name": "Остання збірка (з серверів Microsoft)",
+                  "childrenTitle": "Мова та архітектура",
+                  "dynamic": "ms",
+                  "param": "10",
+                  "note": "Офіційні сервери Microsoft (22H2). Хеш Microsoft не публікує."
+                }
+              ],
+              "note": "Microsoft віддає лише останню збірку; вибір інших білдів буде окремим етапом."
+            }
+          ]
         },
         {
           "id": "win81",
           "name": "Windows 8.1",
-          "note": "Microsoft образи не роздає, тож це копії на archive.org.",
-          "vm": {
-            "vboxType": "Windows81_64",
-            "ram": 4096,
-            "disk": 40,
-            "cpus": 2,
-            "efi": false,
-            "virtio": false
-          },
-          "files": [
+          "childrenTitle": "Версія",
+          "children": [
             {
-              "name": "English x64",
-              "kind": "archived",
-              "resolve": {
-                "type": "archive",
-                "id": "win-8.1-english-x-64_20230115",
-                "pattern": "Win8\\.1_English_x64\\.iso"
+              "id": "win81-v",
+              "name": "8.1",
+              "vm": {
+                "vboxType": "Windows81_64",
+                "ram": 4096,
+                "disk": 40,
+                "cpus": 2,
+                "efi": false,
+                "virtio": false
               },
-              "source": "https://archive.org/details/win-8.1-english-x-64_20230115",
-              "verified": false,
-              "note": "Неофіційне джерело: archive.org.",
-              "arch": "x64"
-            },
-            {
-              "name": "English x32",
-              "kind": "archived",
-              "resolve": {
-                "type": "archive",
-                "id": "win-8.1-english-x-64_20230115",
-                "pattern": "Win8\\.1_English_x32\\.iso"
-              },
-              "source": "https://archive.org/details/win-8.1-english-x-64_20230115",
-              "verified": false,
-              "note": "Неофіційне джерело: archive.org.",
-              "arch": "x86"
-            },
-            {
-              "name": "Pro N English x64",
-              "kind": "archived",
-              "resolve": {
-                "type": "archive",
-                "id": "win-8.1-english-x-64_20230115",
-                "pattern": "Win8\\.1_Pro_N_English_x64\\.iso"
-              },
-              "source": "https://archive.org/details/win-8.1-english-x-64_20230115",
-              "verified": false,
-              "note": "Неофіційне джерело: archive.org. Без медіа-компонентів.",
-              "arch": "x64"
+              "files": [
+                {
+                  "name": "English x64",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "win-8.1-english-x-64_20230115",
+                    "pattern": "Win8\\.1_English_x64\\.iso"
+                  },
+                  "source": "https://archive.org/details/win-8.1-english-x-64_20230115",
+                  "verified": false,
+                  "note": "Неофіційне джерело: archive.org.",
+                  "arch": "x64"
+                },
+                {
+                  "name": "English x32",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "win-8.1-english-x-64_20230115",
+                    "pattern": "Win8\\.1_English_x32\\.iso"
+                  },
+                  "source": "https://archive.org/details/win-8.1-english-x-64_20230115",
+                  "verified": false,
+                  "note": "Неофіційне джерело: archive.org.",
+                  "arch": "x86"
+                },
+                {
+                  "name": "Pro N English x64",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "win-8.1-english-x-64_20230115",
+                    "pattern": "Win8\\.1_Pro_N_English_x64\\.iso"
+                  },
+                  "source": "https://archive.org/details/win-8.1-english-x-64_20230115",
+                  "verified": false,
+                  "note": "Неофіційне джерело: archive.org. Без медіа-компонентів.",
+                  "arch": "x64"
+                }
+              ]
             }
-          ]
+          ],
+          "note": "Microsoft образи не роздає, тож це копії на archive.org."
         },
         {
           "id": "win7",
-          "name": "Windows 7 SP1",
-          "note": "Home Basic, Home Premium, Professional, Ultimate в одному образі.",
-          "vm": {
-            "vboxType": "Windows7_64",
-            "ram": 4096,
-            "disk": 40,
-            "cpus": 2,
-            "efi": false,
-            "virtio": false
-          },
-          "files": [
+          "name": "Windows 7",
+          "childrenTitle": "Версія",
+          "children": [
             {
-              "name": "Multi-lang x64 (SP1)",
-              "kind": "archived",
-              "resolve": {
-                "type": "archive",
-                "id": "win-7-multi-lang-x64",
-                "pattern": "mu_windows_7_with_sp1_x64_dvd\\.iso"
+              "id": "win7-v",
+              "name": "SP1",
+              "vm": {
+                "vboxType": "Windows7_64",
+                "ram": 4096,
+                "disk": 40,
+                "cpus": 2,
+                "efi": false,
+                "virtio": false
               },
-              "source": "https://archive.org/details/win-7-multi-lang-x64",
-              "verified": false,
-              "note": "Неофіційне джерело: archive.org. SHA-256 узято зі сторінки завантаження.",
-              "arch": "x64",
-              "checksum": {
-                "algo": "sha256",
-                "value": "08f6b9f1876bf6c41492d92a15046b45eaf431263b8714b95d64d99ea5ac0bbd"
-              }
+              "files": [
+                {
+                  "name": "Multi-lang x64 (SP1)",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "win-7-multi-lang-x64",
+                    "pattern": "mu_windows_7_with_sp1_x64_dvd\\.iso"
+                  },
+                  "source": "https://archive.org/details/win-7-multi-lang-x64",
+                  "verified": false,
+                  "note": "Неофіційне джерело: archive.org. SHA-256 узято зі сторінки завантаження.",
+                  "arch": "x64",
+                  "checksum": {
+                    "algo": "sha256",
+                    "value": "08f6b9f1876bf6c41492d92a15046b45eaf431263b8714b95d64d99ea5ac0bbd"
+                  }
+                }
+              ]
             }
-          ]
+          ],
+          "note": "Home Basic, Home Premium, Professional, Ultimate в одному образі."
         },
         {
           "id": "winxp",
           "name": "Windows XP",
-          "note": "Копії на archive.org.",
-          "vm": {
-            "vboxType": "WindowsXP",
-            "ram": 1024,
-            "disk": 10,
-            "cpus": 2,
-            "efi": false,
-            "virtio": false,
-            "legacy": true
-          },
-          "files": [
+          "childrenTitle": "Версія",
+          "children": [
             {
-              "name": "Professional SP3 (x86, з драйверами SATA)",
-              "kind": "archived",
-              "resolve": {
-                "type": "archive",
-                "id": "windows-xp-professional-sp-3-nov-2013-inc-sata-drivers",
-                "pattern": "Windows XP Professional SP3 Nov 2013 Inc SATA Drivers\\.iso"
+              "id": "winxp-v",
+              "name": "SP3",
+              "vm": {
+                "vboxType": "WindowsXP",
+                "ram": 1024,
+                "disk": 10,
+                "cpus": 2,
+                "efi": false,
+                "virtio": false,
+                "legacy": true
               },
-              "source": "https://archive.org/details/windows-xp-professional-sp-3-nov-2013-inc-sata-drivers",
-              "verified": false,
-              "note": "Неофіційне джерело: archive.org.",
-              "arch": "x86"
+              "files": [
+                {
+                  "name": "Professional SP3 (x86, з драйверами SATA)",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "windows-xp-professional-sp-3-nov-2013-inc-sata-drivers",
+                    "pattern": "Windows XP Professional SP3 Nov 2013 Inc SATA Drivers\\.iso"
+                  },
+                  "source": "https://archive.org/details/windows-xp-professional-sp-3-nov-2013-inc-sata-drivers",
+                  "verified": false,
+                  "note": "Неофіційне джерело: archive.org.",
+                  "arch": "x86"
+                }
+              ]
             }
-          ]
+          ],
+          "note": "Копії на archive.org."
         }
       ]
     },
     {
       "id": "macos",
       "name": "macOS",
-      "childrenTitle": "Версія",
+      "childrenTitle": "Напрям",
       "children": [
         {
-          "id": "macos-installers",
-          "name": "Інсталятори з серверів Apple",
-          "note": "Список береться з офіційного каталогу Apple під час відкриття. Файл InstallAssistant.pkg (10–17 ГБ). Ліцензія Apple дозволяє macOS лише на комп'ютерах Apple.",
-          "dynamic": "apple"
-        },
-        {
-          "id": "macos-recovery",
-          "name": "Образ відновлення для ВМ (Big Sur, Monterey, Catalina)",
-          "note": "Малий завантажувальний образ з сервера Internet Recovery від Apple. Застосунок перевіряє його за списком контрольних сум Apple і перетворює на диск для VirtualBox. Це не ISO: macOS докачається з серверів Apple під час інсталяції.",
-          "dynamic": "macrecovery"
-        },
-        {
-          "id": "macos-guide",
+          "id": "macos-apple",
           "name": "macOS",
-          "note": "Apple не дає ISO. Образи інсталятора качаються з App Store / Software Update.",
-          "files": [
-            {
-              "name": "Як отримати macOS (Apple)",
-              "kind": "guide",
-              "url": "https://support.apple.com/102662",
-              "source": "https://support.apple.com/102662",
-              "verified": false
-            }
-          ]
-        },
-        {
-          "id": "macos-hackintosh",
-          "name": "Hackintosh (OpenCore)",
-          "note": "OpenCore: відкритий завантажувач для macOS на звичайному ПК. Потрібне налаштування під твоє залізо за посібником Dortania.",
-          "files": [
-            {
-              "name": "OpenCore (останній реліз, RELEASE)",
-              "arch": "x86_64",
-              "recommended": true,
-              "resolve": {
-                "type": "github",
-                "id": "acidanthera/OpenCorePkg",
-                "pattern": "OpenCore-[\\d.]+-RELEASE\\.zip"
-              },
-              "source": "https://github.com/acidanthera/OpenCorePkg/releases",
-              "verified": false
-            },
-            {
-              "name": "Посібник Dortania (OpenCore Install Guide)",
-              "kind": "guide",
-              "url": "https://dortania.github.io/OpenCore-Install-Guide/",
-              "source": "https://dortania.github.io/OpenCore-Install-Guide/",
-              "verified": true
-            },
-            {
-              "name": "OSX-KVM (macOS у QEMU/KVM на Linux)",
-              "kind": "guide",
-              "url": "https://github.com/kholia/OSX-KVM",
-              "source": "https://github.com/kholia/OSX-KVM",
-              "verified": true
-            }
-          ]
-        },
-        {
-          "id": "macos-arm",
-          "name": "macOS для Apple Silicon (ARM)",
-          "note": "macOS для ARM запускається у віртуальних машинах лише на Mac з чипом Apple Silicon: на ПК з Windows це неможливо. Образи .ipsw беруться з серверів Apple (список від ipsw.me). Відкриті програми для запуску: UTM, VirtualBuddy, Tart.",
+          "childrenTitle": "Джерело",
+          "note": "Apple не дає ISO: інсталятори беруться з її серверів.",
           "children": [
             {
+              "id": "macos-installers",
+              "name": "Повні інсталятори (з серверів Apple)",
+              "note": "Список береться з офіційного каталогу Apple під час відкриття. Файл InstallAssistant.pkg (10–17 ГБ). Ліцензія Apple дозволяє macOS лише на комп'ютерах Apple.",
+              "dynamic": "apple"
+            },
+            {
+              "id": "macos-recovery",
+              "name": "Образ відновлення для ВМ (Big Sur, Monterey, Catalina)",
+              "note": "Малий завантажувальний образ з сервера Internet Recovery від Apple. Застосунок перевіряє його за списком контрольних сум Apple і перетворює на диск для VirtualBox. Це не ISO: macOS докачається з серверів Apple під час інсталяції.",
+              "dynamic": "macrecovery"
+            },
+            {
               "id": "macos-arm-ipsw",
-              "name": "Образи .ipsw (macOS для ARM)",
+              "name": "Apple Silicon (.ipsw)",
               "note": "Файл відкривається у UTM / VirtualBuddy / Tart на Mac з Apple Silicon.",
               "dynamic": "ipsw"
             },
             {
               "id": "macos-arm-tools",
-              "name": "Програми для запуску (відкриті)",
+              "name": "Програми для запуску на Mac з Apple Silicon",
               "files": [
                 {
                   "name": "UTM для macOS (.dmg)",
@@ -745,6 +840,53 @@
               ]
             }
           ]
+        },
+        {
+          "id": "macos-hackintosh",
+          "name": "Hackintosh",
+          "childrenTitle": "Проєкт",
+          "children": [
+            {
+              "id": "hackintosh-opencore",
+              "name": "OpenCore",
+              "childrenTitle": "Версія",
+              "note": "OpenCore: відкритий завантажувач для macOS на звичайному ПК. Потрібне налаштування під твоє залізо за посібником Dortania.",
+              "children": [
+                {
+                  "id": "hackintosh-opencore-latest",
+                  "name": "Останній реліз OpenCore",
+                  "files": [
+                    {
+                      "name": "OpenCore (останній реліз, RELEASE)",
+                      "arch": "x86_64",
+                      "recommended": true,
+                      "resolve": {
+                        "type": "github",
+                        "id": "acidanthera/OpenCorePkg",
+                        "pattern": "OpenCore-[\\d.]+-RELEASE\\.zip"
+                      },
+                      "source": "https://github.com/acidanthera/OpenCorePkg/releases",
+                      "verified": false
+                    },
+                    {
+                      "name": "Посібник Dortania (OpenCore Install Guide)",
+                      "kind": "guide",
+                      "url": "https://dortania.github.io/OpenCore-Install-Guide/",
+                      "source": "https://dortania.github.io/OpenCore-Install-Guide/",
+                      "verified": true
+                    },
+                    {
+                      "name": "OSX-KVM (macOS у QEMU/KVM на Linux)",
+                      "kind": "guide",
+                      "url": "https://github.com/kholia/OSX-KVM",
+                      "source": "https://github.com/kholia/OSX-KVM",
+                      "verified": true
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -754,171 +896,281 @@
       "childrenTitle": "Проєкт",
       "children": [
         {
-          "id": "android-x86",
-          "name": "Android-x86 9.0-r2",
-          "note": "Android для ПК. Хеші SHA-1 з офіційної сторінки релізу. Хост: SourceForge.",
-          "vm": {
-            "vboxType": "Linux26_64",
-            "ram": 4096,
-            "disk": 16,
-            "cpus": 4,
-            "efi": false,
-            "virtio": true
-          },
-          "files": [
+          "id": "android-plain",
+          "name": "Android (звичайний, ARM)",
+          "childrenTitle": "Проєкт",
+          "note": "Для ПК потрібен шар сумісності або емулятор; поки що — застосунки для телефона.",
+          "children": [
             {
-              "name": "64-bit",
-              "arch": "x86_64",
-              "recommended": true,
-              "url": "https://sourceforge.net/projects/android-x86/files/Release%209.0/android-x86_64-9.0-r2.iso/download",
-              "checksum": {
-                "algo": "sha1",
-                "value": "1cc85b5ed7c830ff71aecf8405c7281a9c995aa0"
-              },
-              "source": "https://www.android-x86.org/releases/releasenote-9-0-r2",
-              "verified": false
-            },
-            {
-              "name": "32-bit",
-              "arch": "x86",
-              "url": "https://sourceforge.net/projects/android-x86/files/Release%209.0/android-x86-9.0-r2.iso/download",
-              "checksum": {
-                "algo": "sha1",
-                "value": "d72bbd11c1bedbe99f50da54731c6a83b41becb0"
-              },
-              "source": "https://www.android-x86.org/releases/releasenote-9-0-r2",
-              "verified": false
+              "id": "aemulator",
+              "name": "AEmulator",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "aemulator-v",
+                  "name": "Остання версія",
+                  "note": "Це застосунок для Android-телефона (arm64, Android 8+), який запускає старі прошивки. Не для ПК.",
+                  "files": [
+                    {
+                      "name": "AEmulator (APK, остання версія)",
+                      "kind": "iso",
+                      "resolve": {
+                        "type": "github",
+                        "id": "uxazu/aemulator",
+                        "pattern": "\\.apk$"
+                      },
+                      "source": "https://github.com/uxazu/aemulator",
+                      "verified": false,
+                      "note": "APK для Android-телефона."
+                    },
+                    {
+                      "name": "Сторінка релізів",
+                      "kind": "guide",
+                      "url": "https://github.com/uxazu/aemulator/releases",
+                      "source": "https://github.com/uxazu/aemulator",
+                      "verified": true
+                    }
+                  ]
+                }
+              ],
+              "note": "Це застосунок для Android-телефона (arm64, Android 8+), який запускає старі прошивки. Не для ПК."
             }
           ]
+        },
+        {
+          "id": "android-x86",
+          "name": "Android-x86",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "android-x86-v",
+              "name": "9.0-r2",
+              "vm": {
+                "vboxType": "Linux26_64",
+                "ram": 4096,
+                "disk": 16,
+                "cpus": 4,
+                "efi": false,
+                "virtio": true
+              },
+              "files": [
+                {
+                  "name": "64-bit",
+                  "arch": "x86_64",
+                  "recommended": true,
+                  "url": "https://sourceforge.net/projects/android-x86/files/Release%209.0/android-x86_64-9.0-r2.iso/download",
+                  "checksum": {
+                    "algo": "sha1",
+                    "value": "1cc85b5ed7c830ff71aecf8405c7281a9c995aa0"
+                  },
+                  "source": "https://www.android-x86.org/releases/releasenote-9-0-r2",
+                  "verified": false
+                },
+                {
+                  "name": "32-bit",
+                  "arch": "x86",
+                  "url": "https://sourceforge.net/projects/android-x86/files/Release%209.0/android-x86-9.0-r2.iso/download",
+                  "checksum": {
+                    "algo": "sha1",
+                    "value": "d72bbd11c1bedbe99f50da54731c6a83b41becb0"
+                  },
+                  "source": "https://www.android-x86.org/releases/releasenote-9-0-r2",
+                  "verified": false
+                }
+              ]
+            }
+          ],
+          "note": "Android для ПК. Хеші SHA-1 з офіційної сторінки релізу. Хост: SourceForge."
         },
         {
           "id": "blissos",
           "name": "BlissOS",
-          "note": "Сайт заявляє, що публічні образи призупинені. Відкриється сторінка проєкту.",
-          "files": [
+          "childrenTitle": "Версія",
+          "children": [
             {
-              "name": "Сторінка BlissOS",
-              "kind": "guide",
-              "url": "https://blissos.org",
-              "source": "https://blissos.org",
-              "verified": true
+              "id": "blissos-v",
+              "name": "Поточні",
+              "files": [
+                {
+                  "name": "Сторінка BlissOS",
+                  "kind": "guide",
+                  "url": "https://blissos.org",
+                  "source": "https://blissos.org",
+                  "verified": true
+                }
+              ]
             }
-          ]
-        },
-        {
-          "id": "aemulator",
-          "name": "AEmulator",
-          "note": "Це застосунок для Android-телефона (arm64, Android 8+), який запускає старі прошивки. Не для ПК.",
-          "files": [
-            {
-              "name": "AEmulator (APK, остання версія)",
-              "kind": "iso",
-              "resolve": {
-                "type": "github",
-                "id": "uxazu/aemulator",
-                "pattern": "\\.apk$"
-              },
-              "source": "https://github.com/uxazu/aemulator",
-              "verified": false,
-              "note": "APK для Android-телефона."
-            },
-            {
-              "name": "Сторінка релізів",
-              "kind": "guide",
-              "url": "https://github.com/uxazu/aemulator/releases",
-              "source": "https://github.com/uxazu/aemulator",
-              "verified": true
-            }
-          ]
+          ],
+          "note": "Сайт заявляє, що публічні образи призупинені. Відкриється сторінка проєкту."
         }
       ]
     },
     {
-      "id": "dos",
-      "name": "DOS",
+      "id": "legacy",
+      "name": "Застарілі",
       "childrenTitle": "Система",
       "children": [
         {
-          "id": "freedos",
-          "name": "FreeDOS 1.4",
-          "note": "Вільний DOS. Офіційний сайт, образ упакований у zip: застосунок розпакує сам.",
-          "vm": {
-            "vboxType": "FreeDOS",
-            "ram": 64,
-            "disk": 2,
-            "cpus": 1,
-            "efi": false,
-            "virtio": false,
-            "legacy": true
-          },
-          "files": [
+          "id": "dos",
+          "name": "DOS",
+          "childrenTitle": "Система",
+          "children": [
             {
-              "name": "LiveCD",
-              "arch": "x86",
-              "unzip": true,
-              "recommended": true,
-              "url": "https://download.freedos.org/1.4/FD14-LiveCD.zip",
-              "checksum": {
-                "algo": "sha256",
-                "url": "https://freedos.org/download/verify.txt"
-              },
-              "source": "https://freedos.org/download/",
-              "verified": true
+              "id": "freedos",
+              "name": "FreeDOS",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "freedos-v",
+                  "name": "1.4",
+                  "note": "Вільний DOS. Офіційний сайт, образ упакований у zip: застосунок розпакує сам.",
+                  "vm": {
+                    "vboxType": "FreeDOS",
+                    "ram": 64,
+                    "disk": 2,
+                    "cpus": 1,
+                    "efi": false,
+                    "virtio": false,
+                    "legacy": true
+                  },
+                  "files": [
+                    {
+                      "name": "LiveCD",
+                      "arch": "x86",
+                      "unzip": true,
+                      "recommended": true,
+                      "url": "https://download.freedos.org/1.4/FD14-LiveCD.zip",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://freedos.org/download/verify.txt"
+                      },
+                      "source": "https://freedos.org/download/",
+                      "verified": true
+                    },
+                    {
+                      "name": "BonusCD (додаткові програми)",
+                      "arch": "x86",
+                      "unzip": true,
+                      "url": "https://download.freedos.org/1.4/FD14-BonusCD.zip",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://freedos.org/download/verify.txt"
+                      },
+                      "source": "https://freedos.org/download/",
+                      "verified": true
+                    },
+                    {
+                      "name": "LegacyCD (для старих ПК)",
+                      "arch": "x86",
+                      "unzip": true,
+                      "url": "https://download.freedos.org/1.4/FD14-LegacyCD.zip",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://freedos.org/download/verify.txt"
+                      },
+                      "source": "https://freedos.org/download/",
+                      "verified": true
+                    }
+                  ]
+                }
+              ]
             },
             {
-              "name": "BonusCD (додаткові програми)",
-              "arch": "x86",
-              "unzip": true,
-              "url": "https://download.freedos.org/1.4/FD14-BonusCD.zip",
-              "checksum": {
-                "algo": "sha256",
-                "url": "https://freedos.org/download/verify.txt"
-              },
-              "source": "https://freedos.org/download/",
-              "verified": true
-            },
-            {
-              "name": "LegacyCD (для старих ПК)",
-              "arch": "x86",
-              "unzip": true,
-              "url": "https://download.freedos.org/1.4/FD14-LegacyCD.zip",
-              "checksum": {
-                "algo": "sha256",
-                "url": "https://freedos.org/download/verify.txt"
-              },
-              "source": "https://freedos.org/download/",
-              "verified": true
+              "id": "msdos622",
+              "name": "MS-DOS",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "msdos622-v",
+                  "name": "6.22",
+                  "note": "Microsoft її не роздає. Копія на archive.org.",
+                  "vm": {
+                    "vboxType": "DOS",
+                    "ram": 64,
+                    "disk": 2,
+                    "cpus": 1,
+                    "efi": false,
+                    "virtio": false,
+                    "legacy": true
+                  },
+                  "files": [
+                    {
+                      "name": "Образ 6.22",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "ms-dos-6.22_20220302",
+                        "pattern": "MS-DOS 6\\.22\\.iso"
+                      },
+                      "source": "https://archive.org/details/ms-dos-6.22_20220302",
+                      "verified": false,
+                      "note": "Неофіційне джерело: archive.org.",
+                      "arch": "x86"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
         {
-          "id": "msdos622",
-          "name": "MS-DOS 6.22",
-          "note": "Microsoft її не роздає. Копія на archive.org.",
-          "vm": {
-            "vboxType": "DOS",
-            "ram": 64,
-            "disk": 2,
-            "cpus": 1,
-            "efi": false,
-            "virtio": false,
-            "legacy": true
-          },
-          "files": [
+          "id": "templeos",
+          "name": "TempleOS",
+          "childrenTitle": "Версія",
+          "children": [
             {
-              "name": "Образ 6.22",
-              "kind": "archived",
-              "resolve": {
-                "type": "archive",
-                "id": "ms-dos-6.22_20220302",
-                "pattern": "MS-DOS 6\\.22\\.iso"
-              },
-              "source": "https://archive.org/details/ms-dos-6.22_20220302",
-              "verified": false,
-              "note": "Неофіційне джерело: archive.org.",
-              "arch": "x86"
+              "id": "templeos-503",
+              "name": "5.03 (остання)",
+              "files": [
+                {
+                  "name": "CD-образ (ISO)",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "TempleOS_ISO_Archive",
+                    "pattern": "^TempleOSCDV5\\.03\\.ISO$"
+                  },
+                  "source": "https://archive.org/details/TempleOS_ISO_Archive",
+                  "verified": false,
+                  "note": "Архів Інтернету; перевірка за sha1 з метаданих."
+                }
+              ],
+              "vm": {
+                "ram": 512,
+                "disk": 2,
+                "cpus": 1,
+                "efi": false,
+                "virtio": false,
+                "legacy": true
+              }
+            },
+            {
+              "id": "templeos-500",
+              "name": "5.00",
+              "files": [
+                {
+                  "name": "CD-образ (ISO)",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "TempleOS_ISO_Archive",
+                    "pattern": "^TempleOSCDV5\\.00\\.ISO$"
+                  },
+                  "source": "https://archive.org/details/TempleOS_ISO_Archive",
+                  "verified": false
+                }
+              ],
+              "vm": {
+                "ram": 512,
+                "disk": 2,
+                "cpus": 1,
+                "efi": false,
+                "virtio": false,
+                "legacy": true
+              }
             }
-          ]
+          ],
+          "note": "ОС Террі Девіса. Образи з архіву Інтернету."
         }
       ]
     }

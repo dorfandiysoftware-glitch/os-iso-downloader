@@ -91,6 +91,10 @@ namespace OsIsoDownloader.Core
             {
                 return 8;
             }
+            if (host == "sourceforge.net" || host.EndsWith(".sourceforge.net") || host.EndsWith(".sf.net"))
+            {
+                return 6;
+            }
             if (host.EndsWith(".microsoft.com") || host.EndsWith(".apple.com") || host.EndsWith(".openindiana.org"))
             {
                 return 4;

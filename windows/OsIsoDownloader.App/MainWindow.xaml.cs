@@ -223,6 +223,19 @@ namespace OsIsoDownloader.App
             Choices.ItemsSource = filtered;
         }
 
+        /// <summary>Puts a downloaded file under a child node named after its OS version, so the tree stays name > version > options.</summary>
+        private static void AddGrouped(Node n, string group, FileEntry f)
+        {
+            string g = string.IsNullOrWhiteSpace(group) ? "macOS" : group;
+            Node target = n.Children.Find(x => x.Name == g);
+            if (target == null)
+            {
+                target = new Node { Id = n.Id + "-g" + n.Children.Count, Name = g, ChildrenTitle = "Файл" };
+                n.Children.Add(target);
+            }
+            target.Files.Add(f);
+        }
+
         private async Task LoadAppleAsync(Node n)
         {
             StepText.Text = "Завантажую каталог Apple… (це може тривати до хвилини)";
@@ -232,7 +245,7 @@ namespace OsIsoDownloader.App
                 List<AppleInstaller> list = await AppleCatalog.FetchAsync(_http, CancellationToken.None);
                 foreach (AppleInstaller a in list)
                 {
-                    n.Files.Add(new FileEntry
+                    AddGrouped(n, a.Title, new FileEntry
                     {
                         Name = a.DisplayName, Kind = "iso", Url = a.Url, Size = a.Size, Verified = true,
                         Source = "https://swscan.apple.com", Arch = "Intel і Apple Silicon",
@@ -302,7 +315,7 @@ namespace OsIsoDownloader.App
                 List<AppleInstaller> list = await IpswCatalog.FetchAsync(_http, CancellationToken.None);
                 foreach (AppleInstaller a in list)
                 {
-                    n.Files.Add(new FileEntry
+                    AddGrouped(n, a.Title, new FileEntry
                     {
                         Name = a.DisplayName + " (.ipsw)", Kind = "iso", Url = a.Url, Size = a.Size, Verified = true,
                         Source = "https://ipsw.me", Arch = "Apple Silicon",
@@ -365,19 +378,19 @@ namespace OsIsoDownloader.App
             {
                 _path.Push(c.Node);
                 ShowLevel();
-                if (c.Node.Dynamic == "apple" && c.Node.Files.Count == 0)
+                if (c.Node.Dynamic == "apple" && c.Node.Files.Count == 0 && !c.Node.HasChildren)
                 {
                     await LoadAppleAsync(c.Node);
                 }
-                else if (c.Node.Dynamic == "ipsw" && c.Node.Files.Count == 0)
+                else if (c.Node.Dynamic == "ipsw" && c.Node.Files.Count == 0 && !c.Node.HasChildren)
                 {
                     await LoadIpswAsync(c.Node);
                 }
-                else if (c.Node.Dynamic == "ms" && c.Node.Files.Count == 0)
+                else if (c.Node.Dynamic == "ms" && c.Node.Files.Count == 0 && !c.Node.HasChildren)
                 {
                     await LoadMsAsync(c.Node);
                 }
-                else if (c.Node.Dynamic == "macrecovery" && c.Node.Files.Count == 0)
+                else if (c.Node.Dynamic == "macrecovery" && c.Node.Files.Count == 0 && !c.Node.HasChildren)
                 {
                     foreach (RecoveryPreset p in MacRecovery.Presets)
                     {
