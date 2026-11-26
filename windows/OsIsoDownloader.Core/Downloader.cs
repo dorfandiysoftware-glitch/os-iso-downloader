@@ -41,6 +41,13 @@ namespace OsIsoDownloader.Core
             state?.Invoke(DownloadState.Downloading);
             using (var req = new HttpRequestMessage(HttpMethod.Get, file.Url))
             {
+                if (file.Headers != null)
+                {
+                    foreach (var h in file.Headers)
+                    {
+                        req.Headers.TryAddWithoutValidation(h.Key, h.Value);
+                    }
+                }
                 if (have > 0)
                 {
                     req.Headers.Range = new RangeHeaderValue(have, null);

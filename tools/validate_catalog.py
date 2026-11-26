@@ -22,7 +22,7 @@ def check_file(f, path):
         err(path, "url must be https")
     if has_res:
         r = f["resolve"]
-        if r.get("type", "index") == "archive":
+        if r.get("type", "index") in ("archive", "github"):
             if not r.get("id"):
                 err(path, "archive resolve needs id")
         elif not r.get("base", "").startswith("https://") or not r["base"].endswith("/"):

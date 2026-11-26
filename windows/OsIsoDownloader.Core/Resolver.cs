@@ -18,6 +18,8 @@ namespace OsIsoDownloader.Core
         public string HashAlgo { get; set; }
         public string Hash { get; set; }
         public long Size { get; set; }
+        /// <summary>Extra request headers (for servers that hand out a token with the link).</summary>
+        public System.Collections.Generic.IDictionary<string, string> Headers { get; set; }
     }
 
     public static class Resolver
@@ -32,7 +34,13 @@ namespace OsIsoDownloader.Core
                 {
                     throw new InvalidOperationException("The entry has neither a link nor a rule to find it.");
                 }
-                if (string.Equals(entry.Resolve.Type, "archive", StringComparison.OrdinalIgnoreCase))
+                if (string.Equals(entry.Resolve.Type, "github", StringComparison.OrdinalIgnoreCase))
+                {
+                    string json = await http.GetStringAsync("https://api.github.com/repos/" + entry.Resolve.Id + "/releases/latest", ct).ConfigureAwait(false);
+                    fromArchive = PickFromGitHub(json, entry.Resolve);
+                    url = fromArchive.Url;
+                }
+                else if (string.Equals(entry.Resolve.Type, "archive", StringComparison.OrdinalIgnoreCase))
                 {
                     string json = await http.GetStringAsync("https://archive.org/metadata/" + Uri.EscapeDataString(entry.Resolve.Id) + "/files", ct).ConfigureAwait(false);
                     fromArchive = PickFromArchive(json, entry.Resolve);
@@ -71,6 +79,42 @@ namespace OsIsoDownloader.Core
                 }
             }
             return result;
+        }
+
+        /// <summary>Picks a release asset out of GitHub's "releases/latest" JSON.</summary>
+        public static ResolvedFile PickFromGitHub(string json, Resolve rule)
+        {
+            var pattern = new Regex("^(" + rule.Pattern + ")$", RegexOptions.IgnoreCase);
+            using (System.Text.Json.JsonDocument doc = System.Text.Json.JsonDocument.Parse(json))
+            {
+                System.Text.Json.JsonElement assets;
+                if (!doc.RootElement.TryGetProperty("assets", out assets))
+                {
+                    throw new InvalidOperationException("GitHub не повернув список файлів релізу " + rule.Id + ".");
+                }
+                foreach (System.Text.Json.JsonElement a in assets.EnumerateArray())
+                {
+                    string name = a.GetProperty("name").GetString();
+                    if (!pattern.IsMatch(name))
+                    {
+                        continue;
+                    }
+                    var r = new ResolvedFile { Url = a.GetProperty("browser_download_url").GetString(), FileName = name };
+                    System.Text.Json.JsonElement v;
+                    if (a.TryGetProperty("size", out v) && v.ValueKind == System.Text.Json.JsonValueKind.Number)
+                    {
+                        r.Size = v.GetInt64();
+                    }
+                    if (a.TryGetProperty("digest", out v) && v.ValueKind == System.Text.Json.JsonValueKind.String
+                        && v.GetString().StartsWith("sha256:", StringComparison.OrdinalIgnoreCase))
+                    {
+                        r.HashAlgo = "sha256";
+                        r.Hash = v.GetString().Substring(7).ToLowerInvariant();
+                    }
+                    return r;
+                }
+            }
+            throw new InvalidOperationException("У останньому релізі " + rule.Id + " немає файлу за шаблоном " + rule.Pattern + ".");
         }
 
         /// <summary>Picks a file out of the archive.org metadata JSON ("/metadata/{id}/files").</summary>

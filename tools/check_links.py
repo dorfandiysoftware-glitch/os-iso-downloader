@@ -80,6 +80,12 @@ def resolve(f):
         best = sorted(names, key=natural)[-1]
         url = "https://archive.org/download/" + urllib.parse.quote(r["id"]) + "/" + "/".join(urllib.parse.quote(p) for p in best.split("/"))
         return url, f" -> {best}", names[best].get("sha1")
+    if r.get("type") == "github":
+        rel = json.load(req("https://api.github.com/repos/" + r["id"] + "/releases/latest"))
+        hits = [a for a in rel.get("assets", []) if pat.match(a["name"])]
+        if not hits:
+            raise RuntimeError("no release asset matches " + r["pattern"])
+        return hits[0]["browser_download_url"], f" -> {hits[0]['name']}", None
     html = req(r["base"]).read().decode("utf-8", "replace")
     names = set()
     for m in re.finditer(r"href=[\"']([^\"'#?]+)[\"']", html, re.I):

@@ -1,0 +1,25 @@
+name: macos-recovery
+on:
+  push:
+    paths: ['windows/OsIsoDownloader.Core/MacRecovery.cs']
+  workflow_dispatch:
+    inputs:
+      preset:
+        description: 'Preset index (0 Big Sur, 1 Monterey, 2 Catalina)'
+        required: false
+        default: '1'
+jobs:
+  recovery:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - run: dotnet test windows/OsIsoDownloader.Core.Tests -c Release
+      - run: dotnet run --project windows/OsIsoDownloader.Probe -c Release -- recovery ${{ github.event.inputs.preset || '1' }} 2>&1 | tee recovery.txt
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: recovery-report
+          path: recovery.txt

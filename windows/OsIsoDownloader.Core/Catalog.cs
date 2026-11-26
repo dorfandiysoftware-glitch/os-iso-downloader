@@ -101,9 +101,9 @@ namespace OsIsoDownloader.Core
     /// <summary>Finds the newest file in a directory listing, so a new release needs no new catalog.</summary>
     public sealed class Resolve
     {
-        /// <summary>"index" (a directory page) or "archive" (an archive.org item).</summary>
+        /// <summary>"index" (a directory page), "archive" (an archive.org item) or "github" (latest release of owner/repo).</summary>
         public string Type { get; set; } = "index";
-        /// <summary>archive.org item identifier, for type "archive".</summary>
+        /// <summary>archive.org item identifier, or GitHub owner/repo.</summary>
         public string Id { get; set; }
         /// <summary>The directory listing, ending with a slash.</summary>
         public string Base { get; set; }

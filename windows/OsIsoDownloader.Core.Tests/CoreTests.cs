@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using OsIsoDownloader.Core;
 using Xunit;
 
@@ -178,6 +179,119 @@ namespace OsIsoDownloader.Core.Tests
             var b = new AppleInstaller();
             AppleCatalog.ApplyDist(b, "<key>VERSION</key><string>14.6.1</string><key>BUILD</key><string>23G93</string>");
             Assert.Equal("macOS Sonoma 14.6.1 (23G93)", b.DisplayName);
+        }
+
+        [Fact]
+        public void RecoveryInfoParses()
+        {
+            string t = "AP: 001\nAU: https://oscdn.apple.com/x/BaseSystem.dmg\nAH: abc\nAT: tok1\nCU: https://oscdn.apple.com/x/BaseSystem.chunklist\nCH: def\nCT: tok2\n";
+            RecoveryImage i = MacRecovery.ParseInfo(t);
+            Assert.EndsWith("BaseSystem.dmg", i.ImageUrl);
+            Assert.Equal("tok2", i.ChunklistToken);
+            Assert.Throws<InvalidOperationException>(() => MacRecovery.ParseInfo("AP: 1\n"));
+        }
+
+        [Fact]
+        public void RecoveryBodyHasExpectedFields()
+        {
+            string b = MacRecovery.BuildBody("Mac-X", MacRecovery.MlbZero, "default", new Random(1));
+            string[] lines = b.Split('\n');
+            Assert.StartsWith("cid=", lines[0]);
+            Assert.Equal(4 + 16, lines[0].Length);
+            Assert.Equal("sn=00000000000000000", lines[1]);
+            Assert.Equal("bid=Mac-X", lines[2]);
+            Assert.Equal(2 + 64, lines[3].Length);
+            Assert.Equal("os=default", lines[5]);
+        }
+
+        private static void Be32(byte[] b, int o, uint v) { System.Buffers.Binary.BinaryPrimitives.WriteUInt32BigEndian(b.AsSpan(o, 4), v); }
+        private static void Be64(byte[] b, int o, long v) { System.Buffers.Binary.BinaryPrimitives.WriteInt64BigEndian(b.AsSpan(o, 8), v); }
+
+        [Fact]
+        public void DmgRoundTrip()
+        {
+            // raw chunk (1 sector), zlib chunk (2 sectors), zero chunk (1 sector), raw chunk (1 sector)
+            byte[] a = new byte[512];
+            for (int i = 0; i < a.Length; i++) a[i] = (byte)(i * 7);
+            byte[] bplain = new byte[1024];
+            for (int i = 0; i < bplain.Length; i++) bplain[i] = (byte)(i % 13);
+            byte[] bcomp;
+            using (var ms = new System.IO.MemoryStream())
+            {
+                using (var z = new System.IO.Compression.ZLibStream(ms, System.IO.Compression.CompressionLevel.Optimal, true))
+                {
+                    z.Write(bplain, 0, bplain.Length);
+                }
+                bcomp = ms.ToArray();
+            }
+            byte[] d = new byte[512];
+            for (int i = 0; i < d.Length; i++) d[i] = 0xEE;
+
+            var fork = new System.IO.MemoryStream();
+            long offA = fork.Position; fork.Write(a, 0, a.Length);
+            long offB = fork.Position; fork.Write(bcomp, 0, bcomp.Length);
+            long offD = fork.Position; fork.Write(d, 0, d.Length);
+
+            var chunks = new[]
+            {
+                new[] { 1L, 0, 1, offA, 512 },
+                new[] { 0x80000005L, 1, 2, offB, bcomp.Length },
+                new[] { 0L, 3, 1, 0, 0 },
+                new[] { 1L, 4, 1, offD, 512 },
+                new[] { 0xffffffffL, 5, 0, 0, 0 },
+            };
+            byte[] mish = new byte[204 + chunks.Length * 40];
+            mish[0] = (byte)'m'; mish[1] = (byte)'i'; mish[2] = (byte)'s'; mish[3] = (byte)'h';
+            Be32(mish, 4, 1);
+            Be64(mish, 8, 0);
+            Be64(mish, 16, 5);
+            Be32(mish, 200, (uint)chunks.Length);
+            for (int i = 0; i < chunks.Length; i++)
+            {
+                int p = 204 + i * 40;
+                Be32(mish, p, (uint)chunks[i][0]);
+                Be64(mish, p + 8, chunks[i][1]);
+                Be64(mish, p + 16, chunks[i][2]);
+                Be64(mish, p + 24, chunks[i][3]);
+                Be64(mish, p + 32, chunks[i][4]);
+            }
+            string xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><plist version=\"1.0\"><dict><key>resource-fork</key><dict><key>blkx</key><array><dict><key>Data</key><data>"
+                + Convert.ToBase64String(mish) + "</data><key>ID</key><string>0</string></dict></array></dict></dict></plist>";
+            byte[] xmlBytes = System.Text.Encoding.UTF8.GetBytes(xml);
+            long xmlOff = fork.Length;
+            fork.Write(xmlBytes, 0, xmlBytes.Length);
+            byte[] koly = new byte[512];
+            koly[0] = (byte)'k'; koly[1] = (byte)'o'; koly[2] = (byte)'l'; koly[3] = (byte)'y';
+            Be64(koly, 24, 0);
+            Be64(koly, 32, xmlOff);
+            Be64(koly, 216, xmlOff);
+            Be64(koly, 224, xmlBytes.Length);
+            fork.Write(koly, 0, koly.Length);
+
+            string dir = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "oid-" + Guid.NewGuid().ToString("N"));
+            System.IO.Directory.CreateDirectory(dir);
+            string dmg = System.IO.Path.Combine(dir, "t.dmg");
+            string raw = System.IO.Path.Combine(dir, "t.img");
+            System.IO.File.WriteAllBytes(dmg, fork.ToArray());
+            DmgConverter.ConvertAsync(dmg, raw, null, System.Threading.CancellationToken.None).GetAwaiter().GetResult();
+            byte[] outb = System.IO.File.ReadAllBytes(raw);
+            Assert.Equal(5 * 512, outb.Length);
+            Assert.Equal(a, outb.Take(512).ToArray());
+            Assert.Equal(bplain, outb.Skip(512).Take(1024).ToArray());
+            Assert.All(outb.Skip(1536).Take(512), x => Assert.Equal(0, x));
+            Assert.Equal(d, outb.Skip(2048).Take(512).ToArray());
+            System.IO.Directory.Delete(dir, true);
+        }
+
+        [Fact]
+        public void GitHubAssetPick()
+        {
+            string json = "{\"assets\":[{\"name\":\"OpenCore-1.0.5-DEBUG.zip\",\"browser_download_url\":\"https://x/d.zip\",\"size\":5},"
+                + "{\"name\":\"OpenCore-1.0.5-RELEASE.zip\",\"browser_download_url\":\"https://x/r.zip\",\"size\":7,\"digest\":\"sha256:AB12\"}]}";
+            ResolvedFile r = Resolver.PickFromGitHub(json, new Resolve { Type = "github", Id = "a/b", Pattern = @"OpenCore-[\d.]+-RELEASE\.zip" });
+            Assert.Equal("https://x/r.zip", r.Url);
+            Assert.Equal("ab12", r.Hash);
+            Assert.Equal(7, r.Size);
         }
     }
 }
