@@ -40,6 +40,55 @@ namespace OsIsoDownloader.Core.Tests
         }
 
         [Fact]
+        public void SingleEntryWithAliasName()
+        {
+            string t = "SHA256 (openSUSE-Tumbleweed-DVD-x86_64-Snapshot20261124-Media.iso) = " + new string('e', 64) + "\n";
+            Assert.Equal(new string('e', 64), ChecksumParser.Find(t, "openSUSE-Tumbleweed-DVD-x86_64-Current.iso"));
+            string two = new string('a', 64) + "  one.iso\n" + new string('b', 64) + "  two.iso\n";
+            Assert.Null(ChecksumParser.Find(two, "three.iso"));
+        }
+
+        [Fact]
+        public void ArchiveOrgPick()
+        {
+            string json = "{\"result\":[{\"name\":\"Win8.1_English_x32.iso\",\"size\":\"3\",\"sha1\":\"AA\"},"
+                + "{\"name\":\"Win8.1_English_x64.iso\",\"size\":\"4000000000\",\"sha1\":\"BB\"},"
+                + "{\"name\":\"thumb.jpg\",\"size\":\"1\"}]}";
+            var rule = new Resolve { Type = "archive", Id = "win-8.1", Pattern = @"Win8\.1_English_x64\.iso" };
+            ResolvedFile r = Resolver.PickFromArchive(json, rule);
+            Assert.Equal("https://archive.org/download/win-8.1/Win8.1_English_x64.iso", r.Url);
+            Assert.Equal("sha1", r.HashAlgo);
+            Assert.Equal("bb", r.Hash);
+            Assert.Equal(4000000000L, r.Size);
+        }
+
+        [Fact]
+        public void ArchiveNameWithSpacesIsEscaped()
+        {
+            string json = "{\"result\":[{\"name\":\"MS-DOS 6.22.iso\",\"size\":\"2\"}]}";
+            ResolvedFile r = Resolver.PickFromArchive(json, new Resolve { Type = "archive", Id = "x", Pattern = @".*\.iso" });
+            Assert.EndsWith("/MS-DOS%206.22.iso", r.Url);
+            Assert.Equal("MS-DOS 6.22.iso", r.FileName);
+        }
+
+        [Fact]
+        public void ZipExtractReturnsIso()
+        {
+            string dir = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "oid-" + Guid.NewGuid().ToString("N"));
+            System.IO.Directory.CreateDirectory(dir);
+            string zip = System.IO.Path.Combine(dir, "pack.zip");
+            using (var z = System.IO.Compression.ZipFile.Open(zip, System.IO.Compression.ZipArchiveMode.Create))
+            {
+                z.CreateEntry("readme.txt");
+                z.CreateEntry("FD14.iso");
+            }
+            string iso = Downloader.ExtractZip(zip, true);
+            Assert.EndsWith("FD14.iso", iso);
+            Assert.False(System.IO.File.Exists(zip));
+            System.IO.Directory.Delete(dir, true);
+        }
+
+        [Fact]
         public void PicksNewestFromListing()
         {
             string html = "<a href=\"debian-13.9.0-amd64-netinst.iso\">x</a>"

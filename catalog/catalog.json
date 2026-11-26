@@ -235,6 +235,47 @@
           ]
         },
         {
+          "id": "redstar",
+          "name": "Red Star OS 3.0",
+          "note": "Північнокорейський Linux. Неофіційне джерело: archive.org.",
+          "vm": {
+            "vboxType": "RedHat_64",
+            "ram": 2048,
+            "disk": 20,
+            "cpus": 2,
+            "efi": false,
+            "virtio": false
+          },
+          "files": [
+            {
+              "name": "Desktop (англ. інсталятор)",
+              "kind": "archived",
+              "resolve": {
+                "type": "archive",
+                "id": "redstar_desktop3.0_sign_202212",
+                "pattern": ".*\\.iso"
+              },
+              "source": "https://archive.org/details/redstar_desktop3.0_sign_202212",
+              "verified": false,
+              "note": "Неофіційне джерело: archive.org.",
+              "arch": "x86_64"
+            },
+            {
+              "name": "Desktop і Server",
+              "kind": "archived",
+              "resolve": {
+                "type": "archive",
+                "id": "RedStarOS",
+                "pattern": ".*\\.iso"
+              },
+              "source": "https://archive.org/details/RedStarOS",
+              "verified": false,
+              "note": "Неофіційне джерело: archive.org.",
+              "arch": "x86_64"
+            }
+          ]
+        },
+        {
           "id": "lfs",
           "name": "Linux From Scratch",
           "note": "Офіційного ISO для нових версій немає: збірка вручну за книгою.",
@@ -417,6 +458,135 @@
               "verified": true
             }
           ]
+        },
+        {
+          "id": "win10",
+          "name": "Windows 10",
+          "note": "Офіційна сторінка Microsoft.",
+          "files": [
+            {
+              "name": "Завантаження Windows 10 (microsoft.com)",
+              "kind": "guide",
+              "url": "https://www.microsoft.com/software-download/windows10",
+              "source": "https://www.microsoft.com/software-download/windows10",
+              "verified": false
+            }
+          ]
+        },
+        {
+          "id": "win81",
+          "name": "Windows 8.1",
+          "note": "Microsoft образи не роздає, тож це копії на archive.org.",
+          "vm": {
+            "vboxType": "Windows81_64",
+            "ram": 4096,
+            "disk": 40,
+            "cpus": 2,
+            "efi": false,
+            "virtio": false
+          },
+          "files": [
+            {
+              "name": "English x64",
+              "kind": "archived",
+              "resolve": {
+                "type": "archive",
+                "id": "win-8.1-english-x-64_20230115",
+                "pattern": "Win8\\.1_English_x64\\.iso"
+              },
+              "source": "https://archive.org/details/win-8.1-english-x-64_20230115",
+              "verified": false,
+              "note": "Неофіційне джерело: archive.org.",
+              "arch": "x64"
+            },
+            {
+              "name": "English x32",
+              "kind": "archived",
+              "resolve": {
+                "type": "archive",
+                "id": "win-8.1-english-x-64_20230115",
+                "pattern": "Win8\\.1_English_x32\\.iso"
+              },
+              "source": "https://archive.org/details/win-8.1-english-x-64_20230115",
+              "verified": false,
+              "note": "Неофіційне джерело: archive.org.",
+              "arch": "x86"
+            },
+            {
+              "name": "Pro N English x64",
+              "kind": "archived",
+              "resolve": {
+                "type": "archive",
+                "id": "win-8.1-english-x-64_20230115",
+                "pattern": "Win8\\.1_Pro_N_English_x64\\.iso"
+              },
+              "source": "https://archive.org/details/win-8.1-english-x-64_20230115",
+              "verified": false,
+              "note": "Неофіційне джерело: archive.org. Без медіа-компонентів.",
+              "arch": "x64"
+            }
+          ]
+        },
+        {
+          "id": "win7",
+          "name": "Windows 7 SP1",
+          "note": "Home Basic, Home Premium, Professional, Ultimate в одному образі.",
+          "vm": {
+            "vboxType": "Windows7_64",
+            "ram": 4096,
+            "disk": 40,
+            "cpus": 2,
+            "efi": false,
+            "virtio": false
+          },
+          "files": [
+            {
+              "name": "Multi-lang x64 (SP1)",
+              "kind": "archived",
+              "resolve": {
+                "type": "archive",
+                "id": "win-7-multi-lang-x64",
+                "pattern": "mu_windows_7_with_sp1_x64_dvd\\.iso"
+              },
+              "source": "https://archive.org/details/win-7-multi-lang-x64",
+              "verified": false,
+              "note": "Неофіційне джерело: archive.org. SHA-256 узято зі сторінки завантаження.",
+              "arch": "x64",
+              "checksum": {
+                "algo": "sha256",
+                "value": "08f6b9f1876bf6c41492d92a15046b45eaf431263b8714b95d64d99ea5ac0bbd"
+              }
+            }
+          ]
+        },
+        {
+          "id": "winxp",
+          "name": "Windows XP",
+          "note": "Копії на archive.org.",
+          "vm": {
+            "vboxType": "WindowsXP",
+            "ram": 1024,
+            "disk": 10,
+            "cpus": 2,
+            "efi": false,
+            "virtio": false,
+            "legacy": true
+          },
+          "files": [
+            {
+              "name": "Professional SP3 (x86, з драйверами SATA)",
+              "kind": "archived",
+              "resolve": {
+                "type": "archive",
+                "id": "windows-xp-professional-sp-3-nov-2013-inc-sata-drivers",
+                "pattern": "Windows XP Professional SP3 Nov 2013 Inc SATA Drivers\\.iso"
+              },
+              "source": "https://archive.org/details/windows-xp-professional-sp-3-nov-2013-inc-sata-drivers",
+              "verified": false,
+              "note": "Неофіційне джерело: archive.org.",
+              "arch": "x86"
+            }
+          ]
         }
       ]
     },
@@ -448,14 +618,156 @@
       "children": [
         {
           "id": "android-x86",
-          "name": "Android-x86 / BlissOS",
+          "name": "Android-x86 9.0-r2",
+          "note": "Android для ПК. Хеші SHA-1 з офіційної сторінки релізу. Хост: SourceForge.",
+          "vm": {
+            "vboxType": "Linux26_64",
+            "ram": 4096,
+            "disk": 16,
+            "cpus": 4,
+            "efi": false,
+            "virtio": true
+          },
           "files": [
             {
-              "name": "Сторінка проєкту Android-x86",
-              "kind": "guide",
-              "url": "https://www.android-x86.org/download",
-              "source": "https://www.android-x86.org/download",
+              "name": "64-bit",
+              "arch": "x86_64",
+              "recommended": true,
+              "url": "https://sourceforge.net/projects/android-x86/files/Release%209.0/android-x86_64-9.0-r2.iso/download",
+              "checksum": {
+                "algo": "sha1",
+                "value": "1cc85b5ed7c830ff71aecf8405c7281a9c995aa0"
+              },
+              "source": "https://www.android-x86.org/releases/releasenote-9-0-r2",
               "verified": false
+            },
+            {
+              "name": "32-bit",
+              "arch": "x86",
+              "url": "https://sourceforge.net/projects/android-x86/files/Release%209.0/android-x86-9.0-r2.iso/download",
+              "checksum": {
+                "algo": "sha1",
+                "value": "d72bbd11c1bedbe99f50da54731c6a83b41becb0"
+              },
+              "source": "https://www.android-x86.org/releases/releasenote-9-0-r2",
+              "verified": false
+            }
+          ]
+        },
+        {
+          "id": "blissos",
+          "name": "BlissOS",
+          "note": "Сайт заявляє, що публічні образи призупинені. Відкриється сторінка проєкту.",
+          "files": [
+            {
+              "name": "Сторінка BlissOS",
+              "kind": "guide",
+              "url": "https://blissos.org",
+              "source": "https://blissos.org",
+              "verified": true
+            }
+          ]
+        },
+        {
+          "id": "aemulator",
+          "name": "AEmulator",
+          "note": "Це застосунок для Android-телефона (arm64, Android 8+), який запускає старі прошивки. Не для ПК.",
+          "files": [
+            {
+              "name": "Релізи AEmulator на GitHub",
+              "kind": "guide",
+              "url": "https://github.com/uxazu/aemulator/releases",
+              "source": "https://github.com/uxazu/aemulator",
+              "verified": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dos",
+      "name": "DOS",
+      "childrenTitle": "Система",
+      "children": [
+        {
+          "id": "freedos",
+          "name": "FreeDOS 1.4",
+          "note": "Вільний DOS. Офіційний сайт, образ упакований у zip: застосунок розпакує сам.",
+          "vm": {
+            "vboxType": "FreeDOS",
+            "ram": 64,
+            "disk": 2,
+            "cpus": 1,
+            "efi": false,
+            "virtio": false,
+            "legacy": true
+          },
+          "files": [
+            {
+              "name": "LiveCD",
+              "arch": "x86",
+              "unzip": true,
+              "recommended": true,
+              "url": "https://download.freedos.org/1.4/FD14-LiveCD.zip",
+              "checksum": {
+                "algo": "sha256",
+                "url": "https://freedos.org/download/verify.txt"
+              },
+              "source": "https://freedos.org/download/",
+              "verified": true
+            },
+            {
+              "name": "BonusCD (додаткові програми)",
+              "arch": "x86",
+              "unzip": true,
+              "url": "https://download.freedos.org/1.4/FD14-BonusCD.zip",
+              "checksum": {
+                "algo": "sha256",
+                "url": "https://freedos.org/download/verify.txt"
+              },
+              "source": "https://freedos.org/download/",
+              "verified": true
+            },
+            {
+              "name": "LegacyCD (для старих ПК)",
+              "arch": "x86",
+              "unzip": true,
+              "url": "https://download.freedos.org/1.4/FD14-LegacyCD.zip",
+              "checksum": {
+                "algo": "sha256",
+                "url": "https://freedos.org/download/verify.txt"
+              },
+              "source": "https://freedos.org/download/",
+              "verified": true
+            }
+          ]
+        },
+        {
+          "id": "msdos622",
+          "name": "MS-DOS 6.22",
+          "note": "Microsoft її не роздає. Копія на archive.org.",
+          "vm": {
+            "vboxType": "DOS",
+            "ram": 64,
+            "disk": 2,
+            "cpus": 1,
+            "efi": false,
+            "virtio": false,
+            "legacy": true
+          },
+          "files": [
+            {
+              "name": "Образ 6.22",
+              "kind": "archived",
+              "resolve": {
+                "type": "archive",
+                "id": "ms-dos-6.22_20220302",
+                "pattern": "MS-DOS 6\\.22\\.iso"
+              },
+              "source": "https://archive.org/details/ms-dos-6.22_20220302",
+              "verified": false,
+              "note": "Неофіційне джерело: archive.org.",
+              "arch": "x86"
             }
           ]
         }

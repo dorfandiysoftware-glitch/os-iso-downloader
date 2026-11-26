@@ -51,10 +51,15 @@
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
                                 <Grid>
-                                    <Grid Width="34" Height="34" HorizontalAlignment="Left">
-                                        <Ellipse Fill="{Binding Brush}" />
-                                        <TextBlock Text="{Binding Initials}" Foreground="White" FontWeight="SemiBold"
-                                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    <Grid Width="44" Height="44" HorizontalAlignment="Left">
+                                        <Border Background="White" CornerRadius="10" Visibility="{Binding LogoVisibility}">
+                                            <Image Source="{Binding Logo}" Margin="7" />
+                                        </Border>
+                                        <Grid Visibility="{Binding FallbackVisibility}">
+                                            <Ellipse Fill="{Binding Brush}" />
+                                            <TextBlock Text="{Binding Initials}" Foreground="White" FontWeight="SemiBold"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Grid>
                                     </Grid>
                                     <TextBlock Text="{Binding Star}" HorizontalAlignment="Right" FontSize="18" />
                                 </Grid>

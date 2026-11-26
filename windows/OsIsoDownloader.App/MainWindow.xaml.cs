@@ -11,6 +11,7 @@ using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Media.Imaging;
 using Windows.UI;
 using OsIsoDownloader.Core;
 using Windows.Storage.Pickers;
@@ -25,6 +26,9 @@ namespace OsIsoDownloader.App
         public string Initials { get; set; }
         public string Star { get; set; } = "";
         public Brush Brush { get; set; }
+        public ImageSource Logo { get; set; }
+        public Visibility LogoVisibility => Logo != null ? Visibility.Visible : Visibility.Collapsed;
+        public Visibility FallbackVisibility => Logo == null ? Visibility.Visible : Visibility.Collapsed;
         public Node Node;
         public FileEntry File;
     }
@@ -52,6 +56,7 @@ namespace OsIsoDownloader.App
             Downloads.ItemsSource = _items;
             _folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", "ISO");
             FolderText.Text = _folder;
+            VmTools.QemuDir = History.LoadQemuDir();
             foreach (HistoryEntry h in History.Load())
             {
                 if (File.Exists(h.Path))
@@ -120,7 +125,7 @@ namespace OsIsoDownloader.App
                 StepText.Text = "";
                 foreach (Node n in _catalog.Systems)
                 {
-                    list.Add(Tile(n.Name, n.Note ?? "", n.Id, false, n, null));
+                    list.Add(Tile(n.Name, n.Note ?? "", n.Id, false, n, null, n.Id));
                 }
             }
             else
@@ -132,14 +137,14 @@ namespace OsIsoDownloader.App
                 {
                     foreach (Node n in cur.Children)
                     {
-                        list.Add(Tile(n.Name, n.Note ?? "", n.Id, false, n, null));
+                        list.Add(Tile(n.Name, n.Note ?? "", n.Id, false, n, null, n.Id));
                     }
                 }
                 else
                 {
                     foreach (FileEntry f in cur.Files)
                     {
-                        list.Add(Tile(f.Name, Describe(f), f.Name, f.Recommended, null, f));
+                        list.Add(Tile(f.Name, Describe(f), f.Name, f.Recommended, null, f, cur.Id));
                     }
                 }
             }
@@ -155,7 +160,26 @@ namespace OsIsoDownloader.App
             Color.FromArgb(255, 74, 84, 89), Color.FromArgb(255, 186, 20, 40),
         };
 
-        private static Choice Tile(string title, string subtitle, string key, bool star, Node node, FileEntry file)
+        private static readonly Dictionary<string, BitmapImage> LogoCache = new Dictionary<string, BitmapImage>();
+
+        private static ImageSource LogoFor(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return null;
+            }
+            BitmapImage img;
+            if (LogoCache.TryGetValue(id, out img))
+            {
+                return img;
+            }
+            string f = Path.Combine(AppContext.BaseDirectory, "Assets", "logos", id + ".png");
+            img = File.Exists(f) ? new BitmapImage(new Uri(f)) : null;
+            LogoCache[id] = img;
+            return img;
+        }
+
+        private static Choice Tile(string title, string subtitle, string key, bool star, Node node, FileEntry file, string logoId)
         {
             int h = 0;
             foreach (char c in key ?? title)
@@ -175,6 +199,7 @@ namespace OsIsoDownloader.App
                 Title = title, Subtitle = subtitle, Node = node, File = file,
                 Initials = initials.Length == 0 ? "?" : initials, Star = star ? "★" : "",
                 Brush = new SolidColorBrush(Palette[(h & 0x7fffffff) % Palette.Length]),
+                Logo = LogoFor(logoId),
             };
         }
 
@@ -214,7 +239,8 @@ namespace OsIsoDownloader.App
         {
             var bits = new List<string>();
             if (f.IsGuide) bits.Add("відкриє сторінку");
-            if (f.IsArchived) bits.Add("СТАРИЙ образ");
+            if (f.IsArchived) bits.Add("старий / неофіційний образ");
+            if (f.Unzip) bits.Add("розпакується автоматично");
             if (!string.IsNullOrEmpty(f.Arch)) bits.Add(f.Arch);
             if (f.Checksum != null) bits.Add("з перевіркою хешу");
             if (!f.Verified) bits.Add("посилання ще не підтверджене");
@@ -313,14 +339,20 @@ namespace OsIsoDownloader.App
                         DispatcherQueue.TryEnqueue(() => item.Status = "Перевіряю контрольну суму…");
                     }
                 }, item.Cts.Token);
+                string finalPath = r.Path;
+                if (item.Entry != null && item.Entry.Unzip && r.HashOk != false)
+                {
+                    item.Status = "Розпаковую…";
+                    finalPath = await Task.Run(() => Downloader.ExtractZip(r.Path, true));
+                }
                 item.Percent = 100;
-                item.Path = r.Path;
+                item.Path = finalPath;
                 item.State = DownloadState.Done;
                 item.ActionLabel = "Показати";
                 History.Save(_items);
                 if (r.HashOk == true)
                 {
-                    item.Status = "Готово, хеш збігається ✓  " + r.Path;
+                    item.Status = "Готово, хеш збігається ✓  " + finalPath;
                 }
                 else if (r.HashOk == false)
                 {
@@ -328,10 +360,10 @@ namespace OsIsoDownloader.App
                 }
                 else
                 {
-                    item.Status = "Готово, але хешу для перевірки немає. SHA-256: " + r.Hash + "  " + r.Path;
+                    item.Status = "Готово, але хешу для перевірки немає.  " + finalPath;
                     if (r.Hash == null)
                     {
-                        item.Status = "Готово (без перевірки хешу). " + r.Path;
+                        item.Status = "Готово (без перевірки хешу). " + finalPath;
                     }
                 }
             }
@@ -432,15 +464,6 @@ namespace OsIsoDownloader.App
             string qemu = VmTools.FindQemu("qemu-system-x86_64.exe");
             string qimg = VmTools.FindQemu("qemu-img.exe");
             bool hasQemu = qemu != null && qimg != null;
-            if (vbm == null && !hasQemu)
-            {
-                await Info("Немає ні VirtualBox, ні QEMU",
-                    "Встанови одну з програм і спробуй ще раз.", "VirtualBox", "QEMU",
-                    () => Open("https://www.virtualbox.org/wiki/Downloads"),
-                    () => Open("https://qemu.weilnetz.de/w64/"));
-                return;
-            }
-
             VmHint h = item.Vm ?? new VmHint();
             var name = new TextBox { Header = "Назва", Text = Path.GetFileNameWithoutExtension(item.Path) };
             var ram = new NumberBox { Header = "ОЗП, МБ", Value = h.Ram, Minimum = 256, SmallChange = 256, SpinButtonPlacementMode = NumberBoxSpinButtonPlacementMode.Inline };
@@ -451,9 +474,34 @@ namespace OsIsoDownloader.App
             var kind = new RadioButtons { Header = "Чим створити" };
             kind.Items.Add(new RadioButton { Content = vbm != null ? "VirtualBox" : "VirtualBox (не знайдено)", IsEnabled = vbm != null });
             kind.Items.Add(new RadioButton { Content = hasQemu ? "QEMU" : "QEMU (не знайдено)", IsEnabled = hasQemu });
-            kind.SelectedIndex = vbm != null ? 0 : 1;
+            kind.SelectedIndex = vbm != null ? 0 : (hasQemu ? 1 : 0);
+            var pickQemu = new HyperlinkButton { Content = "Вказати шлях до QEMU…", Padding = new Thickness(0) };
+            pickQemu.Visibility = hasQemu ? Visibility.Collapsed : Visibility.Visible;
+            pickQemu.Click += async (s2, e2) =>
+            {
+                var fp = new FileOpenPicker();
+                fp.FileTypeFilter.Add(".exe");
+                InitializeWithWindow.Initialize(fp, WindowNative.GetWindowHandle(this));
+                var file = await fp.PickSingleFileAsync();
+                if (file == null)
+                {
+                    return;
+                }
+                VmTools.QemuDir = Path.GetDirectoryName(file.Path);
+                qemu = VmTools.FindQemu("qemu-system-x86_64.exe");
+                qimg = VmTools.FindQemu("qemu-img.exe");
+                hasQemu = qemu != null && qimg != null;
+                ((RadioButton)kind.Items[1]).Content = hasQemu ? "QEMU" : "QEMU (не знайдено у цій теці)";
+                ((RadioButton)kind.Items[1]).IsEnabled = hasQemu;
+                pickQemu.Visibility = hasQemu ? Visibility.Collapsed : Visibility.Visible;
+                if (hasQemu)
+                {
+                    History.SaveQemuDir(VmTools.QemuDir);
+                    kind.SelectedIndex = 1;
+                }
+            };
             var panel = new StackPanel { Spacing = 10, MinWidth = 340 };
-            foreach (UIElement u in new UIElement[] { name, kind, ram, cpus, disk, efi, start })
+            foreach (UIElement u in new UIElement[] { name, kind, pickQemu, ram, cpus, disk, efi, start })
             {
                 panel.Children.Add(u);
             }
@@ -468,6 +516,14 @@ namespace OsIsoDownloader.App
             }
 
             bool useVbox = kind.SelectedIndex == 0;
+            if ((useVbox && vbm == null) || (!useVbox && !hasQemu))
+            {
+                await Info("Немає потрібної програми",
+                    "Встанови VirtualBox або QEMU (або вкажи шлях до QEMU) і спробуй ще раз.", "VirtualBox", "QEMU",
+                    () => Open("https://www.virtualbox.org/wiki/Downloads"),
+                    () => Open("https://qemu.weilnetz.de/w64/"));
+                return;
+            }
             string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             VmSpec spec = VmSpec.From(h, name.Text, item.Path, Path.Combine(home, useVbox ? "VirtualBox VMs" : "VMs"));
             spec.RamMb = (int)ram.Value;

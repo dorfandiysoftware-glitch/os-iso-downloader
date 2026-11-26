@@ -34,6 +34,19 @@ namespace OsIsoDownloader.Core.Tests
         }
 
         [Fact]
+        public void LegacyUsesIdeAndOldHardware()
+        {
+            VmSpec sp = Spec();
+            sp.Legacy = true;
+            var steps = VmCommands.VBox(sp, false);
+            Assert.Contains("ide", steps[3]);
+            Assert.Contains("vboxvga", steps[1]);
+            string[] q = VmCommands.QemuRun(sp, null);
+            Assert.Contains("pc", q);
+            Assert.Contains("user,model=rtl8139", q);
+        }
+
+        [Fact]
         public void QemuVirtioSwitch()
         {
             string[] a = VmCommands.QemuRun(Spec(virtio: true), null);

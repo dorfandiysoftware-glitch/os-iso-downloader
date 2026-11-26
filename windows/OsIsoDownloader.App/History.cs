@@ -24,6 +24,31 @@ namespace OsIsoDownloader.App
             return Path.Combine(dir, "history.json");
         }
 
+        private static string QemuFile() => Path.Combine(Path.GetDirectoryName(FilePath()), "qemu_dir.txt");
+
+        public static string LoadQemuDir()
+        {
+            try
+            {
+                return File.Exists(QemuFile()) ? File.ReadAllText(QemuFile()).Trim() : null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public static void SaveQemuDir(string dir)
+        {
+            try
+            {
+                File.WriteAllText(QemuFile(), dir ?? "");
+            }
+            catch (Exception)
+            {
+            }
+        }
+
         public static List<HistoryEntry> Load()
         {
             try

@@ -73,6 +73,8 @@ namespace OsIsoDownloader.Core
         public bool Verified { get; set; }
         public string Note { get; set; }
         public bool Recommended { get; set; }
+        /// <summary>The download is a .zip; unpack it and use the image inside.</summary>
+        public bool Unzip { get; set; }
 
         [JsonIgnore]
         public bool IsGuide => string.Equals(Kind, "guide", StringComparison.OrdinalIgnoreCase);
@@ -90,13 +92,17 @@ namespace OsIsoDownloader.Core
         public bool Efi { get; set; }
         /// <summary>Use virtio devices in QEMU (Linux guests).</summary>
         public bool Virtio { get; set; }
+        /// <summary>Old guests (DOS, XP): IDE disk, plain VGA, no virtio.</summary>
+        public bool Legacy { get; set; }
     }
 
     /// <summary>Finds the newest file in a directory listing, so a new release needs no new catalog.</summary>
     public sealed class Resolve
     {
-        /// <summary>Only "index" for now.</summary>
+        /// <summary>"index" (a directory page) or "archive" (an archive.org item).</summary>
         public string Type { get; set; } = "index";
+        /// <summary>archive.org item identifier, for type "archive".</summary>
+        public string Id { get; set; }
         /// <summary>The directory listing, ending with a slash.</summary>
         public string Base { get; set; }
         /// <summary>Regular expression for the file name.</summary>
@@ -107,7 +113,7 @@ namespace OsIsoDownloader.Core
 
     public sealed class Checksum
     {
-        /// <summary>"sha256" or "sha512".</summary>
+        /// <summary>"sha1", "sha256" or "sha512".</summary>
         public string Algo { get; set; } = "sha256";
         /// <summary>The hash itself, when it never changes.</summary>
         public string Value { get; set; }

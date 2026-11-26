@@ -20,6 +20,7 @@ namespace OsIsoDownloader.Core
         public int DiskGb { get; set; } = 20;
         public bool Efi { get; set; }
         public bool Virtio { get; set; }
+        public bool Legacy { get; set; }
         public string VboxType { get; set; } = "Other_64";
 
         public string VmDir => Path.Combine(Folder, SafeName(Name));
@@ -41,7 +42,7 @@ namespace OsIsoDownloader.Core
             return new VmSpec
             {
                 Name = name, IsoPath = iso, Folder = folder, RamMb = h.Ram, Cpus = h.Cpus,
-                DiskGb = h.Disk, Efi = h.Efi, Virtio = h.Virtio, VboxType = h.VboxType,
+                DiskGb = h.Disk, Efi = h.Efi, Virtio = h.Virtio, Legacy = h.Legacy, VboxType = h.VboxType,
             };
         }
     }
@@ -52,20 +53,23 @@ namespace OsIsoDownloader.Core
         public static List<string[]> VBox(VmSpec s, bool start)
         {
             string n = VmSpec.SafeName(s.Name);
+            string ctl = s.Legacy ? "IDE" : "SATA";
             var list = new List<string[]>
             {
                 new[] { "createvm", "--name", n, "--ostype", s.VboxType, "--register", "--basefolder", s.Folder },
                 new[]
                 {
                     "modifyvm", n, "--memory", s.RamMb.ToString(), "--cpus", s.Cpus.ToString(), "--vram", "128",
-                    "--graphicscontroller", "vmsvga", "--firmware", s.Efi ? "efi" : "bios", "--ioapic", "on",
+                    "--graphicscontroller", s.Legacy ? "vboxvga" : "vmsvga", "--firmware", s.Efi ? "efi" : "bios", "--ioapic", "on",
                     "--nic1", "nat", "--mouse", "usbtablet", "--clipboard-mode", "bidirectional",
                     "--boot1", "dvd", "--boot2", "disk", "--boot3", "none", "--boot4", "none",
                 },
                 new[] { "createmedium", "disk", "--filename", s.DiskPath(".vdi"), "--size", (s.DiskGb * 1024).ToString(), "--format", "VDI" },
-                new[] { "storagectl", n, "--name", "SATA", "--add", "sata", "--controller", "IntelAhci" },
-                new[] { "storageattach", n, "--storagectl", "SATA", "--port", "0", "--device", "0", "--type", "hdd", "--medium", s.DiskPath(".vdi") },
-                new[] { "storageattach", n, "--storagectl", "SATA", "--port", "1", "--device", "0", "--type", "dvddrive", "--medium", s.IsoPath },
+                s.Legacy
+                    ? new[] { "storagectl", n, "--name", ctl, "--add", "ide", "--controller", "PIIX4" }
+                    : new[] { "storagectl", n, "--name", ctl, "--add", "sata", "--controller", "IntelAhci" },
+                new[] { "storageattach", n, "--storagectl", ctl, "--port", "0", "--device", "0", "--type", "hdd", "--medium", s.DiskPath(".vdi") },
+                new[] { "storageattach", n, "--storagectl", ctl, "--port", s.Legacy ? "1" : "1", "--device", "0", "--type", "dvddrive", "--medium", s.IsoPath },
             };
             if (start)
             {
@@ -84,14 +88,14 @@ namespace OsIsoDownloader.Core
         {
             var a = new List<string>
             {
-                "-machine", "q35", "-m", s.RamMb.ToString(), "-smp", s.Cpus.ToString(),
+                "-machine", s.Legacy ? "pc" : "q35", "-m", s.RamMb.ToString(), "-smp", s.Cpus.ToString(),
                 "-accel", "whpx,kernel-irqchip=off", "-accel", "tcg",
                 "-drive", "file=" + s.DiskPath(".qcow2") + ",format=qcow2,if=" + (s.Virtio ? "virtio" : "ide"),
                 "-drive", "file=" + s.IsoPath + ",media=cdrom,readonly=on",
                 "-boot", "order=dc",
                 "-device", s.Virtio ? "virtio-vga" : "VGA",
                 "-device", "qemu-xhci", "-device", "usb-tablet",
-                "-nic", "user,model=" + (s.Virtio ? "virtio-net-pci" : "e1000"),
+                "-nic", "user,model=" + (s.Virtio ? "virtio-net-pci" : s.Legacy ? "rtl8139" : "e1000"),
             };
             if (s.Efi && !string.IsNullOrEmpty(ovmfCode))
             {
@@ -146,13 +150,42 @@ namespace OsIsoDownloader.Core
             return FirstExisting(candidates) ?? OnPath("VBoxManage.exe");
         }
 
+        /// <summary>A folder chosen by the person, tried first.</summary>
+        public static string QemuDir { get; set; }
+
         public static string FindQemu(string exe)
         {
-            var candidates = new List<string>
+            var candidates = new List<string>();
+            if (!string.IsNullOrEmpty(QemuDir))
             {
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "qemu", exe),
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "qemu", exe),
-            };
+                candidates.Add(Path.Combine(QemuDir, exe));
+            }
+            try
+            {
+                if (OperatingSystem.IsWindows())
+                {
+                    foreach (string sub in new[] { @"SOFTWARE\QEMU", @"SOFTWARE\WOW6432Node\QEMU" })
+                    {
+                        using (var k = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(sub))
+                        {
+                            string dir = k?.GetValue("Install_Dir") as string;
+                            if (!string.IsNullOrEmpty(dir))
+                            {
+                                candidates.Add(Path.Combine(dir, exe));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+            candidates.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles), "qemu", exe));
+            candidates.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "qemu", exe));
+            string profile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            candidates.Add(Path.Combine(profile, "scoop", "apps", "qemu", "current", exe));
+            candidates.Add(Path.Combine(@"C:\msys64\ucrt64\bin", exe));
+            candidates.Add(Path.Combine(@"C:\msys64\mingw64\bin", exe));
             return FirstExisting(candidates) ?? OnPath(exe);
         }
 

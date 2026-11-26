@@ -10,3 +10,6 @@ Windows-застосунок (WinUI 3), який качає ISO-образи О�
 - Завантаження з паузою/продовженням (HTTP Range) та перевіркою SHA-256/512.
 
 Ліцензія: GPL-3.0-or-later.
+
+## Логотипи
+`windows/OsIsoDownloader.App/Assets/logos/<id вузла>.png` — логотипи ОС, вбудовані в застосунок. Згенеровані скриптом `tools/make_logos.mjs` з пакетів [simple-icons](https://github.com/simple-icons/simple-icons) (CC0) та [devicon](https://github.com/devicons/devicon) (MIT). Усі знаки належать їхнім власникам і тут використані лише для впізнавання системи. Щоб додати свій логотип, поклади `<id>.png` у цю теку.

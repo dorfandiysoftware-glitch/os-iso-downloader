@@ -25,16 +25,32 @@ namespace OsIsoDownloader.Core
         public static async Task<ResolvedFile> ResolveAsync(HttpClient http, FileEntry entry, CancellationToken ct)
         {
             string url = entry.Url;
+            ResolvedFile fromArchive = null;
             if (string.IsNullOrEmpty(url))
             {
                 if (entry.Resolve == null)
                 {
                     throw new InvalidOperationException("The entry has neither a link nor a rule to find it.");
                 }
-                url = await FindNewestAsync(http, entry.Resolve, ct).ConfigureAwait(false);
+                if (string.Equals(entry.Resolve.Type, "archive", StringComparison.OrdinalIgnoreCase))
+                {
+                    string json = await http.GetStringAsync("https://archive.org/metadata/" + Uri.EscapeDataString(entry.Resolve.Id) + "/files", ct).ConfigureAwait(false);
+                    fromArchive = PickFromArchive(json, entry.Resolve);
+                    url = fromArchive.Url;
+                }
+                else
+                {
+                    url = await FindNewestAsync(http, entry.Resolve, ct).ConfigureAwait(false);
+                }
             }
             string name = FileNameOf(url);
             var result = new ResolvedFile { Url = url, FileName = name, Size = entry.Size };
+            if (fromArchive != null)
+            {
+                result.Size = fromArchive.Size;
+                result.HashAlgo = fromArchive.HashAlgo;
+                result.Hash = fromArchive.Hash;
+            }
             Checksum sum = entry.Checksum;
             if (sum != null)
             {
@@ -55,6 +71,62 @@ namespace OsIsoDownloader.Core
                 }
             }
             return result;
+        }
+
+        /// <summary>Picks a file out of the archive.org metadata JSON ("/metadata/{id}/files").</summary>
+        public static ResolvedFile PickFromArchive(string json, Resolve rule)
+        {
+            var pattern = new Regex("^(" + rule.Pattern + ")$", RegexOptions.IgnoreCase);
+            Regex exclude = string.IsNullOrEmpty(rule.Exclude) ? null : new Regex(rule.Exclude, RegexOptions.IgnoreCase);
+            var found = new List<System.Text.Json.JsonElement>();
+            using (System.Text.Json.JsonDocument doc = System.Text.Json.JsonDocument.Parse(json))
+            {
+                System.Text.Json.JsonElement files;
+                if (!doc.RootElement.TryGetProperty("result", out files))
+                {
+                    throw new InvalidOperationException("archive.org returned no file list for " + rule.Id + ".");
+                }
+                foreach (System.Text.Json.JsonElement f in files.EnumerateArray())
+                {
+                    string n = f.GetProperty("name").GetString();
+                    if (pattern.IsMatch(n) && (exclude == null || !exclude.IsMatch(n)))
+                    {
+                        found.Add(f.Clone());
+                    }
+                }
+            }
+            if (found.Count == 0)
+            {
+                throw new InvalidOperationException("No file in archive.org item " + rule.Id + " matches " + rule.Pattern + ".");
+            }
+            found.Sort((a, b) => VersionCompare.Instance.Compare(a.GetProperty("name").GetString(), b.GetProperty("name").GetString()));
+            System.Text.Json.JsonElement best = found[found.Count - 1];
+            string name = best.GetProperty("name").GetString();
+            var parts = name.Split('/');
+            for (int i = 0; i < parts.Length; i++)
+            {
+                parts[i] = Uri.EscapeDataString(parts[i]);
+            }
+            var r = new ResolvedFile
+            {
+                Url = "https://archive.org/download/" + Uri.EscapeDataString(rule.Id) + "/" + string.Join("/", parts),
+                FileName = name.Substring(name.LastIndexOf('/') + 1),
+            };
+            System.Text.Json.JsonElement v;
+            if (best.TryGetProperty("size", out v))
+            {
+                long size;
+                if (long.TryParse(v.ValueKind == System.Text.Json.JsonValueKind.String ? v.GetString() : v.ToString(), out size))
+                {
+                    r.Size = size;
+                }
+            }
+            if (best.TryGetProperty("sha1", out v) && !string.IsNullOrEmpty(v.GetString()))
+            {
+                r.HashAlgo = "sha1";
+                r.Hash = v.GetString().ToLowerInvariant();
+            }
+            return r;
         }
 
         public static async Task<string> FindNewestAsync(HttpClient http, Resolve rule, CancellationToken ct)

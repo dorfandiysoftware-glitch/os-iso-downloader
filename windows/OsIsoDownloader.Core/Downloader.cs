@@ -54,6 +54,12 @@ namespace OsIsoDownloader.Core
                         return await RunAsync(http, file, folder, progress, state, ct).ConfigureAwait(false);
                     }
                     resp.EnsureSuccessStatusCode();
+                    string media = resp.Content.Headers.ContentType?.MediaType;
+                    if (string.Equals(media, "text/html", StringComparison.OrdinalIgnoreCase)
+                        && !file.FileName.EndsWith(".html", StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw new InvalidOperationException("Сервер повернув веб-сторінку замість файлу. Посилання не підходить для прямого завантаження.");
+                    }
                     bool resumed = resp.StatusCode == HttpStatusCode.PartialContent;
                     if (!resumed)
                     {
@@ -111,13 +117,50 @@ namespace OsIsoDownloader.Core
 
         public static async Task<string> HashFileAsync(string path, string algo, CancellationToken ct)
         {
-            using (HashAlgorithm h = string.Equals(algo, "sha512", StringComparison.OrdinalIgnoreCase)
-                ? (HashAlgorithm)SHA512.Create() : SHA256.Create())
+            using (HashAlgorithm h = Create(algo))
             using (var fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read, 1 << 16, true))
             {
                 byte[] bytes = await Task.Run(() => h.ComputeHash(fs), ct).ConfigureAwait(false);
                 return Convert.ToHexString(bytes).ToLowerInvariant();
             }
+        }
+
+        private static HashAlgorithm Create(string algo)
+        {
+            switch ((algo ?? "sha256").ToLowerInvariant())
+            {
+                case "sha512":
+                    return SHA512.Create();
+                case "sha1":
+                    return SHA1.Create();
+                default:
+                    return SHA256.Create();
+            }
+        }
+
+        /// <summary>Unpacks a .zip into a folder next to it, returns the first .iso (or the first file).</summary>
+        public static string ExtractZip(string zipPath, bool deleteZip)
+        {
+            string dir = Path.Combine(Path.GetDirectoryName(zipPath), Path.GetFileNameWithoutExtension(zipPath));
+            System.IO.Compression.ZipFile.ExtractToDirectory(zipPath, dir, true);
+            string pick = null;
+            foreach (string f in Directory.EnumerateFiles(dir, "*", SearchOption.AllDirectories))
+            {
+                if (f.EndsWith(".iso", StringComparison.OrdinalIgnoreCase))
+                {
+                    pick = f;
+                    break;
+                }
+                if (pick == null)
+                {
+                    pick = f;
+                }
+            }
+            if (deleteZip)
+            {
+                File.Delete(zipPath);
+            }
+            return pick ?? dir;
         }
 
         public static string SafeName(string name)
