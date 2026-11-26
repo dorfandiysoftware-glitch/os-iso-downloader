@@ -5,8 +5,13 @@ jobs:
   fido:
     runs-on: ubuntu-latest
     steps:
-      - name: Fetch Fido.ps1 and show the Microsoft API parts
+      - name: Fido API section
         run: |
           curl -sSL https://raw.githubusercontent.com/pbatard/Fido/master/Fido.ps1 -o Fido.ps1
-          wc -l Fido.ps1
-          grep -nE "microsoft.com|sessionId|session_id|ProfileID|profile|Locale|SkuId|productEditionId|GetSkuInformation|GetProductDownloadLinks|UserAgent|Referer|vlscppe|org_id" Fido.ps1 | cut -c1-260 | head -120
+          sed -n '300,330p;460,480p;500,530p;596,800p' Fido.ps1 | cut -c1-240
+          grep -nE "ProfileId|OrgId|EditionId|\\$Ver|Win11|windows11" Fido.ps1 | sed -n '1,60p' | cut -c1-200
+      - name: TempleOS on archive.org
+        run: |
+          for id in TempleOS_ISO_Archive TempleOS20171215 temple-os; do
+            echo "== $id"; curl -sS "https://archive.org/metadata/$id/files" | python3 -c "import json,sys; d=json.load(sys.stdin); [print(f['name'], f.get('size'), f.get('sha1')) for f in d.get('result',[]) if f['name'].lower().endswith(('.iso','.zip','.img','.7z'))]"
+          done
