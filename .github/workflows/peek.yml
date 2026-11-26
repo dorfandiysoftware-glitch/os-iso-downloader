@@ -5,11 +5,11 @@ jobs:
   fido:
     runs-on: ubuntu-latest
     steps:
-      - name: Fido API section
+      - name: Fido links and editions
         run: |
           curl -sSL https://raw.githubusercontent.com/pbatard/Fido/master/Fido.ps1 -o Fido.ps1
-          sed -n '300,330p;460,480p;500,530p;596,800p' Fido.ps1 | cut -c1-240
-          grep -nE "ProfileId|OrgId|EditionId|\\$Ver|Win11|windows11" Fido.ps1 | sed -n '1,60p' | cut -c1-200
+          echo "=== LINKS PARSE"; sed -n '800,860p' Fido.ps1 | cut -c1-220
+          echo "=== VERSIONS TABLE"; grep -nE '"Windows (10|11)|Windows (10|11)"|Release|Edition|@\(@\(' Fido.ps1 | sed -n '1,70p' | cut -c1-200
       - name: TempleOS on archive.org
         run: |
           for id in TempleOS_ISO_Archive TempleOS20171215 temple-os; do
