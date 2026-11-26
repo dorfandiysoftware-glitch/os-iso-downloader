@@ -27,26 +27,35 @@ def probe(url, is_download):
 def natural(s):
     return [int(t) if t.isdigit() else t.lower() for t in re.split(r"(\d+)", s)]
 
-def find_hash(text, name):
+LEN = {'md5': 32, 'sha1': 40, 'sha256': 64, 'sha512': 128}
+
+def find_hash(text, name, algo=None):
+    want = LEN.get((algo or '').lower(), 0)
     only, lines, entries, last = None, 0, 0, None
     for raw in text.splitlines():
         line = raw.strip()
         if not line or line.startswith(("#", "-----", "Hash:")):
             continue
-        lines += 1
         m = re.match(r"^[A-Za-z0-9-]+\s*\((.+)\)\s*=\s*([0-9A-Fa-f]{32,})$", line)
+        if m and want and len(m.group(2)) != want:
+            continue
         if m:
+            lines += 1
             entries += 1; last = m.group(2).lower()
             if m.group(1).strip().replace("\\", "/").split("/")[-1].lower() == name.lower():
                 return last
             continue
         m = re.match(r"^([0-9A-Fa-f]{32,})\s+\*?(.+)$", line)
+        if m and want and len(m.group(1)) != want:
+            continue
         if m:
+            lines += 1
             entries += 1; last = m.group(1).lower()
             if m.group(2).strip().replace("\\", "/").split("/")[-1].lower() == name.lower():
                 return last
             continue
-        if re.fullmatch(r"[0-9A-Fa-f]{32,}", line):
+        if re.fullmatch(r"[0-9A-Fa-f]{32,}", line) and (not want or len(line) == want):
+            lines += 1
             only = line.lower()
     if lines == 1 and only:
         return only
@@ -100,7 +109,7 @@ for s in d["systems"]:
                 elif c.get("url"):
                     fname = urllib.parse.unquote(url.rstrip("/").split("/")[-1])
                     txt = req(c["url"].replace("{file}", fname)).read().decode("utf-8", "replace")
-                    h = find_hash(txt, fname)
+                    h = find_hash(txt, fname, c.get('algo', 'sha256'))
                     if h:
                         note += f" [hash ok {h[:10]}…]"
                     else:

@@ -49,6 +49,14 @@ namespace OsIsoDownloader.Core.Tests
         }
 
         [Fact]
+        public void PicksHashOfTheRightLength()
+        {
+            string t = new string('a', 32) + "  FD14.zip\n" + new string('b', 64) + "  FD14.zip\n";
+            Assert.Equal(new string('b', 64), ChecksumParser.Find(t, "FD14.zip", "sha256"));
+            Assert.Equal(new string('a', 32), ChecksumParser.Find(t, "FD14.zip", "md5"));
+        }
+
+        [Fact]
         public void ArchiveOrgPick()
         {
             string json = "{\"result\":[{\"name\":\"Win8.1_English_x32.iso\",\"size\":\"3\",\"sha1\":\"AA\"},"
@@ -133,6 +141,43 @@ namespace OsIsoDownloader.Core.Tests
         public void FileNameFromUrl()
         {
             Assert.Equal("a b.iso", Resolver.FileNameOf("https://x/y/a%20b.iso?mirror=1"));
+        }
+
+        private const string FakeCatalog = @"<?xml version=""1.0"" encoding=""UTF-8""?>
+<!DOCTYPE plist PUBLIC ""-//Apple//DTD PLIST 1.0//EN"" ""http://www.apple.com/DTDs/PropertyList-1.0.dtd"">
+<plist version=""1.0""><dict><key>Products</key><dict>
+<key>012-34567</key><dict><key>PostDate</key><date>2025-09-15T17:00:00Z</date>
+<key>Packages</key><array>
+<dict><key>URL</key><string>http://swcdn.apple.com/content/downloads/1/2/012-34567/abc/Other.pkg</string><key>Size</key><integer>10</integer></dict>
+<dict><key>URL</key><string>http://swcdn.apple.com/content/downloads/1/2/012-34567/abc/InstallAssistant.pkg</string><key>Size</key><integer>15000000000</integer><key>Digest</key><string>0123456789abcdef0123456789abcdef01234567</string></dict>
+</array><key>Distributions</key><dict><key>English</key><string>http://swcdn.apple.com/x.English.dist</string></dict></dict>
+<key>099-00000</key><dict><key>Packages</key><array><dict><key>URL</key><string>http://x/Update.pkg</string><key>Size</key><integer>5</integer></dict></array></dict>
+</dict></dict></plist>";
+
+        [Fact]
+        public void AppleCatalogFindsInstallers()
+        {
+            var list = AppleCatalog.Extract(FakeCatalog);
+            Assert.Single(list);
+            AppleInstaller a = list[0];
+            Assert.Equal("012-34567", a.ProductId);
+            Assert.StartsWith("https://", a.Url);
+            Assert.EndsWith("InstallAssistant.pkg", a.Url);
+            Assert.Equal(15000000000L, a.Size);
+            Assert.Equal("0123456789abcdef0123456789abcdef01234567", a.Sha1);
+            Assert.Equal(2025, a.PostDate.Value.Year);
+        }
+
+        [Fact]
+        public void AppleDistGivesNameVersionBuild()
+        {
+            var a = new AppleInstaller();
+            AppleCatalog.ApplyDist(a, "<auxinfo><dict><key>BUILD</key><string>25A354</string><key>VERSION</key><string>26.0</string></dict></auxinfo>"
+                + "\"SU_TITLE\" = \"macOS Tahoe\";");
+            Assert.Equal("macOS Tahoe 26.0 (25A354)", a.DisplayName);
+            var b = new AppleInstaller();
+            AppleCatalog.ApplyDist(b, "<key>VERSION</key><string>14.6.1</string><key>BUILD</key><string>23G93</string>");
+            Assert.Equal("macOS Sonoma 14.6.1 (23G93)", b.DisplayName);
         }
     }
 }

@@ -1,0 +1,19 @@
+name: apple
+on:
+  push:
+    paths: ['windows/OsIsoDownloader.Core/Apple.cs', 'windows/OsIsoDownloader.Probe/**', '.github/workflows/apple.yml']
+  workflow_dispatch:
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - run: dotnet run --project windows/OsIsoDownloader.Probe -c Release | tee apple.txt
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: apple-report
+          path: apple.txt

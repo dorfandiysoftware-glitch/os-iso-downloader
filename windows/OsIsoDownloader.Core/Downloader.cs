@@ -98,6 +98,11 @@ namespace OsIsoDownloader.Core
                 }
             }
 
+            long actual = new FileInfo(part).Length;
+            if (file.Size > 0 && actual != file.Size)
+            {
+                throw new InvalidOperationException("Розмір файлу не збігається: очікувалось " + file.Size + " Б, отримано " + actual + " Б. Натисни «Повторити» — завантаження продовжиться.");
+            }
             var result = new DownloadResult();
             if (!string.IsNullOrEmpty(file.Hash))
             {

@@ -583,6 +583,12 @@
       "childrenTitle": "Версія",
       "children": [
         {
+          "id": "macos-installers",
+          "name": "Інсталятори з серверів Apple",
+          "note": "Список береться з офіційного каталогу Apple під час відкриття. Файл InstallAssistant.pkg (10–17 ГБ). Ліцензія Apple дозволяє macOS лише на комп'ютерах Apple.",
+          "dynamic": "apple"
+        },
+        {
           "id": "macos-guide",
           "name": "macOS",
           "note": "Apple не дає ISO. Образи інсталятора качаються з App Store / Software Update.",

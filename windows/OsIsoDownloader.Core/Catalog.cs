@@ -50,6 +50,8 @@ namespace OsIsoDownloader.Core
         public List<FileEntry> Files { get; set; } = new List<FileEntry>();
         /// <summary>Settings for a virtual machine made from files under this node.</summary>
         public VmHint Vm { get; set; }
+        /// <summary>"apple": the files are fetched from Apple's catalog when the node is opened.</summary>
+        public string Dynamic { get; set; }
 
         [JsonIgnore]
         public bool HasChildren => Children != null && Children.Count > 0;

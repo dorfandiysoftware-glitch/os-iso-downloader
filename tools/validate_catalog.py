@@ -55,7 +55,7 @@ def walk(node, path, ids):
     kids, files = node.get("children", []), node.get("files", [])
     if kids and files:
         err(path, "node has both children and files")
-    if not kids and not files:
+    if not kids and not files and not node.get("dynamic"):
         err(path, "node is empty")
     for i, f in enumerate(files):
         check_file(f, f"{path}/files[{i}]")

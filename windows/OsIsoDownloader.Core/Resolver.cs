@@ -63,7 +63,7 @@ namespace OsIsoDownloader.Core
                 {
                     string sumUrl = sum.Url.Replace("{file}", name);
                     string text = await http.GetStringAsync(sumUrl, ct).ConfigureAwait(false);
-                    result.Hash = ChecksumParser.Find(text, name);
+                    result.Hash = ChecksumParser.Find(text, name, result.HashAlgo);
                     if (result.Hash == null)
                     {
                         throw new InvalidOperationException("The checksum file does not list " + name + ".");

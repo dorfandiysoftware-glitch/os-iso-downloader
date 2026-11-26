@@ -223,6 +223,34 @@ namespace OsIsoDownloader.App
             Choices.ItemsSource = filtered;
         }
 
+        private async Task LoadAppleAsync(Node n)
+        {
+            StepText.Text = "Завантажую каталог Apple… (це може тривати до хвилини)";
+            Choices.ItemsSource = null;
+            try
+            {
+                List<AppleInstaller> list = await AppleCatalog.FetchAsync(_http, CancellationToken.None);
+                foreach (AppleInstaller a in list)
+                {
+                    n.Files.Add(new FileEntry
+                    {
+                        Name = a.DisplayName, Kind = "iso", Url = a.Url, Size = a.Size, Verified = true,
+                        Source = "https://swscan.apple.com", Arch = "Intel і Apple Silicon",
+                        Note = a.PostDate.HasValue ? a.PostDate.Value.ToString("yyyy-MM-dd") : null,
+                        Checksum = a.Sha1 != null ? new Checksum { Algo = "sha1", Value = a.Sha1 } : null,
+                    });
+                }
+                if (_path.Count > 0 && _path.Peek() == n)
+                {
+                    ShowLevel();
+                }
+            }
+            catch (Exception e)
+            {
+                StepText.Text = "Не вдалося отримати каталог Apple: " + e.Message;
+            }
+        }
+
         private string PathTitle()
         {
             var parts = _path.ToArray();
@@ -242,7 +270,9 @@ namespace OsIsoDownloader.App
             if (f.IsArchived) bits.Add("старий / неофіційний образ");
             if (f.Unzip) bits.Add("розпакується автоматично");
             if (!string.IsNullOrEmpty(f.Arch)) bits.Add(f.Arch);
+            if (f.Size > 0) bits.Add(DownloadItem.Size(f.Size));
             if (f.Checksum != null) bits.Add("з перевіркою хешу");
+            else if (f.Size > 0) bits.Add("перевірка за розміром");
             if (!f.Verified) bits.Add("посилання ще не підтверджене");
             if (!string.IsNullOrEmpty(f.Note)) bits.Add(f.Note);
             return string.Join(" · ", bits);
@@ -264,6 +294,10 @@ namespace OsIsoDownloader.App
             {
                 _path.Push(c.Node);
                 ShowLevel();
+                if (c.Node.Dynamic == "apple" && c.Node.Files.Count == 0)
+                {
+                    await LoadAppleAsync(c.Node);
+                }
                 return;
             }
             FileEntry f = c.File;
@@ -350,7 +384,12 @@ namespace OsIsoDownloader.App
                 item.State = DownloadState.Done;
                 item.ActionLabel = "Показати";
                 History.Save(_items);
-                if (r.HashOk == true)
+                if (finalPath.EndsWith(".pkg", StringComparison.OrdinalIgnoreCase))
+                {
+                    item.Status = "Готово: " + finalPath + (r.HashOk == true ? " (хеш збігається ✓)" : " (розмір збігається з каталогом Apple)")
+                        + ". На Mac двічі клацни .pkg, щоб отримати Install macOS.app.";
+                }
+                else if (r.HashOk == true)
                 {
                     item.Status = "Готово, хеш збігається ✓  " + finalPath;
                 }
