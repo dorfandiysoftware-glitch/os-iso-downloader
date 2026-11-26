@@ -5,13 +5,10 @@ jobs:
   fido:
     runs-on: ubuntu-latest
     steps:
-      - name: Fido links and editions
+      - uses: actions/checkout@v4
+      - name: Fido parse part
         run: |
           curl -sSL https://raw.githubusercontent.com/pbatard/Fido/master/Fido.ps1 -o Fido.ps1
-          echo "=== LINKS PARSE"; sed -n '800,860p' Fido.ps1 | cut -c1-220
-          echo "=== VERSIONS TABLE"; grep -nE '"Windows (10|11)|Windows (10|11)"|Release|Edition|@\(@\(' Fido.ps1 | sed -n '1,70p' | cut -c1-200
-      - name: TempleOS on archive.org
-        run: |
-          for id in TempleOS_ISO_Archive TempleOS20171215 temple-os; do
-            echo "== $id"; curl -sS "https://archive.org/metadata/$id/files" | python3 -c "import json,sys; d=json.load(sys.stdin); [print(f['name'], f.get('size'), f.get('sha1')) for f in d.get('result',[]) if f['name'].lower().endswith(('.iso','.zip','.img','.7z'))]"
-          done
+          sed -n '136,162p;770,800p' Fido.ps1 | cut -c1-220
+      - name: Try the Microsoft flow from CI
+        run: python3 tools/ms_probe.py
