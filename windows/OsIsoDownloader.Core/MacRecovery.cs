@@ -118,7 +118,9 @@ namespace OsIsoDownloader.Core
             }
             var req = new HttpRequestMessage(HttpMethod.Post, Host + "/InstallationPayload/RecoveryImage");
             req.Headers.TryAddWithoutValidation("Cookie", session);
-            req.Content = new StringContent(BuildBody(boardId, MlbZero, os, new Random()), Encoding.ASCII, "text/plain");
+            var content = new ByteArrayContent(Encoding.ASCII.GetBytes(BuildBody(boardId, MlbZero, os, new Random())));
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("text/plain");
+            req.Content = content;
             using (var resp = await http.SendAsync(req, ct).ConfigureAwait(false))
             {
                 string text = await resp.Content.ReadAsStringAsync(ct).ConfigureAwait(false);
