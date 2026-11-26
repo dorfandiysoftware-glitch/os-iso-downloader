@@ -1,0 +1,12 @@
+name: peek
+on:
+  workflow_dispatch:
+jobs:
+  fido:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch Fido.ps1 and show the Microsoft API parts
+        run: |
+          curl -sSL https://raw.githubusercontent.com/pbatard/Fido/master/Fido.ps1 -o Fido.ps1
+          wc -l Fido.ps1
+          grep -nE "microsoft.com|sessionId|session_id|ProfileID|profile|Locale|SkuId|productEditionId|GetSkuInformation|GetProductDownloadLinks|UserAgent|Referer|vlscppe|org_id" Fido.ps1 | cut -c1-260 | head -120
