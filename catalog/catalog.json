@@ -259,19 +259,6 @@
               "verified": false,
               "note": "Неофіційне джерело: archive.org.",
               "arch": "x86_64"
-            },
-            {
-              "name": "Desktop і Server",
-              "kind": "archived",
-              "resolve": {
-                "type": "archive",
-                "id": "RedStarOS",
-                "pattern": ".*\\.iso"
-              },
-              "source": "https://archive.org/details/RedStarOS",
-              "verified": false,
-              "note": "Неофіційне джерело: archive.org.",
-              "arch": "x86_64"
             }
           ]
         },
@@ -288,10 +275,10 @@
               "verified": true
             },
             {
-              "name": "LFS LiveCD 6.3 (старий, ~2007)",
-              "kind": "archived",
+              "name": "LFS LiveCD 6.3 (старий, ~2007): сторінка проєкту",
+              "kind": "guide",
               "url": "https://www.linuxfromscratch.org/livecd/",
-              "note": "Дуже старий образ. Сторінка проєкту; пряме посилання перевіряється в CI.",
+              "note": "Образ дуже старий; на сторінці проєкту, а не прямим файлом.",
               "source": "https://www.linuxfromscratch.org/livecd/",
               "verified": false
             }
