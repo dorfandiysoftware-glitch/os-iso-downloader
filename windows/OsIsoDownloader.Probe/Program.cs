@@ -31,7 +31,13 @@ internal static class Program
                     Console.WriteLine("IPSW " + u + " FAILED " + e.Message);
                 }
             }
-            return 0;
+            var parsed = await IpswCatalog.FetchAsync(h, CancellationToken.None);
+            Console.WriteLine("IPSWPARSED " + parsed.Count);
+            foreach (var a in parsed.GetRange(0, Math.Min(8, parsed.Count)))
+            {
+                Console.WriteLine($"IPSWPARSED {a.DisplayName} | {a.Size / 1048576} MiB | sha256={a.Sha256} | sha1={a.Sha1} | {a.Url}");
+            }
+            return parsed.Count > 0 ? 0 : 1;
         }
         if (args.Length > 0 && args[0] == "recovery")
         {
