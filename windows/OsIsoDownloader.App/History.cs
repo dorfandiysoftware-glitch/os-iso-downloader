@@ -12,6 +12,7 @@ namespace OsIsoDownloader.App
         public string Title { get; set; }
         public string Path { get; set; }
         public VmHint Vm { get; set; }
+        public bool IsMac { get; set; }
     }
 
     /// <summary>Remembers finished downloads between runs.</summary>
@@ -78,7 +79,7 @@ namespace OsIsoDownloader.App
                 {
                     if (i.State == DownloadState.Done && i.Path != null)
                     {
-                        list.Add(new HistoryEntry { Title = i.Title, Path = i.Path, Vm = i.Vm });
+                        list.Add(new HistoryEntry { Title = i.Title, Path = i.Path, Vm = i.Vm, IsMac = i.IsMac });
                     }
                 }
                 File.WriteAllText(FilePath(), JsonSerializer.Serialize(list));

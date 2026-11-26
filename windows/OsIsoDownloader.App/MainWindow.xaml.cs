@@ -63,7 +63,7 @@ namespace OsIsoDownloader.App
                 {
                     _items.Add(new DownloadItem
                     {
-                        Title = h.Title, Path = h.Path, Vm = h.Vm, State = DownloadState.Done, Percent = 100,
+                        Title = h.Title, Path = h.Path, Vm = h.Vm, IsMac = h.IsMac, State = DownloadState.Done, Percent = 100,
                         Status = "Готово: " + h.Path, ActionLabel = "Показати",
                     });
                 }
@@ -251,6 +251,35 @@ namespace OsIsoDownloader.App
             }
         }
 
+        private async Task LoadIpswAsync(Node n)
+        {
+            StepText.Text = "Завантажую список образів для Apple Silicon…";
+            Choices.ItemsSource = null;
+            try
+            {
+                List<AppleInstaller> list = await IpswCatalog.FetchAsync(_http, CancellationToken.None);
+                foreach (AppleInstaller a in list)
+                {
+                    n.Files.Add(new FileEntry
+                    {
+                        Name = a.DisplayName + " (.ipsw)", Kind = "iso", Url = a.Url, Size = a.Size, Verified = true,
+                        Source = "https://ipsw.me", Arch = "Apple Silicon",
+                        Note = a.PostDate.HasValue ? a.PostDate.Value.ToString("yyyy-MM-dd") : null,
+                        Checksum = a.Sha256 != null ? new Checksum { Algo = "sha256", Value = a.Sha256 }
+                            : a.Sha1 != null ? new Checksum { Algo = "sha1", Value = a.Sha1 } : null,
+                    });
+                }
+                if (_path.Count > 0 && _path.Peek() == n)
+                {
+                    ShowLevel();
+                }
+            }
+            catch (Exception e)
+            {
+                StepText.Text = "Не вдалося отримати список: " + e.Message;
+            }
+        }
+
         private string PathTitle()
         {
             var parts = _path.ToArray();
@@ -298,6 +327,23 @@ namespace OsIsoDownloader.App
                 {
                     await LoadAppleAsync(c.Node);
                 }
+                else if (c.Node.Dynamic == "ipsw" && c.Node.Files.Count == 0)
+                {
+                    await LoadIpswAsync(c.Node);
+                }
+                else if (c.Node.Dynamic == "macrecovery" && c.Node.Files.Count == 0)
+                {
+                    foreach (RecoveryPreset p in MacRecovery.Presets)
+                    {
+                        c.Node.Files.Add(new FileEntry
+                        {
+                            Name = p.Name, Kind = "macrecovery", Url = "macrecovery:" + p.BoardId, Verified = true,
+                            Source = "http://osrecovery.apple.com", Arch = "Intel",
+                            Note = "образ відновлення ≈0,5–0,7 ГБ → диск ≈3 ГБ для віртуальної машини",
+                        });
+                    }
+                    ShowLevel();
+                }
                 return;
             }
             FileEntry f = c.File;
@@ -327,8 +373,79 @@ namespace OsIsoDownloader.App
         private void Start(FileEntry entry, string title)
         {
             var item = new DownloadItem { Entry = entry, Title = title, Folder = _folder, Vm = FindVm() };
+            item.IsMac = entry.Kind == "macrecovery";
             _items.Insert(0, item);
-            _ = RunAsync(item);
+            _ = item.IsMac ? RunMacAsync(item) : RunAsync(item);
+        }
+
+        private async Task RunMacAsync(DownloadItem item)
+        {
+            item.Cts = new CancellationTokenSource();
+            CancellationToken ct = item.Cts.Token;
+            item.State = DownloadState.Downloading;
+            item.ActionLabel = "Пауза";
+            try
+            {
+                string board = item.Entry.Url.Substring("macrecovery:".Length);
+                string name = Downloader.SafeName(item.Entry.Name);
+                string work = Path.Combine(item.Folder, name);
+                string img = Path.Combine(work, name + ".img");
+                HttpClient mac = MacRecovery.CreateClient();
+                item.Status = "Прошу в Apple образ відновлення…";
+                RecoveryImage info = await MacRecovery.GetImageAsync(mac, board, "default", ct);
+                await Downloader.RunAsync(mac, new ResolvedFile { Url = info.ChunklistUrl, FileName = "BaseSystem.chunklist", Headers = MacRecovery.AssetHeaders(info.ChunklistToken) }, work, null, null, ct);
+                var progress = new Progress<DownloadProgress>(p =>
+                {
+                    if (p.Total > 0)
+                    {
+                        item.Percent = 60.0 * p.Received / p.Total;
+                    }
+                    item.Status = "Завантаження: " + DownloadItem.Size(p.Received) + (p.Total > 0 ? " з " + DownloadItem.Size(p.Total) : "")
+                        + "  ·  " + DownloadItem.Size((long)p.BytesPerSecond) + "/с";
+                });
+                await Downloader.RunAsync(mac, new ResolvedFile { Url = info.ImageUrl, FileName = "BaseSystem.dmg", Headers = MacRecovery.AssetHeaders(info.ImageToken) }, work, progress, null, ct);
+
+                item.State = DownloadState.Verifying;
+                item.Status = "Перевіряю образ за списком контрольних сум Apple…";
+                string dmg = Path.Combine(work, "BaseSystem.dmg");
+                string cl = Path.Combine(work, "BaseSystem.chunklist");
+                string bad = await MacRecovery.VerifyChunklistAsync(dmg, cl, new Progress<double>(f => item.Percent = 60 + 15 * f), ct);
+                if (bad != null)
+                {
+                    File.Delete(dmg);
+                    throw new InvalidOperationException("Образ пошкоджений: " + bad + " Файл видалено, натисни «Повторити».");
+                }
+
+                item.Status = "Перетворюю .dmg у диск…";
+                await DmgConverter.ConvertAsync(dmg, img, new Progress<double>(f => item.Percent = 75 + 25 * f), ct);
+                File.Delete(dmg);
+                File.Delete(cl);
+                item.State = DownloadState.Done;
+                item.Percent = 100;
+                item.Path = img;
+                item.ActionLabel = "Показати";
+                item.Status = "Готово, перевірено за chunklist Apple ✓  " + img + "  (диск ≈3 ГБ; це образ відновлення, а не ISO)";
+                History.Save(_items);
+            }
+            catch (OperationCanceledException)
+            {
+                if (item.State == DownloadState.Cancelled)
+                {
+                    item.Status = "Скасовано";
+                }
+                else
+                {
+                    item.State = DownloadState.Paused;
+                    item.Status = "Пауза (частину збережено)";
+                    item.ActionLabel = "Продовжити";
+                }
+            }
+            catch (Exception ex)
+            {
+                item.State = DownloadState.Failed;
+                item.Status = "Помилка: " + ex.Message;
+                item.ActionLabel = "Повторити";
+            }
         }
 
         private VmHint FindVm()
@@ -440,7 +557,7 @@ namespace OsIsoDownloader.App
                 case DownloadState.Paused:
                 case DownloadState.Failed:
                     item.State = DownloadState.Waiting;
-                    _ = RunAsync(item);
+                    _ = item.IsMac ? RunMacAsync(item) : RunAsync(item);
                     break;
                 case DownloadState.Done:
                     if (item.Path != null)
@@ -491,6 +608,60 @@ namespace OsIsoDownloader.App
             }
         }
 
+        private async Task CreateMacVmAsync(DownloadItem item, string vbm)
+        {
+            if (vbm == null)
+            {
+                await Info("Потрібен VirtualBox", "Для macOS підтримується лише VirtualBox.", "VirtualBox", null,
+                    () => Open("https://www.virtualbox.org/wiki/Downloads"));
+                return;
+            }
+            var name = new TextBox { Header = "Назва", Text = Path.GetFileNameWithoutExtension(item.Path) };
+            var ram = new NumberBox { Header = "ОЗП, МБ", Value = 4096, Minimum = 4096, SmallChange = 1024, SpinButtonPlacementMode = NumberBoxSpinButtonPlacementMode.Inline };
+            var cpus = new NumberBox { Header = "Ядра", Value = 2, Minimum = 1, Maximum = 32, SpinButtonPlacementMode = NumberBoxSpinButtonPlacementMode.Inline };
+            var disk = new NumberBox { Header = "Диск для macOS, ГБ", Value = 60, Minimum = 30, SmallChange = 10, SpinButtonPlacementMode = NumberBoxSpinButtonPlacementMode.Inline };
+            var start = new CheckBox { Content = "Запустити після створення", IsChecked = true };
+            var warn = new TextBlock
+            {
+                TextWrapping = TextWrapping.Wrap, Opacity = 0.8,
+                Text = "Експериментально. Образ відновлення завантажить macOS з серверів Apple, тож потрібен інтернет у машині. "
+                    + "Apple дозволяє macOS лише на своєму залізі. macOS 13 і новіші вимагають процесор з AVX2.",
+            };
+            var panel = new StackPanel { Spacing = 10, MinWidth = 360 };
+            foreach (UIElement u in new UIElement[] { warn, name, ram, cpus, disk, start })
+            {
+                panel.Children.Add(u);
+            }
+            var dlg = new ContentDialog
+            {
+                Title = "Створити віртуальну машину macOS", Content = panel, PrimaryButtonText = "Створити",
+                CloseButtonText = "Скасувати", DefaultButton = ContentDialogButton.Primary, XamlRoot = Root.XamlRoot,
+            };
+            if (await dlg.ShowAsync() != ContentDialogResult.Primary)
+            {
+                return;
+            }
+            string home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            var spec = new VmSpec
+            {
+                Name = name.Text, IsoPath = item.Path, Folder = Path.Combine(home, "VirtualBox VMs"),
+                RamMb = (int)ram.Value, Cpus = (int)cpus.Value, DiskGb = (int)disk.Value, VboxType = "MacOS1013_64",
+            };
+            string before = item.Status;
+            item.Status = "Створюю віртуальну машину…";
+            try
+            {
+                string log = await VmTools.CreateVBoxMacAsync(vbm, spec, start.IsChecked == true, CancellationToken.None);
+                item.Status = before;
+                await Info("Машину створено", log.Length > 1500 ? log.Substring(log.Length - 1500) : log);
+            }
+            catch (Exception ex)
+            {
+                item.Status = before;
+                await Info("Не вдалося створити машину", ex.Message);
+            }
+        }
+
         private static void Open(string url)
         {
             _ = Windows.System.Launcher.LaunchUriAsync(new Uri(url));
@@ -503,6 +674,11 @@ namespace OsIsoDownloader.App
             string qemu = VmTools.FindQemu("qemu-system-x86_64.exe");
             string qimg = VmTools.FindQemu("qemu-img.exe");
             bool hasQemu = qemu != null && qimg != null;
+            if (item.IsMac)
+            {
+                await CreateMacVmAsync(item, vbm);
+                return;
+            }
             VmHint h = item.Vm ?? new VmHint();
             var name = new TextBox { Header = "Назва", Text = Path.GetFileNameWithoutExtension(item.Path) };
             var ram = new NumberBox { Header = "ОЗП, МБ", Value = h.Ram, Minimum = 256, SmallChange = 256, SpinButtonPlacementMode = NumberBoxSpinButtonPlacementMode.Inline };

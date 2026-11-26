@@ -8,7 +8,7 @@ const out = process.argv[2];
 fs.mkdirSync(out, { recursive: true });
 const SI = { linux: ["siLinux", "2B2B2B"], bsd: ["siFreebsd"], freebsd: ["siFreebsd"], openbsd: ["siOpenbsd", "C9A200"],
   netbsd: ["siNetbsd"], debian: ["siDebian"], ubuntu: ["siUbuntu"], "fedora-kde": ["siFedora"], mint: ["siLinuxmint"],
-  "opensuse-tw": ["siOpensuse"], arch: ["siArchlinux"], alpine: ["siAlpinelinux"], macos: ["siApple"], "macos-guide": ["siApple"], "macos-installers": ["siApple"],
+  "opensuse-tw": ["siOpensuse"], arch: ["siArchlinux"], alpine: ["siAlpinelinux"], macos: ["siApple"], "macos-guide": ["siApple"], "macos-installers": ["siApple"], "macos-recovery": ["siApple"], "macos-hackintosh": ["siApple"], "macos-arm": ["siApple"],
   android: ["siAndroid"], "android-x86": ["siAndroid"] };
 const DEV = { windows: "windows11/windows11-original.svg", win11: "windows11/windows11-original.svg",
   win10: "windows8/windows8-original.svg", win81: "windows8/windows8-original.svg" };

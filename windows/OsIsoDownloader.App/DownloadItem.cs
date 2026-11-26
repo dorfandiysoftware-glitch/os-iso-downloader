@@ -18,6 +18,8 @@ namespace OsIsoDownloader.App
         public ResolvedFile Resolved;
         public bool Resumable = true;
         public VmHint Vm;
+        /// <summary>A macOS recovery disk image (.img) made by the app.</summary>
+        public bool IsMac;
 
         private string _title;
         private string _status = "У черзі";
@@ -33,7 +35,7 @@ namespace OsIsoDownloader.App
         public string ActionLabel { get => _actionLabel; set { _actionLabel = value; Raise("ActionLabel"); } }
         public string Path { get => _path; set { _path = value; Raise("Path"); Raise("VmVisibility"); } }
         public Visibility VmVisibility =>
-            _path != null && _path.EndsWith(".iso", StringComparison.OrdinalIgnoreCase) ? Visibility.Visible : Visibility.Collapsed;
+            _path != null && (IsMac || _path.EndsWith(".iso", StringComparison.OrdinalIgnoreCase)) ? Visibility.Visible : Visibility.Collapsed;
         public DownloadState State = DownloadState.Waiting;
 
         private void Raise(string n)

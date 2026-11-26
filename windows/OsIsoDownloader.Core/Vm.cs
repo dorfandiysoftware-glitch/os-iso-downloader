@@ -78,6 +78,49 @@ namespace OsIsoDownloader.Core
             return list;
         }
 
+        /// <summary>
+        /// A macOS machine in VirtualBox: EFI, an Apple-style hardware identity, the recovery disk first and an empty disk to install on.
+        /// Experimental: macOS does not officially run in VirtualBox on non-Apple hardware.
+        /// </summary>
+        public static List<string[]> VBoxMac(VmSpec s, string recoveryVdi, bool start)
+        {
+            string n = VmSpec.SafeName(s.Name);
+            string[] extra =
+            {
+                "VBoxInternal/Devices/efi/0/Config/DmiSystemProduct", "iMac19,1",
+                "VBoxInternal/Devices/efi/0/Config/DmiSystemVersion", "1.0",
+                "VBoxInternal/Devices/efi/0/Config/DmiBoardProduct", "Mac-AA95B1DDAB278B95",
+                "VBoxInternal/Devices/smc/0/Config/DeviceKey", "ourhardworkbythesewordsguardedpleasedontsteal(c)AppleComputerInc",
+                "VBoxInternal/Devices/smc/0/Config/GetKeyFromRealSMC", "1",
+                "VBoxInternal2/EfiGraphicsResolution", "1920x1080",
+            };
+            var list = new List<string[]>
+            {
+                new[] { "createvm", "--name", n, "--ostype", s.VboxType, "--register", "--basefolder", s.Folder },
+                new[]
+                {
+                    "modifyvm", n, "--memory", s.RamMb.ToString(), "--cpus", s.Cpus.ToString(), "--vram", "128",
+                    "--firmware", "efi", "--chipset", "ich9", "--graphicscontroller", "vmsvga", "--ioapic", "on",
+                    "--nic1", "nat", "--nictype1", "82545EM", "--mouse", "usbtablet", "--keyboard", "usb",
+                    "--cpuidset", "00000001", "000106e5", "00100800", "0098e3fd", "bfebfbff",
+                },
+            };
+            for (int i = 0; i < extra.Length; i += 2)
+            {
+                list.Add(new[] { "setextradata", n, extra[i], extra[i + 1] });
+            }
+            list.Add(new[] { "convertfromraw", s.IsoPath, recoveryVdi, "--format", "VDI" });
+            list.Add(new[] { "createmedium", "disk", "--filename", s.DiskPath(".vdi"), "--size", (s.DiskGb * 1024).ToString(), "--format", "VDI" });
+            list.Add(new[] { "storagectl", n, "--name", "SATA", "--add", "sata", "--controller", "IntelAhci" });
+            list.Add(new[] { "storageattach", n, "--storagectl", "SATA", "--port", "0", "--device", "0", "--type", "hdd", "--medium", recoveryVdi });
+            list.Add(new[] { "storageattach", n, "--storagectl", "SATA", "--port", "1", "--device", "0", "--type", "hdd", "--medium", s.DiskPath(".vdi") });
+            if (start)
+            {
+                list.Add(new[] { "startvm", n });
+            }
+            return list;
+        }
+
         public static string[] QemuImg(VmSpec s)
         {
             return new[] { "create", "-f", "qcow2", s.DiskPath(".qcow2"), s.DiskGb + "G" };
@@ -281,6 +324,26 @@ namespace OsIsoDownloader.Core
             Directory.CreateDirectory(spec.Folder);
             var log = new StringBuilder();
             foreach (string[] step in VmCommands.VBox(spec, start))
+            {
+                RunResult r = await RunAsync(vbm, step, ct).ConfigureAwait(false);
+                log.AppendLine("> VBoxManage " + step[0] + " …").AppendLine(r.Output);
+                if (r.Code != 0)
+                {
+                    throw new InvalidOperationException("VBoxManage " + step[0] + " (код " + r.Code + "): " + r.Output);
+                }
+            }
+            return log.ToString();
+        }
+
+        /// <summary>Makes a macOS machine from a recovery disk image (see VmCommands.VBoxMac).</summary>
+        public static async Task<string> CreateVBoxMacAsync(string vbm, VmSpec spec, bool start, CancellationToken ct)
+        {
+            string wanted = await PickVBoxType(vbm, "MacOS1013_64", ct).ConfigureAwait(false);
+            spec.VboxType = wanted;
+            Directory.CreateDirectory(spec.Folder);
+            string recovery = spec.DiskPath("-recovery.vdi");
+            var log = new StringBuilder();
+            foreach (string[] step in VmCommands.VBoxMac(spec, recovery, start))
             {
                 RunResult r = await RunAsync(vbm, step, ct).ConfigureAwait(false);
                 log.AppendLine("> VBoxManage " + step[0] + " …").AppendLine(r.Output);

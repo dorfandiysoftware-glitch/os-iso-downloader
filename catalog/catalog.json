@@ -589,6 +589,12 @@
           "dynamic": "apple"
         },
         {
+          "id": "macos-recovery",
+          "name": "Образ відновлення для ВМ (Big Sur, Monterey, Catalina)",
+          "note": "Малий завантажувальний образ з сервера Internet Recovery від Apple. Застосунок перевіряє його за списком контрольних сум Apple і перетворює на диск для VirtualBox. Це не ISO: macOS докачається з серверів Apple під час інсталяції.",
+          "dynamic": "macrecovery"
+        },
+        {
           "id": "macos-guide",
           "name": "macOS",
           "note": "Apple не дає ISO. Образи інсталятора качаються з App Store / Software Update.",
@@ -599,6 +605,79 @@
               "url": "https://support.apple.com/102662",
               "source": "https://support.apple.com/102662",
               "verified": false
+            }
+          ]
+        },
+        {
+          "id": "macos-hackintosh",
+          "name": "Hackintosh (OpenCore)",
+          "note": "OpenCore: відкритий завантажувач для macOS на звичайному ПК. Потрібне налаштування під твоє залізо за посібником Dortania.",
+          "files": [
+            {
+              "name": "OpenCore (останній реліз, RELEASE)",
+              "arch": "x86_64",
+              "recommended": true,
+              "resolve": {
+                "type": "github",
+                "id": "acidanthera/OpenCorePkg",
+                "pattern": "OpenCore-[\\d.]+-RELEASE\\.zip"
+              },
+              "source": "https://github.com/acidanthera/OpenCorePkg/releases",
+              "verified": false
+            },
+            {
+              "name": "Посібник Dortania (OpenCore Install Guide)",
+              "kind": "guide",
+              "url": "https://dortania.github.io/OpenCore-Install-Guide/",
+              "source": "https://dortania.github.io/OpenCore-Install-Guide/",
+              "verified": true
+            },
+            {
+              "name": "OSX-KVM (macOS у QEMU/KVM на Linux)",
+              "kind": "guide",
+              "url": "https://github.com/kholia/OSX-KVM",
+              "source": "https://github.com/kholia/OSX-KVM",
+              "verified": true
+            }
+          ]
+        },
+        {
+          "id": "macos-arm",
+          "name": "macOS для Apple Silicon (ARM)",
+          "note": "macOS для ARM запускається у віртуальних машинах лише на Mac з чипом Apple Silicon: на ПК з Windows це неможливо. Образи .ipsw беруться з серверів Apple (список від ipsw.me). Відкриті програми для запуску: UTM, VirtualBuddy, Tart.",
+          "children": [
+            {
+              "id": "macos-arm-ipsw",
+              "name": "Образи .ipsw (macOS для ARM)",
+              "note": "Файл відкривається у UTM / VirtualBuddy / Tart на Mac з Apple Silicon.",
+              "dynamic": "ipsw"
+            },
+            {
+              "id": "macos-arm-tools",
+              "name": "Програми для запуску (відкриті)",
+              "files": [
+                {
+                  "name": "UTM (відкритий, GitHub)",
+                  "kind": "guide",
+                  "url": "https://github.com/utmapp/UTM",
+                  "source": "https://github.com/utmapp/UTM",
+                  "verified": false
+                },
+                {
+                  "name": "VirtualBuddy (відкритий, GitHub)",
+                  "kind": "guide",
+                  "url": "https://github.com/insidegui/VirtualBuddy",
+                  "source": "https://github.com/insidegui/VirtualBuddy",
+                  "verified": false
+                },
+                {
+                  "name": "Tart (відкритий, GitHub)",
+                  "kind": "guide",
+                  "url": "https://github.com/cirruslabs/tart",
+                  "source": "https://github.com/cirruslabs/tart",
+                  "verified": false
+                }
+              ]
             }
           ]
         }

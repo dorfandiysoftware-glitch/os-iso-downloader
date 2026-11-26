@@ -47,6 +47,20 @@ namespace OsIsoDownloader.Core.Tests
         }
 
         [Fact]
+        public void MacRecipeOrder()
+        {
+            VmSpec sp = Spec();
+            sp.IsoPath = @"C:\ISO\BaseSystem.img";
+            var steps = VmCommands.VBoxMac(sp, @"C:\VMs\Debian 13\rec.vdi", true);
+            string[] names = steps.Select(x => x[0]).ToArray();
+            Assert.Equal("createvm", names[0]);
+            Assert.True(System.Array.IndexOf(names, "convertfromraw") > System.Array.IndexOf(names, "setextradata"));
+            Assert.Equal("startvm", names.Last());
+            Assert.Contains("efi", steps[1]);
+            Assert.Contains(steps, x => x[0] == "storageattach" && x.Contains("0") && x.Contains(@"C:\VMs\Debian 13\rec.vdi"));
+        }
+
+        [Fact]
         public void QemuVirtioSwitch()
         {
             string[] a = VmCommands.QemuRun(Spec(virtio: true), null);

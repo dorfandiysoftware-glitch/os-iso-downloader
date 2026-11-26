@@ -93,6 +93,7 @@ namespace OsIsoDownloader.Core
         public long Size { get; set; }
         /// <summary>SHA-1 of the package if the catalog lists one, else null.</summary>
         public string Sha1 { get; set; }
+        public string Sha256 { get; set; }
         public DateTime? PostDate { get; set; }
         public string DistUrl { get; set; }
 
@@ -298,6 +299,65 @@ namespace OsIsoDownloader.Core
                     a.Title = "macOS";
                 }
             })).ConfigureAwait(false);
+        }
+    }
+
+    /// <summary>macOS restore images (.ipsw) for virtual Macs on Apple Silicon, listed by ipsw.me; the files are on Apple's servers.</summary>
+    public static class IpswCatalog
+    {
+        public const string Url = "https://api.ipsw.me/v4/device/VirtualMac2,1?type=ipsw";
+
+        public static async Task<List<AppleInstaller>> FetchAsync(HttpClient http, CancellationToken ct)
+        {
+            return Parse(await http.GetStringAsync(Url, ct).ConfigureAwait(false));
+        }
+
+        public static List<AppleInstaller> Parse(string json)
+        {
+            var list = new List<AppleInstaller>();
+            using (System.Text.Json.JsonDocument doc = System.Text.Json.JsonDocument.Parse(json))
+            {
+                System.Text.Json.JsonElement fw;
+                if (!doc.RootElement.TryGetProperty("firmwares", out fw))
+                {
+                    return list;
+                }
+                foreach (System.Text.Json.JsonElement f in fw.EnumerateArray())
+                {
+                    string url = Text(f, "url");
+                    if (url == null || !url.EndsWith(".ipsw", StringComparison.OrdinalIgnoreCase))
+                    {
+                        continue;
+                    }
+                    var a = new AppleInstaller { Url = url, Version = Text(f, "version"), Build = Text(f, "buildid") };
+                    a.Title = AppleCatalog.MarketingName(a.Version);
+                    a.Sha1 = Text(f, "sha1sum");
+                    a.Sha256 = Text(f, "sha256sum");
+                    System.Text.Json.JsonElement v;
+                    if (f.TryGetProperty("filesize", out v) && v.ValueKind == System.Text.Json.JsonValueKind.Number)
+                    {
+                        a.Size = v.GetInt64();
+                    }
+                    DateTime d;
+                    if (DateTime.TryParse(Text(f, "releasedate"), null, System.Globalization.DateTimeStyles.AdjustToUniversal, out d))
+                    {
+                        a.PostDate = d;
+                    }
+                    list.Add(a);
+                }
+            }
+            list.Sort((x, y) =>
+            {
+                int c = VersionCompare.Instance.Compare(y.Version ?? "", x.Version ?? "");
+                return c != 0 ? c : string.CompareOrdinal(y.Build ?? "", x.Build ?? "");
+            });
+            return list;
+        }
+
+        private static string Text(System.Text.Json.JsonElement e, string name)
+        {
+            System.Text.Json.JsonElement v;
+            return e.TryGetProperty(name, out v) && v.ValueKind == System.Text.Json.JsonValueKind.String && v.GetString().Length > 0 ? v.GetString() : null;
         }
     }
 }

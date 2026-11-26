@@ -293,5 +293,17 @@ namespace OsIsoDownloader.Core.Tests
             Assert.Equal("ab12", r.Hash);
             Assert.Equal(7, r.Size);
         }
+
+        [Fact]
+        public void IpswListParses()
+        {
+            string json = "{\"firmwares\":[{\"version\":\"15.1\",\"buildid\":\"24B83\",\"url\":\"https://updates.cdn-apple.com/a/UniversalMac_15.1_24B83_Restore.ipsw\",\"filesize\":17000000000,\"sha256sum\":\"" + new string('a', 64) + "\",\"releasedate\":\"2024-10-28T00:00:00Z\"},"
+                + "{\"version\":\"14.6\",\"buildid\":\"23G80\",\"url\":\"https://x/y.ipsw\",\"filesize\":1}]}";
+            var l = IpswCatalog.Parse(json);
+            Assert.Equal(2, l.Count);
+            Assert.Equal("macOS Sequoia 15.1 (24B83)", l[0].DisplayName);
+            Assert.Equal(new string('a', 64), l[0].Sha256);
+            Assert.Equal(17000000000L, l[0].Size);
+        }
     }
 }
