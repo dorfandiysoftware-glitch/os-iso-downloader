@@ -27,6 +27,10 @@ namespace OsIsoDownloader.Core
         public static async Task<ResolvedFile> ResolveAsync(HttpClient http, FileEntry entry, CancellationToken ct)
         {
             string url = entry.Url;
+            if (url != null && url.StartsWith("ms:", StringComparison.Ordinal))
+            {
+                return await MsDownload.ResolveAsync(http, url, ct).ConfigureAwait(false);
+            }
             ResolvedFile fromArchive = null;
             if (string.IsNullOrEmpty(url))
             {

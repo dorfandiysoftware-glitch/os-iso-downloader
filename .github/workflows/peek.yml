@@ -2,13 +2,12 @@ name: peek
 on:
   workflow_dispatch:
 jobs:
-  fido:
+  ms:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Fido parse part
-        run: |
-          curl -sSL https://raw.githubusercontent.com/pbatard/Fido/master/Fido.ps1 -o Fido.ps1
-          sed -n '136,162p;770,800p' Fido.ps1 | cut -c1-220
-      - name: Try the Microsoft flow from CI
-        run: python3 tools/ms_probe.py
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Microsoft links through the real code
+        run: dotnet run --project windows/OsIsoDownloader.Probe -- ms

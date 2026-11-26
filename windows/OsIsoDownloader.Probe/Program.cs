@@ -10,6 +10,33 @@ internal static class Program
 {
     private static async Task<int> Main(string[] args)
     {
+        if (args.Length > 0 && args[0] == "ms")
+        {
+            var h = new HttpClient { Timeout = TimeSpan.FromMinutes(2) };
+            int bad = 0;
+            foreach (string spec in new[] { "ms:11:x64:English", "ms:11:arm64:English", "ms:10:x64:English", "ms:10:x86:English" })
+            {
+                try
+                {
+                    ResolvedFile f = await MsDownload.ResolveAsync(h, spec, CancellationToken.None);
+                    Console.WriteLine("MS " + spec + " -> " + f.FileName + " " + f.Url.Substring(0, Math.Min(90, f.Url.Length)));
+                    using (var req = new HttpRequestMessage(HttpMethod.Get, f.Url))
+                    {
+                        req.Headers.Range = new System.Net.Http.Headers.RangeHeaderValue(0, 0);
+                        using (var r = await h.SendAsync(req, HttpCompletionOption.ResponseHeadersRead))
+                        {
+                            Console.WriteLine("MS   probe " + (int)r.StatusCode + " range=" + r.Content.Headers.ContentRange);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("MS " + spec + " FAILED " + e.Message);
+                    bad++;
+                }
+            }
+            return bad == 0 ? 0 : 1;
+        }
         if (args.Length > 0 && args[0] == "ipsw")
         {
             var h = new HttpClient { Timeout = TimeSpan.FromMinutes(2) };

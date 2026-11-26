@@ -251,6 +251,48 @@ namespace OsIsoDownloader.App
             }
         }
 
+        private async Task LoadMsAsync(Node n)
+        {
+            StepText.Text = "Запитую у Microsoft список мов…";
+            Choices.ItemsSource = null;
+            try
+            {
+                string v = n.Param;
+                List<MsLanguage> langs = await MsDownload.GetLanguagesAsync(_http, v, false, CancellationToken.None);
+                foreach (MsLanguage l in langs)
+                {
+                    string src = MsDownload.PageFor(v);
+                    n.Files.Add(new FileEntry { Name = l.Name + " (64-біт)", Kind = "iso", Url = "ms:" + v + ":x64:" + l.Name, Arch = "x64", Verified = true, Source = src, Lang = l.Name });
+                    if (v == "10")
+                    {
+                        n.Files.Add(new FileEntry { Name = l.Name + " (32-біт)", Kind = "iso", Url = "ms:" + v + ":x86:" + l.Name, Arch = "x86", Verified = true, Source = src, Lang = l.Name });
+                    }
+                }
+                if (v == "11")
+                {
+                    try
+                    {
+                        foreach (MsLanguage l in await MsDownload.GetLanguagesAsync(_http, v, true, CancellationToken.None))
+                        {
+                            n.Files.Add(new FileEntry { Name = l.Name + " (ARM64)", Kind = "iso", Url = "ms:" + v + ":arm64:" + l.Name, Arch = "ARM64", Verified = true, Source = MsDownload.PageFor(v), Lang = l.Name });
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        // ARM64 is optional.
+                    }
+                }
+                if (_path.Count > 0 && _path.Peek() == n)
+                {
+                    ShowLevel();
+                }
+            }
+            catch (Exception e)
+            {
+                StepText.Text = "Не вдалося отримати список від Microsoft: " + e.Message;
+            }
+        }
+
         private async Task LoadIpswAsync(Node n)
         {
             StepText.Text = "Завантажую список образів для Apple Silicon…";
@@ -330,6 +372,10 @@ namespace OsIsoDownloader.App
                 else if (c.Node.Dynamic == "ipsw" && c.Node.Files.Count == 0)
                 {
                     await LoadIpswAsync(c.Node);
+                }
+                else if (c.Node.Dynamic == "ms" && c.Node.Files.Count == 0)
+                {
+                    await LoadMsAsync(c.Node);
                 }
                 else if (c.Node.Dynamic == "macrecovery" && c.Node.Files.Count == 0)
                 {
@@ -489,7 +535,7 @@ namespace OsIsoDownloader.App
                     {
                         DispatcherQueue.TryEnqueue(() => item.Status = "Перевіряю контрольну суму…");
                     }
-                }, item.Cts.Token);
+                }, item.Cts.Token, Downloader.ConnectionsFor(item.Resolved.Url));
                 string finalPath = r.Path;
                 if (item.Entry != null && item.Entry.Unzip && r.HashOk != false)
                 {

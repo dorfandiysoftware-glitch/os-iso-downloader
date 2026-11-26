@@ -275,12 +275,30 @@
               "verified": true
             },
             {
-              "name": "LFS LiveCD 6.3 (старий, ~2007): сторінка проєкту",
-              "kind": "guide",
-              "url": "https://www.linuxfromscratch.org/livecd/",
-              "note": "Образ дуже старий; на сторінці проєкту, а не прямим файлом.",
+              "name": "LiveCD 6.3-r2160 (x86_64)",
+              "arch": "x86_64",
+              "kind": "archived",
+              "resolve": {
+                "type": "index",
+                "base": "https://ftp.osuosl.org/pub/lfs-livecd/",
+                "pattern": "lfslivecd-x86_64-6\\.3-r2160\\.iso$"
+              },
               "source": "https://www.linuxfromscratch.org/livecd/",
-              "verified": false
+              "verified": false,
+              "note": "Старий образ (~2007), контрольних сум немає."
+            },
+            {
+              "name": "LiveCD 6.3-r2160 (x86)",
+              "arch": "x86",
+              "kind": "archived",
+              "resolve": {
+                "type": "index",
+                "base": "https://ftp.osuosl.org/pub/lfs-livecd/",
+                "pattern": "lfslivecd-x86-6\\.3-r2160\\.iso$"
+              },
+              "source": "https://www.linuxfromscratch.org/livecd/",
+              "verified": false,
+              "note": "Старий образ (~2007), контрольних сум немає."
             }
           ]
         }
@@ -397,9 +415,35 @@
           "name": "OpenIndiana Hipster",
           "files": [
             {
-              "name": "Сторінка завантаження Hipster",
-              "kind": "guide",
-              "url": "https://openindiana.org/downloads",
+              "name": "Hipster GUI (робочий стіл)",
+              "arch": "x86_64",
+              "url": "https://dlc.openindiana.org/isos/hipster/20261030/OI-hipster-gui-20261030.iso",
+              "checksum": {
+                "algo": "sha256",
+                "url": "https://dlc.openindiana.org/isos/hipster/20261030/OI-hipster-gui-20261030.iso.sha256sum"
+              },
+              "source": "https://openindiana.org/downloads",
+              "verified": true
+            },
+            {
+              "name": "Hipster Text (сервер)",
+              "arch": "x86_64",
+              "url": "https://dlc.openindiana.org/isos/hipster/20261030/OI-hipster-text-20261030.iso",
+              "checksum": {
+                "algo": "sha256",
+                "url": "https://dlc.openindiana.org/isos/hipster/20261030/OI-hipster-text-20261030.iso.sha256sum"
+              },
+              "source": "https://openindiana.org/downloads",
+              "verified": true
+            },
+            {
+              "name": "Hipster Minimal",
+              "arch": "x86_64",
+              "url": "https://dlc.openindiana.org/isos/hipster/20261030/OI-hipster-minimal-20261030.iso",
+              "checksum": {
+                "algo": "sha256",
+                "url": "https://dlc.openindiana.org/isos/hipster/20261030/OI-hipster-minimal-20261030.iso.sha256sum"
+              },
               "source": "https://openindiana.org/downloads",
               "verified": true
             }
@@ -417,13 +461,37 @@
           "name": "TempleOS",
           "files": [
             {
-              "name": "Сторінка завантаження",
-              "kind": "guide",
-              "url": "https://templeos.org/",
-              "source": "https://templeos.org/",
+              "name": "TempleOS 5.03 (остання, CD)",
+              "kind": "archived",
+              "resolve": {
+                "type": "archive",
+                "id": "TempleOS_ISO_Archive",
+                "pattern": "^TempleOSCDV5\\.03\\.ISO$"
+              },
+              "source": "https://archive.org/details/TempleOS_ISO_Archive",
+              "verified": false,
+              "note": "Архів Інтернету; перевірка за sha1 з метаданих."
+            },
+            {
+              "name": "TempleOS 5.00",
+              "kind": "archived",
+              "resolve": {
+                "type": "archive",
+                "id": "TempleOS_ISO_Archive",
+                "pattern": "^TempleOSCDV5\\.00\\.ISO$"
+              },
+              "source": "https://archive.org/details/TempleOS_ISO_Archive",
               "verified": false
             }
-          ]
+          ],
+          "vm": {
+            "ram": 512,
+            "disk": 2,
+            "cpus": 1,
+            "efi": false,
+            "virtio": false,
+            "legacy": true
+          }
         }
       ]
     },
@@ -435,30 +503,18 @@
         {
           "id": "win11",
           "name": "Windows 11",
-          "note": "Прямі білди (наприклад 26200.xxxx) з'являться в наступній фазі. Поки що офіційна сторінка Microsoft.",
-          "files": [
-            {
-              "name": "Завантаження Windows 11 (microsoft.com)",
-              "kind": "guide",
-              "url": "https://www.microsoft.com/software-download/windows11",
-              "source": "https://www.microsoft.com/software-download/windows11",
-              "verified": true
-            }
-          ]
+          "note": "Офіційні сервери Microsoft: посилання діють ~24 год, але додаток бере свіже щоразу. Хеш Microsoft не публікує.",
+          "files": [],
+          "dynamic": "ms",
+          "param": "11"
         },
         {
           "id": "win10",
           "name": "Windows 10",
-          "note": "Офіційна сторінка Microsoft.",
-          "files": [
-            {
-              "name": "Завантаження Windows 10 (microsoft.com)",
-              "kind": "guide",
-              "url": "https://www.microsoft.com/software-download/windows10",
-              "source": "https://www.microsoft.com/software-download/windows10",
-              "verified": false
-            }
-          ]
+          "note": "Офіційні сервери Microsoft (22H2). Хеш Microsoft не публікує.",
+          "files": [],
+          "dynamic": "ms",
+          "param": "10"
         },
         {
           "id": "win81",
@@ -657,25 +713,34 @@
               "name": "Програми для запуску (відкриті)",
               "files": [
                 {
-                  "name": "UTM (відкритий, GitHub)",
-                  "kind": "guide",
-                  "url": "https://github.com/utmapp/UTM",
+                  "name": "UTM для macOS (.dmg)",
+                  "kind": "iso",
+                  "resolve": {
+                    "type": "github",
+                    "id": "utmapp/UTM",
+                    "pattern": "^UTM\\.dmg$"
+                  },
                   "source": "https://github.com/utmapp/UTM",
                   "verified": false
                 },
                 {
-                  "name": "VirtualBuddy (відкритий, GitHub)",
-                  "kind": "guide",
-                  "url": "https://github.com/insidegui/VirtualBuddy",
+                  "name": "VirtualBuddy (.dmg)",
+                  "kind": "iso",
+                  "resolve": {
+                    "type": "github",
+                    "id": "insidegui/VirtualBuddy",
+                    "pattern": "\\.dmg$"
+                  },
                   "source": "https://github.com/insidegui/VirtualBuddy",
                   "verified": false
                 },
                 {
-                  "name": "Tart (відкритий, GitHub)",
+                  "name": "Tart: сторінка проєкту",
                   "kind": "guide",
                   "url": "https://github.com/cirruslabs/tart",
                   "source": "https://github.com/cirruslabs/tart",
-                  "verified": false
+                  "verified": true,
+                  "note": "Встановлюється через Homebrew (brew install cirruslabs/cli/tart)."
                 }
               ]
             }
@@ -746,7 +811,19 @@
           "note": "Це застосунок для Android-телефона (arm64, Android 8+), який запускає старі прошивки. Не для ПК.",
           "files": [
             {
-              "name": "Релізи AEmulator на GitHub",
+              "name": "AEmulator (APK, остання версія)",
+              "kind": "iso",
+              "resolve": {
+                "type": "github",
+                "id": "uxazu/aemulator",
+                "pattern": "\\.apk$"
+              },
+              "source": "https://github.com/uxazu/aemulator",
+              "verified": false,
+              "note": "APK для Android-телефона."
+            },
+            {
+              "name": "Сторінка релізів",
               "kind": "guide",
               "url": "https://github.com/uxazu/aemulator/releases",
               "source": "https://github.com/uxazu/aemulator",

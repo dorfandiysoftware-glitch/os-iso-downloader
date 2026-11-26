@@ -305,5 +305,23 @@ namespace OsIsoDownloader.Core.Tests
             Assert.Equal(new string('a', 64), l[0].Sha256);
             Assert.Equal(17000000000L, l[0].Size);
         }
+
+        [Fact]
+        public void MicrosoftLanguagesAndLinks()
+        {
+            var l = MsDownload.ParseLanguages("{\"Skus\":[{\"Id\":\"3321\",\"Language\":\"English\",\"LocalizedLanguage\":\"English\"},{\"Id\":\"3322\",\"Language\":\"Ukrainian\",\"LocalizedLanguage\":\"Українська\"}]}");
+            Assert.Equal(2, l.Count);
+            Assert.Equal("3322", l[1].SkuId);
+            var k = MsDownload.ParseLinks("{\"ProductDownloadOptions\":[{\"Name\":\"x\",\"Uri\":\"https://software.download.prss.microsoft.com/db/Win11_English_x64.iso?t=1&P1=2\",\"DownloadType\":1}]}");
+            Assert.Equal("Win11_English_x64.iso", k[0].FileName);
+            Assert.Equal(1, k[0].Type);
+        }
+
+        [Fact]
+        public void MicrosoftBlockedMessage()
+        {
+            var ex = Assert.Throws<InvalidOperationException>(() => MsDownload.ParseLinks("{\"ValidationContainer\":{\"Errors\":[{\"Type\":9,\"Value\":\"x\"}]}}"));
+            Assert.Contains("715-123130", ex.Message);
+        }
     }
 }
