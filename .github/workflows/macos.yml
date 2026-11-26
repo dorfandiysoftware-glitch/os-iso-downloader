@@ -22,3 +22,11 @@ jobs:
         with:
           name: recovery-report
           path: recovery.txt
+  ipsw:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - run: dotnet run --project windows/OsIsoDownloader.Probe -c Release -- ipsw | tee ipsw.txt

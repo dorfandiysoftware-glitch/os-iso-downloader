@@ -10,6 +10,29 @@ internal static class Program
 {
     private static async Task<int> Main(string[] args)
     {
+        if (args.Length > 0 && args[0] == "ipsw")
+        {
+            var h = new HttpClient { Timeout = TimeSpan.FromMinutes(2) };
+            h.DefaultRequestHeaders.UserAgent.ParseAdd("os-iso-downloader/0.1");
+            foreach (string u in new[]
+            {
+                "https://api.ipsw.me/v4/device/VirtualMac2,1?type=ipsw",
+                "https://mesu.apple.com/assets/macos/com_apple_macOSIPSW/com_apple_macOSIPSW.xml",
+            })
+            {
+                try
+                {
+                    string t = await h.GetStringAsync(u);
+                    Console.WriteLine("IPSW " + u + " -> " + t.Length + " chars");
+                    Console.WriteLine(t.Substring(0, Math.Min(1800, t.Length)).Replace("\n", " "));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("IPSW " + u + " FAILED " + e.Message);
+                }
+            }
+            return 0;
+        }
         if (args.Length > 0 && args[0] == "recovery")
         {
             return await Recovery(args.Length > 1 ? int.Parse(args[1]) : 1);
