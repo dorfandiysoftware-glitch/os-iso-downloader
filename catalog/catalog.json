@@ -425,7 +425,7 @@
               "name": "LiveCD 6.3 (старий)",
               "files": [
                 {
-                  "name": "LiveCD 6.3-r2160 (x86_64)",
+                  "name": "LiveCD 6.3 (x86_64)",
                   "arch": "x86_64",
                   "kind": "archived",
                   "resolve": {
@@ -438,7 +438,7 @@
                   "note": "Старий образ (~2007), контрольних сум немає."
                 },
                 {
-                  "name": "LiveCD 6.3-r2160 (x86)",
+                  "name": "LiveCD 6.3 (x86)",
                   "arch": "x86",
                   "kind": "archived",
                   "resolve": {
