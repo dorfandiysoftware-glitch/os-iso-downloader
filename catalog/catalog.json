@@ -1694,7 +1694,7 @@
                   "resolve": {
                     "type": "github",
                     "id": "insidegui/VirtualBuddy",
-                    "pattern": "\\.dmg$"
+                    "pattern": ".*\\.dmg"
                   },
                   "source": "https://github.com/insidegui/VirtualBuddy",
                   "verified": false
@@ -1787,7 +1787,8 @@
                       "resolve": {
                         "type": "github",
                         "id": "uxazu/aemulator",
-                        "pattern": "\\.apk$"
+                        "pattern": "app\\.aemu\\.apk",
+            "prerelease": true
                       },
                       "source": "https://github.com/uxazu/aemulator",
                       "verified": false,

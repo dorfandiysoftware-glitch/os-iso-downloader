@@ -113,6 +113,8 @@ namespace OsIsoDownloader.Core
         public string Pattern { get; set; }
         /// <summary>Regular expression of names to skip, optional.</summary>
         public string Exclude { get; set; }
+        /// <summary>GitHub only: also look at pre-releases (for projects that publish nothing else).</summary>
+        public bool Prerelease { get; set; }
     }
 
     public sealed class Checksum

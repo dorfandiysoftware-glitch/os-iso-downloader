@@ -40,9 +40,36 @@ namespace OsIsoDownloader.Core
                 }
                 if (string.Equals(entry.Resolve.Type, "github", StringComparison.OrdinalIgnoreCase))
                 {
-                    string json = await http.GetStringAsync("https://api.github.com/repos/" + entry.Resolve.Id + "/releases/latest", ct).ConfigureAwait(false);
-                    fromArchive = PickFromGitHub(json, entry.Resolve);
-                    url = fromArchive.Url;
+                    if (entry.Resolve.Prerelease)
+                    {
+                        // Some projects only publish pre-releases, which "latest" skips: take the newest release that has the asset.
+                        string list = await http.GetStringAsync("https://api.github.com/repos/" + entry.Resolve.Id + "/releases?per_page=10", ct).ConfigureAwait(false);
+                        using (System.Text.Json.JsonDocument d = System.Text.Json.JsonDocument.Parse(list))
+                        {
+                            foreach (System.Text.Json.JsonElement rel in d.RootElement.EnumerateArray())
+                            {
+                                try
+                                {
+                                    fromArchive = PickFromGitHub(rel.GetRawText(), entry.Resolve);
+                                    break;
+                                }
+                                catch (InvalidOperationException)
+                                {
+                                }
+                            }
+                        }
+                        if (fromArchive == null)
+                        {
+                            throw new InvalidOperationException("Жоден реліз " + entry.Resolve.Id + " не має потрібного файлу.");
+                        }
+                        url = fromArchive.Url;
+                    }
+                    else
+                    {
+                        string json = await http.GetStringAsync("https://api.github.com/repos/" + entry.Resolve.Id + "/releases/latest", ct).ConfigureAwait(false);
+                        fromArchive = PickFromGitHub(json, entry.Resolve);
+                        url = fromArchive.Url;
+                    }
                 }
                 else if (string.Equals(entry.Resolve.Type, "archive", StringComparison.OrdinalIgnoreCase))
                 {

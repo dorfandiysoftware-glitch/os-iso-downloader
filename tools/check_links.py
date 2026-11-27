@@ -84,8 +84,15 @@ def resolve(f):
         url = "https://archive.org/download/" + urllib.parse.quote(r["id"]) + "/" + "/".join(urllib.parse.quote(p) for p in best.split("/"))
         return url, f" -> {best}", names[best].get("sha1")
     if r.get("type") == "github":
-        rel = json.load(req("https://api.github.com/repos/" + r["id"] + "/releases/latest"))
-        hits = [a for a in rel.get("assets", []) if pat.match(a["name"])]
+        if r.get("prerelease"):
+            rels = json.load(req("https://api.github.com/repos/" + r["id"] + "/releases?per_page=10"))
+        else:
+            rels = [json.load(req("https://api.github.com/repos/" + r["id"] + "/releases/latest"))]
+        hits = []
+        for rel in rels:
+            hits = [a for a in rel.get("assets", []) if pat.match(a["name"])]
+            if hits:
+                break
         if not hits:
             raise RuntimeError("no release asset matches " + r["pattern"])
         return hits[0]["browser_download_url"], f" -> {hits[0]['name']}", None
@@ -111,6 +118,8 @@ for s in d["systems"]:
                 url, note, _ = resolve(f)
             guide = f.get("kind") == "guide"
             ok, status = probe(url, not guide) if url else (False, "NO URL")
+            if guide and not ok and "403" in str(status):
+                ok, status = True, "403 for bots (opens in a browser)"
             c = f.get("checksum")
             if ok and c and not guide:
                 if c.get("value"):
