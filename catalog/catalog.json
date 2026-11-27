@@ -11,7 +11,7 @@
           "id": "debian",
           "name": "Debian",
           "note": "Стабільний, універсальний.",
-          "childrenTitle": "Що саме",
+          "childrenTitle": "Дистрибутив",
           "children": [
             {
               "id": "debian-self",
@@ -50,135 +50,121 @@
               ]
             },
             {
-              "id": "debian-based",
-              "name": "Дистрибутиви на базі Debian",
+              "id": "ubuntu",
+              "name": "Ubuntu",
+              "note": "LTS, найпопулярніший настільний Linux.",
               "childrenTitle": "Дистрибутив",
               "children": [
                 {
-                  "id": "ubuntu",
+                  "id": "ubuntu-self",
                   "name": "Ubuntu",
-                  "note": "LTS, найпопулярніший настільний Linux.",
-                  "childrenTitle": "Що саме",
+                  "childrenTitle": "Версія",
                   "children": [
                     {
-                      "id": "ubuntu-self",
-                      "name": "Ubuntu",
-                      "childrenTitle": "Версія",
-                      "children": [
+                      "id": "ubuntu-v",
+                      "name": "Desktop LTS (актуальна)",
+                      "vm": {
+                        "vboxType": "Ubuntu_64",
+                        "ram": 4096,
+                        "disk": 25,
+                        "cpus": 2,
+                        "efi": false,
+                        "virtio": true
+                      },
+                      "files": [
                         {
-                          "id": "ubuntu-v",
-                          "name": "Desktop LTS (актуальна)",
-                          "vm": {
-                            "vboxType": "Ubuntu_64",
-                            "ram": 4096,
-                            "disk": 25,
-                            "cpus": 2,
-                            "efi": false,
-                            "virtio": true
+                          "name": "Desktop LTS",
+                          "arch": "amd64",
+                          "recommended": true,
+                          "resolve": {
+                            "base": "https://releases.ubuntu.com/26.04/",
+                            "pattern": "ubuntu-[\\d.]+-desktop-amd64\\.iso"
                           },
-                          "files": [
-                            {
-                              "name": "Desktop LTS",
-                              "arch": "amd64",
-                              "recommended": true,
-                              "resolve": {
-                                "base": "https://releases.ubuntu.com/26.04/",
-                                "pattern": "ubuntu-[\\d.]+-desktop-amd64\\.iso"
-                              },
-                              "checksum": {
-                                "algo": "sha256",
-                                "url": "https://releases.ubuntu.com/26.04/SHA256SUMS"
-                              },
-                              "source": "https://ubuntu.com/download/desktop",
-                              "verified": false
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
-                      "id": "ubuntu-based",
-                      "name": "Дистрибутиви на базі Ubuntu",
-                      "childrenTitle": "Дистрибутив",
-                      "children": [
-                        {
-                          "id": "mint",
-                          "name": "Linux Mint",
-                          "childrenTitle": "Версія",
-                          "children": [
-                            {
-                              "id": "mint-v",
-                              "name": "22.3 «Zena»",
-                              "vm": {
-                                "vboxType": "Ubuntu_64",
-                                "ram": 4096,
-                                "disk": 25,
-                                "cpus": 2,
-                                "efi": false,
-                                "virtio": true
-                              },
-                              "files": [
-                                {
-                                  "name": "Cinnamon",
-                                  "arch": "amd64",
-                                  "recommended": true,
-                                  "resolve": {
-                                    "base": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/",
-                                    "pattern": "linuxmint-[\\d.]+-cinnamon-64bit\\.iso"
-                                  },
-                                  "checksum": {
-                                    "algo": "sha256",
-                                    "url": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/sha256sum.txt"
-                                  },
-                                  "source": "https://www.linuxmint.com/download.php",
-                                  "verified": false
-                                },
-                                {
-                                  "name": "MATE",
-                                  "arch": "amd64",
-                                  "recommended": false,
-                                  "resolve": {
-                                    "base": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/",
-                                    "pattern": "linuxmint-[\\d.]+-mate-64bit\\.iso"
-                                  },
-                                  "checksum": {
-                                    "algo": "sha256",
-                                    "url": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/sha256sum.txt"
-                                  },
-                                  "source": "https://www.linuxmint.com/download.php",
-                                  "verified": false
-                                },
-                                {
-                                  "name": "Xfce",
-                                  "arch": "amd64",
-                                  "recommended": false,
-                                  "resolve": {
-                                    "base": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/",
-                                    "pattern": "linuxmint-[\\d.]+-xfce-64bit\\.iso"
-                                  },
-                                  "checksum": {
-                                    "algo": "sha256",
-                                    "url": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/sha256sum.txt"
-                                  },
-                                  "source": "https://www.linuxmint.com/download.php",
-                                  "verified": false
-                                }
-                              ]
-                            }
-                          ],
-                          "note": "Просте перехідне середовище для новачків. Версія 22.3 «Zena».",
-                          "vm": {
-                            "vboxType": "Ubuntu_64",
-                            "ram": 4096,
-                            "disk": 25,
-                            "cpus": 2,
-                            "efi": false,
-                            "virtio": true
-                          }
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://releases.ubuntu.com/26.04/SHA256SUMS"
+                          },
+                          "source": "https://ubuntu.com/download/desktop",
+                          "verified": false
                         }
                       ]
                     }
                   ]
+                },
+                {
+                  "id": "mint",
+                  "name": "Linux Mint",
+                  "childrenTitle": "Версія",
+                  "children": [
+                    {
+                      "id": "mint-v",
+                      "name": "22.3 «Zena»",
+                      "vm": {
+                        "vboxType": "Ubuntu_64",
+                        "ram": 4096,
+                        "disk": 25,
+                        "cpus": 2,
+                        "efi": false,
+                        "virtio": true
+                      },
+                      "files": [
+                        {
+                          "name": "Cinnamon",
+                          "arch": "amd64",
+                          "recommended": true,
+                          "resolve": {
+                            "base": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/",
+                            "pattern": "linuxmint-[\\d.]+-cinnamon-64bit\\.iso"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/sha256sum.txt"
+                          },
+                          "source": "https://www.linuxmint.com/download.php",
+                          "verified": false
+                        },
+                        {
+                          "name": "MATE",
+                          "arch": "amd64",
+                          "recommended": false,
+                          "resolve": {
+                            "base": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/",
+                            "pattern": "linuxmint-[\\d.]+-mate-64bit\\.iso"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/sha256sum.txt"
+                          },
+                          "source": "https://www.linuxmint.com/download.php",
+                          "verified": false
+                        },
+                        {
+                          "name": "Xfce",
+                          "arch": "amd64",
+                          "recommended": false,
+                          "resolve": {
+                            "base": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/",
+                            "pattern": "linuxmint-[\\d.]+-xfce-64bit\\.iso"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://mirrors.edge.kernel.org/linuxmint/stable/22.3/sha256sum.txt"
+                          },
+                          "source": "https://www.linuxmint.com/download.php",
+                          "verified": false
+                        }
+                      ]
+                    }
+                  ],
+                  "note": "Просте перехідне середовище для новачків. Версія 22.3 «Zena».",
+                  "vm": {
+                    "vboxType": "Ubuntu_64",
+                    "ram": 4096,
+                    "disk": 25,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": true
+                  }
                 }
               ]
             }
@@ -256,35 +242,132 @@
         {
           "id": "fedora",
           "name": "Fedora",
-          "childrenTitle": "Версія",
+          "childrenTitle": "Дистрибутив",
           "children": [
             {
-              "id": "fedora-kde",
-              "name": "KDE Plasma (актуальна)",
-              "note": "Зараз Fedora 45 має позначку BETA на офіційній сторінці.",
-              "vm": {
-                "vboxType": "Fedora_64",
-                "ram": 4096,
-                "disk": 25,
-                "cpus": 2,
-                "efi": false,
-                "virtio": true
-              },
-              "files": [
+              "id": "fedora-self",
+              "name": "Fedora",
+              "childrenTitle": "Версія",
+              "children": [
                 {
-                  "name": "KDE Plasma Desktop Live",
-                  "arch": "x86_64",
-                  "url": "https://download.fedoraproject.org/pub/fedora/linux/releases/45/KDE/x86_64/iso/Fedora-KDE-Desktop-Live-45-1.4.x86_64.iso",
-                  "checksum": {
-                    "algo": "sha256",
-                    "url": "https://dl.fedoraproject.org/pub/fedora/linux/releases/45/KDE/x86_64/iso/Fedora-KDE-45-1.4-x86_64-CHECKSUM"
+                  "id": "fedora-kde",
+                  "name": "KDE Plasma (актуальна)",
+                  "note": "Зараз Fedora 45 має позначку BETA на офіційній сторінці.",
+                  "vm": {
+                    "vboxType": "Fedora_64",
+                    "ram": 4096,
+                    "disk": 25,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": true
                   },
-                  "source": "https://fedoraproject.org/kde/download/",
-                  "verified": true
+                  "files": [
+                    {
+                      "name": "KDE Plasma Desktop Live",
+                      "arch": "x86_64",
+                      "url": "https://download.fedoraproject.org/pub/fedora/linux/releases/45/KDE/x86_64/iso/Fedora-KDE-Desktop-Live-45-1.4.x86_64.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://dl.fedoraproject.org/pub/fedora/linux/releases/45/KDE/x86_64/iso/Fedora-KDE-45-1.4-x86_64-CHECKSUM"
+                      },
+                      "source": "https://fedoraproject.org/kde/download/",
+                      "verified": true
+                    }
+                  ]
+                },
+                {
+                  "id": "fedora-11",
+                  "name": "11 (архів, 2009)",
+                  "files": [
+                    {
+                      "name": "netinst x86_64",
+                      "kind": "archived",
+                      "source": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Fedora/x86_64/iso/Fedora-11-x86_64-netinst.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Fedora/x86_64/iso/Fedora-11-x86_64-CHECKSUM"
+                      },
+                      "note": "Архів Fedora."
+                    },
+                    {
+                      "name": "netinst i386",
+                      "kind": "archived",
+                      "source": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/",
+                      "verified": false,
+                      "arch": "i386",
+                      "url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Fedora/i386/iso/Fedora-11-i386-netinst.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Fedora/i386/iso/Fedora-11-i386-CHECKSUM"
+                      },
+                      "note": "Архів Fedora."
+                    },
+                    {
+                      "name": "DVD i386",
+                      "kind": "archived",
+                      "source": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/",
+                      "verified": false,
+                      "arch": "i386",
+                      "url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Fedora/i386/iso/Fedora-11-i386-DVD.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Fedora/i386/iso/Fedora-11-i386-CHECKSUM"
+                      },
+                      "note": "Архів Fedora."
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "Fedora",
+                    "ram": 1024,
+                    "disk": 10,
+                    "cpus": 1,
+                    "efi": false,
+                    "virtio": false,
+                    "legacy": true
+                  }
                 }
               ]
+            },
+            {
+              "id": "redstar",
+              "name": "Red Star OS",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "redstar-v",
+                  "name": "3.0 Desktop",
+                  "vm": {
+                    "vboxType": "RedHat_64",
+                    "ram": 2048,
+                    "disk": 20,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": false
+                  },
+                  "files": [
+                    {
+                      "name": "Desktop (англ. інсталятор)",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "redstar_desktop3.0_sign_202212",
+                        "pattern": ".*\\.iso"
+                      },
+                      "source": "https://archive.org/details/redstar_desktop3.0_sign_202212",
+                      "verified": false,
+                      "note": "Неофіційне джерело: archive.org.",
+                      "arch": "x86_64"
+                    }
+                  ]
+                }
+              ],
+              "note": "Північнокорейський Linux 3.0 на базі Fedora 11. Неофіційне джерело: archive.org."
             }
-          ]
+          ],
+          "note": "Спільнотний дистрибутив Red Hat. Нижче — дистрибутиви на його базі."
         },
         {
           "id": "opensuse",
@@ -318,41 +401,6 @@
               ]
             }
           ]
-        },
-        {
-          "id": "redstar",
-          "name": "Red Star OS",
-          "childrenTitle": "Версія",
-          "children": [
-            {
-              "id": "redstar-v",
-              "name": "3.0 Desktop",
-              "vm": {
-                "vboxType": "RedHat_64",
-                "ram": 2048,
-                "disk": 20,
-                "cpus": 2,
-                "efi": false,
-                "virtio": false
-              },
-              "files": [
-                {
-                  "name": "Desktop (англ. інсталятор)",
-                  "kind": "archived",
-                  "resolve": {
-                    "type": "archive",
-                    "id": "redstar_desktop3.0_sign_202212",
-                    "pattern": ".*\\.iso"
-                  },
-                  "source": "https://archive.org/details/redstar_desktop3.0_sign_202212",
-                  "verified": false,
-                  "note": "Неофіційне джерело: archive.org.",
-                  "arch": "x86_64"
-                }
-              ]
-            }
-          ],
-          "note": "Північнокорейський Linux. Неофіційне джерело: archive.org."
         },
         {
           "id": "lfs",
@@ -406,6 +454,299 @@
             }
           ],
           "note": "Офіційного ISO для нових версій немає: збірка вручну за книгою."
+        },
+        {
+          "id": "redhat",
+          "name": "Red Hat",
+          "childrenTitle": "Дистрибутив",
+          "children": [
+            {
+              "id": "rhel",
+              "name": "Red Hat Enterprise Linux",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "rhel-v",
+                  "name": "Завантаження (потрібен безкоштовний акаунт)",
+                  "files": [
+                    {
+                      "name": "Red Hat Enterprise Linux: сторінка завантаження",
+                      "kind": "guide",
+                      "url": "https://developers.redhat.com/products/rhel/download",
+                      "source": "https://developers.redhat.com/products/rhel/download",
+                      "verified": true,
+                      "note": "Red Hat віддає ISO лише після входу в акаунт Developer."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "rocky",
+              "name": "Rocky Linux",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "rocky-v",
+                  "name": "10 (актуальна)",
+                  "files": [
+                    {
+                      "name": "boot (мінімальний, ставить з інтернету)",
+                      "kind": "iso",
+                      "source": "https://rockylinux.org/download",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "url": "https://download.rockylinux.org/pub/rocky/10/isos/x86_64/Rocky-10-latest-x86_64-boot.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://download.rockylinux.org/pub/rocky/10/isos/x86_64/Rocky-10-latest-x86_64-boot.iso.CHECKSUM"
+                      }
+                    },
+                    {
+                      "name": "DVD (повний)",
+                      "kind": "iso",
+                      "source": "https://rockylinux.org/download",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "url": "https://download.rockylinux.org/pub/rocky/10/isos/x86_64/Rocky-10-latest-x86_64-dvd.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://download.rockylinux.org/pub/rocky/10/isos/x86_64/Rocky-10-latest-x86_64-dvd.iso.CHECKSUM"
+                      }
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "RedHat_64",
+                    "ram": 4096,
+                    "disk": 25,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": true
+                  }
+                }
+              ],
+              "note": "Безкоштовна збірка RHEL від спільноти."
+            },
+            {
+              "id": "almalinux",
+              "name": "AlmaLinux",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "alma-v",
+                  "name": "10 (актуальна)",
+                  "files": [
+                    {
+                      "name": "boot (мінімальний)",
+                      "kind": "iso",
+                      "source": "https://almalinux.org/get-almalinux/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "url": "https://repo.almalinux.org/almalinux/10/isos/x86_64/AlmaLinux-10-latest-x86_64-boot.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://repo.almalinux.org/almalinux/10/isos/x86_64/CHECKSUM"
+                      }
+                    },
+                    {
+                      "name": "minimal",
+                      "kind": "iso",
+                      "source": "https://almalinux.org/get-almalinux/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "url": "https://repo.almalinux.org/almalinux/10/isos/x86_64/AlmaLinux-10-latest-x86_64-minimal.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://repo.almalinux.org/almalinux/10/isos/x86_64/CHECKSUM"
+                      }
+                    },
+                    {
+                      "name": "DVD (повний)",
+                      "kind": "iso",
+                      "source": "https://almalinux.org/get-almalinux/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "url": "https://repo.almalinux.org/almalinux/10/isos/x86_64/AlmaLinux-10-latest-x86_64-dvd.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://repo.almalinux.org/almalinux/10/isos/x86_64/CHECKSUM"
+                      }
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "RedHat_64",
+                    "ram": 4096,
+                    "disk": 25,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": true
+                  }
+                }
+              ],
+              "note": "Безкоштовна збірка RHEL."
+            },
+            {
+              "id": "centos",
+              "name": "CentOS Stream",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "centos-v",
+                  "name": "Stream 10",
+                  "files": [
+                    {
+                      "name": "boot (мінімальний)",
+                      "kind": "iso",
+                      "source": "https://www.centos.org/centos-stream/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "resolve": {
+                        "type": "index",
+                        "base": "https://mirror.stream.centos.org/10-stream/BaseOS/x86_64/iso/",
+                        "pattern": "CentOS-Stream-10-[\\d.]+-x86_64-boot\\.iso"
+                      },
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://mirror.stream.centos.org/10-stream/BaseOS/x86_64/iso/{file}.SHA256SUM"
+                      }
+                    },
+                    {
+                      "name": "DVD (повний)",
+                      "kind": "iso",
+                      "source": "https://www.centos.org/centos-stream/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "resolve": {
+                        "type": "index",
+                        "base": "https://mirror.stream.centos.org/10-stream/BaseOS/x86_64/iso/",
+                        "pattern": "CentOS-Stream-10-[\\d.]+-x86_64-dvd1\\.iso"
+                      },
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://mirror.stream.centos.org/10-stream/BaseOS/x86_64/iso/{file}.SHA256SUM"
+                      }
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "RedHat_64",
+                    "ram": 4096,
+                    "disk": 25,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": true
+                  }
+                }
+              ],
+              "note": "Попередній випуск RHEL."
+            }
+          ],
+          "note": "RHEL і дистрибутиви на його базі."
+        },
+        {
+          "id": "gentoo",
+          "name": "Gentoo",
+          "childrenTitle": "Дистрибутив",
+          "children": [
+            {
+              "id": "gentoo-self",
+              "name": "Gentoo",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "gentoo-v",
+                  "name": "Актуальна (щотижня)",
+                  "files": [
+                    {
+                      "name": "Minimal Installation CD",
+                      "kind": "iso",
+                      "source": "https://www.gentoo.org/downloads/",
+                      "verified": false,
+                      "arch": "amd64",
+                      "resolve": {
+                        "type": "index",
+                        "base": "https://distfiles.gentoo.org/releases/amd64/autobuilds/current-install-amd64-minimal/",
+                        "pattern": "install-amd64-minimal-\\d+T\\d+Z\\.iso"
+                      },
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://distfiles.gentoo.org/releases/amd64/autobuilds/current-install-amd64-minimal/{file}.sha256"
+                      },
+                      "note": "Лише текстовий інсталятор."
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "Gentoo_64",
+                    "ram": 2048,
+                    "disk": 30,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": true
+                  }
+                }
+              ]
+            },
+            {
+              "id": "chromiumos",
+              "name": "Chromium OS",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "chromiumos-v",
+                  "name": "Збірка з джерел",
+                  "files": [
+                    {
+                      "name": "Chromium OS: як зібрати з вихідного коду",
+                      "kind": "guide",
+                      "url": "https://www.chromium.org/chromium-os/developer-library/guides/development/developer-guide/",
+                      "source": "https://www.chromium.org/chromium-os/",
+                      "verified": false,
+                      "note": "Готових офіційних образів Chromium OS немає: система збирається з джерел (на Gentoo-інструментах)."
+                    }
+                  ]
+                }
+              ],
+              "note": "Відкрита основа ChromeOS, зроблена на Gentoo."
+            },
+            {
+              "id": "chromeos",
+              "name": "ChromeOS",
+              "childrenTitle": "Образ",
+              "children": [
+                {
+                  "id": "chromeos-flex",
+                  "name": "ChromeOS Flex",
+                  "childrenTitle": "Версія",
+                  "children": [
+                    {
+                      "id": "chromeos-flex-v",
+                      "name": "Flex (останній)",
+                      "files": [
+                        {
+                          "name": "ChromeOS Flex (образ для флешки, .bin)",
+                          "kind": "iso",
+                          "url": "https://dl.google.com/chromeos-flex/images/latest.bin.zip",
+                          "unzip": true,
+                          "arch": "x86_64",
+                          "source": "https://chromeos.google/products/chromeos-flex/",
+                          "verified": true,
+                          "note": "ChromeOS для звичайних ПК (~1,4 ГБ). Це дисковий образ, а не ISO; хеш Google не публікує."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "chromeos-recovery",
+                  "name": "Образи відновлення Chromebook",
+                  "note": "Окремий образ для кожної моделі Chromebook.",
+                  "dynamic": "cros",
+                  "childrenTitle": "Виробник"
+                }
+              ],
+              "note": "Закрита збірка Google на базі Chromium OS (а той — на Gentoo)."
+            }
+          ],
+          "note": "Дистрибутив, що збирається з вихідного коду, і системи на його базі."
         }
       ]
     },
@@ -607,9 +948,41 @@
                   "dynamic": "ms",
                   "param": "11",
                   "note": "Офіційні сервери Microsoft: посилання діють ~24 год, але додаток бере свіже щоразу. Хеш Microsoft не публікує."
+                },
+                {
+                  "id": "win11-26h2-uup",
+                  "name": "Інші збірки (UUP dump)",
+                  "childrenTitle": "Збірка",
+                  "dynamic": "uup",
+                  "param": "Windows 11, version 26H2",
+                  "note": "Збірки з UUP dump: ISO збирається на твоєму ПК з файлів Microsoft."
                 }
               ],
               "note": "Microsoft віддає лише останню збірку; вибір інших білдів буде окремим етапом."
+            },
+            {
+              "id": "win11-25h2",
+              "name": "25H2",
+              "childrenTitle": "Збірка",
+              "dynamic": "uup",
+              "param": "Windows 11, version 25H2",
+              "note": "Збірки з UUP dump: ISO збирається на твоєму ПК з файлів Microsoft."
+            },
+            {
+              "id": "win11-24h2",
+              "name": "24H2",
+              "childrenTitle": "Збірка",
+              "dynamic": "uup",
+              "param": "Windows 11, version 24H2",
+              "note": "Збірки з UUP dump: ISO збирається на твоєму ПК з файлів Microsoft."
+            },
+            {
+              "id": "win11-insider",
+              "name": "Insider Preview (Dev, Canary, Beta…)",
+              "childrenTitle": "Збірка",
+              "dynamic": "uup",
+              "param": "Windows 11 Insider Preview",
+              "note": "Прев'ю-збірки Windows Insider. Нестабільні."
             }
           ]
         },
@@ -630,6 +1003,14 @@
                   "dynamic": "ms",
                   "param": "10",
                   "note": "Офіційні сервери Microsoft (22H2). Хеш Microsoft не публікує."
+                },
+                {
+                  "id": "win10-22h2-uup",
+                  "name": "Інші збірки (UUP dump)",
+                  "childrenTitle": "Збірка",
+                  "dynamic": "uup",
+                  "param": "Windows 10, version 22H2",
+                  "note": "Збірки з UUP dump: ISO збирається на твоєму ПК з файлів Microsoft."
                 }
               ],
               "note": "Microsoft віддає лише останню збірку; вибір інших білдів буде окремим етапом."
@@ -771,6 +1152,495 @@
             }
           ],
           "note": "Копії на archive.org."
+        },
+        {
+          "id": "win2000",
+          "name": "Windows 2000",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "win2000-sp4",
+              "name": "SP4",
+              "files": [
+                {
+                  "name": "Professional SP4 (English)",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "enwin2000prosp4_202001",
+                    "pattern": "EN_WIN2000_PRO_SP4\\.ISO"
+                  },
+                  "source": "https://archive.org/details/enwin2000prosp4_202001",
+                  "verified": false
+                }
+              ],
+              "vm": {
+                "vboxType": "Windows2000",
+                "ram": 512,
+                "disk": 10,
+                "cpus": 1,
+                "efi": false,
+                "virtio": false,
+                "legacy": true
+              }
+            }
+          ]
+        },
+        {
+          "id": "win98",
+          "name": "Windows 98",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "win98-se",
+              "name": "Second Edition",
+              "files": [
+                {
+                  "name": "Second Edition (ISO)",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "win98se_201607",
+                    "pattern": "Windows\\ 98\\ Second\\ Edition\\.iso"
+                  },
+                  "source": "https://archive.org/details/win98se_201607",
+                  "verified": false
+                }
+              ],
+              "vm": {
+                "vboxType": "Windows98",
+                "ram": 256,
+                "disk": 4,
+                "cpus": 1,
+                "efi": false,
+                "virtio": false,
+                "legacy": true
+              }
+            }
+          ]
+        },
+        {
+          "id": "win-proto",
+          "name": "Прототипи та бети",
+          "childrenTitle": "Проєкт",
+          "children": [
+            {
+              "id": "longhorn",
+              "name": "Longhorn / Vista (бета-білди)",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "lh-4020",
+                  "name": "M5, збірка 4020",
+                  "files": [
+                    {
+                      "name": "ISO",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "WindowsLonghornM5Build4020andWindowsLonghornM6Build4032",
+                        "pattern": "6\\.0\\.4020\\.0\\.idx02\\.030430\\-2218_x86fre_client\\-professional_en\\-us\\-LONGHORN\\.iso"
+                      },
+                      "source": "https://archive.org/details/WindowsLonghornM5Build4020andWindowsLonghornM6Build4032",
+                      "verified": false
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "WindowsVista",
+                    "ram": 4096,
+                    "disk": 40,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": false
+                  }
+                },
+                {
+                  "id": "lh-4032",
+                  "name": "M6, збірка 4032",
+                  "files": [
+                    {
+                      "name": "ISO",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "WindowsLonghornM5Build4020andWindowsLonghornM6Build4032",
+                        "pattern": "6\\.0\\.4032\\.0\\.lab06_n\\.030710\\-1709_x86fre_client\\-professional_retail_en\\-us\\-LONGHORN\\.iso"
+                      },
+                      "source": "https://archive.org/details/WindowsLonghornM5Build4020andWindowsLonghornM6Build4032",
+                      "verified": false
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "WindowsVista",
+                    "ram": 4096,
+                    "disk": 40,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": false
+                  }
+                },
+                {
+                  "id": "lh-5048",
+                  "name": "Збірка 5048",
+                  "files": [
+                    {
+                      "name": "ISO",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "lh_usa_5048.050401-0536_x86fre_pro-dvd_202002",
+                        "pattern": "lh_usa_5048\\.050401\\-0536_x86fre_pro\\-dvd\\.iso"
+                      },
+                      "source": "https://archive.org/details/lh_usa_5048.050401-0536_x86fre_pro-dvd_202002",
+                      "verified": false
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "WindowsVista",
+                    "ram": 4096,
+                    "disk": 40,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": false
+                  }
+                },
+                {
+                  "id": "lh-5112",
+                  "name": "Vista Beta 1, збірка 5112",
+                  "files": [
+                    {
+                      "name": "ISO (DVD)",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "WindowsVistaBeta1Build5112x86DVD",
+                        "pattern": "en_longhorn_beta1_dvd\\.iso"
+                      },
+                      "source": "https://archive.org/details/WindowsVistaBeta1Build5112x86DVD",
+                      "verified": false
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "WindowsVista",
+                    "ram": 4096,
+                    "disk": 40,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": false
+                  }
+                },
+                {
+                  "id": "lh-5219",
+                  "name": "Збірка 5219",
+                  "files": [
+                    {
+                      "name": "ISO",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "longhorn-5219",
+                        "pattern": "Windows\\ Vista\\ build\\ 5219\\ \\(winmain_idx02\\.050830\\-2010\\.iso"
+                      },
+                      "source": "https://archive.org/details/longhorn-5219",
+                      "verified": false
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "WindowsVista",
+                    "ram": 4096,
+                    "disk": 40,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": false
+                  }
+                },
+                {
+                  "id": "lh-5231",
+                  "name": "Vista Beta 2, збірка 5231",
+                  "files": [
+                    {
+                      "name": "ISO (DVD)",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "WinVistaB2Build5231",
+                        "pattern": "vista_usa_5231\\.051004\\-2120_x86fre_win\\-dvd\\-LB2PFRE_EN\\.iso"
+                      },
+                      "source": "https://archive.org/details/WinVistaB2Build5231",
+                      "verified": false
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "WindowsVista",
+                    "ram": 4096,
+                    "disk": 40,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": false
+                  }
+                },
+                {
+                  "id": "lh-5365",
+                  "name": "Vista Beta 2, збірка 5365",
+                  "files": [
+                    {
+                      "name": "ISO",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "Windows-Vista-Build5365-Beta2",
+                        "pattern": "Windows\\ Vista\\ build\\ 5365\\ \\(Beta\\ 2\\)\\.iso"
+                      },
+                      "source": "https://archive.org/details/Windows-Vista-Build5365-Beta2",
+                      "verified": false
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "WindowsVista",
+                    "ram": 4096,
+                    "disk": 40,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": false
+                  }
+                },
+                {
+                  "id": "lh-5384",
+                  "name": "Vista Beta 2, збірка 5384",
+                  "files": [
+                    {
+                      "name": "ISO (DVD)",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "WindowsVistaBeta2Build5384x86DVD",
+                        "pattern": "en_windows_vista_beta2_x86_dvd\\.iso"
+                      },
+                      "source": "https://archive.org/details/WindowsVistaBeta2Build5384x86DVD",
+                      "verified": false
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "WindowsVista",
+                    "ram": 4096,
+                    "disk": 40,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": false
+                  }
+                }
+              ],
+              "note": "Неофіційні копії з archive.org."
+            },
+            {
+              "id": "whistler",
+              "name": "Whistler (бета Windows XP)",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "wh-2296",
+                  "name": "Збірка 2296",
+                  "files": [
+                    {
+                      "name": "ISO",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "whistler-build-2296",
+                        "pattern": "Whistler_Build_2296\\.iso"
+                      },
+                      "source": "https://archive.org/details/whistler-build-2296",
+                      "verified": false
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "WindowsXP",
+                    "ram": 1024,
+                    "disk": 10,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": false,
+                    "legacy": true
+                  }
+                },
+                {
+                  "id": "wh-2428",
+                  "name": "Збірка 2428",
+                  "files": [
+                    {
+                      "name": "ISO",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "usa_2428__x86fre.pro_whistler",
+                        "pattern": "usa_2428__x86fre\\.pro_whistler\\.iso"
+                      },
+                      "source": "https://archive.org/details/usa_2428__x86fre.pro_whistler",
+                      "verified": false
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "WindowsXP",
+                    "ram": 1024,
+                    "disk": 10,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": false,
+                    "legacy": true
+                  }
+                },
+                {
+                  "id": "wh-2463",
+                  "name": "Збірка 2463 (Beta 2)",
+                  "files": [
+                    {
+                      "name": "ISO",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "WindowsWhistlerBuild2463",
+                        "pattern": "usa_2463__x86fre\\.pro_whistler\\.iso"
+                      },
+                      "source": "https://archive.org/details/WindowsWhistlerBuild2463",
+                      "verified": false
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "WindowsXP",
+                    "ram": 1024,
+                    "disk": 10,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": false,
+                    "legacy": true
+                  }
+                },
+                {
+                  "id": "wh-2465",
+                  "name": "Збірка 2465",
+                  "files": [
+                    {
+                      "name": "ISO",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "winwhistlerpro2465b2",
+                        "pattern": "usa_2465__x86fre\\.pro_whistler\\.iso"
+                      },
+                      "source": "https://archive.org/details/winwhistlerpro2465b2",
+                      "verified": false
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "WindowsXP",
+                    "ram": 1024,
+                    "disk": 10,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": false,
+                    "legacy": true
+                  }
+                }
+              ],
+              "note": "Неофіційні копії з archive.org."
+            },
+            {
+              "id": "neptune",
+              "name": "Neptune (споживчий NT)",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "nep-5056",
+                  "name": "Збірка 5056",
+                  "files": [
+                    {
+                      "name": "ISO",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "ntc5056",
+                        "pattern": "WNVOL_EN\\.iso"
+                      },
+                      "source": "https://archive.org/details/ntc5056",
+                      "verified": false
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "WindowsXP",
+                    "ram": 1024,
+                    "disk": 10,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": false,
+                    "legacy": true
+                  }
+                },
+                {
+                  "id": "nep-5111",
+                  "name": "Збірка 5111",
+                  "files": [
+                    {
+                      "name": "ISO",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "windows-neptune-build-5111",
+                        "pattern": "Windows\\ Neptune\\ Build\\ 5111\\.iso"
+                      },
+                      "source": "https://archive.org/details/windows-neptune-build-5111",
+                      "verified": false
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "WindowsXP",
+                    "ram": 1024,
+                    "disk": 10,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": false,
+                    "legacy": true
+                  }
+                }
+              ],
+              "note": "Неофіційні копії з archive.org."
+            },
+            {
+              "id": "chicago",
+              "name": "Chicago (бета Windows 95)",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "chi-58s",
+                  "name": "Збірка 58s",
+                  "files": [
+                    {
+                      "name": "Дискета-образ (.img)",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "windows-chicago_202211",
+                        "pattern": "ChicagoFull\\.img"
+                      },
+                      "source": "https://archive.org/details/windows-chicago_202211",
+                      "verified": false
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "Windows95",
+                    "ram": 64,
+                    "disk": 2,
+                    "cpus": 1,
+                    "efi": false,
+                    "virtio": false,
+                    "legacy": true
+                  },
+                  "note": "Образ, а не ISO."
+                }
+              ],
+              "note": "Неофіційні копії з archive.org."
+            }
+          ],
+          "note": "Ранні й ненадіні білди Windows. Лише з archive.org, без перевірки Microsoft."
         }
       ]
     },

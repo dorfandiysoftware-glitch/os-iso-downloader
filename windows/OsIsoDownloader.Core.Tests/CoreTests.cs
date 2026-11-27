@@ -323,5 +323,26 @@ namespace OsIsoDownloader.Core.Tests
             var ex = Assert.Throws<InvalidOperationException>(() => MsDownload.ParseLinks("{\"ValidationContainer\":{\"Errors\":[{\"Type\":9,\"Value\":\"x\"}]}}"));
             Assert.Contains("715-123130", ex.Message);
         }
+
+        [Fact]
+        public void UupBuildsAndLanguages()
+        {
+            string j = "{\"response\":{\"builds\":{\"7\":{\"title\":\"Windows 11 Insider Preview 29712.1000\",\"build\":\"29712.1000\",\"arch\":\"amd64\",\"created\":200,\"uuid\":\"u-new\"},\"3\":{\"title\":\"old\",\"build\":\"1\",\"arch\":\"arm64\",\"created\":100,\"uuid\":\"u-old\"},\"4\":{\"title\":\"x\",\"build\":\"2\",\"arch\":\"sparc\",\"created\":300,\"uuid\":\"u-x\"}}}}";
+            var b = UupDump.ParseBuilds(j, 10);
+            Assert.Equal(2, b.Count);
+            Assert.Equal("u-new", b[0].Uuid);
+            Assert.Single(UupDump.ParseBuilds(j, 1));
+            var l = UupDump.ParseLangs("{\"response\":{\"langList\":[\"de-de\",\"neutral\",\"uk-ua\",\"en-us\",\"models\"],\"langFancyNames\":{\"de-de\":\"German\",\"uk-ua\":\"Ukrainian\",\"en-us\":\"English (United States)\"}}}");
+            Assert.Equal(new[] { "en-us", "uk-ua", "de-de" }, l.Select(x => x.Code).ToArray());
+            Assert.Equal("https://uupdump.net/get.php?id=abc&pack=en-us&edition=professional&autodl=2", UupDump.PackageUrl("uup:abc:en-us:professional"));
+        }
+
+        [Fact]
+        public void ChromeOsRecoveryList()
+        {
+            var l = CrosCatalog.Parse("[{\"channel\":\"STABLE\",\"name\":\"Dell Chromebook 13\",\"manufacturer\":\"Dell\",\"url\":\"https://dl.google.com/x.bin.zip\",\"sha1\":\"aa\",\"filesize\":5},{\"channel\":\"LTS\",\"url\":\"https://dl.google.com/y.zip\"}]");
+            Assert.Single(l);
+            Assert.Equal("Dell", l[0].Manufacturer);
+        }
     }
 }

@@ -264,6 +264,94 @@ namespace OsIsoDownloader.App
             }
         }
 
+        private async Task LoadUupAsync(Node n)
+        {
+            StepText.Text = "Запитую у UUP dump список збірок…";
+            Choices.ItemsSource = null;
+            try
+            {
+                List<UupBuild> builds = await UupDump.FetchBuildsAsync(_http, n.Param, 80, CancellationToken.None);
+                if (builds.Count == 0)
+                {
+                    StepText.Text = "UUP dump не знайшов збірок для «" + n.Param + "».";
+                    return;
+                }
+                foreach (UupBuild b in builds)
+                {
+                    n.Children.Add(new Node
+                    {
+                        Id = "uup-" + b.Uuid.Substring(0, 8), Name = b.Build + " (" + b.Arch + ")", Note = b.Date.ToString("yyyy-MM-dd") + " · " + b.Title,
+                        ChildrenTitle = "Мова", Dynamic = "uuplang", Param = b.Uuid + "|" + b.Arch,
+                    });
+                }
+                if (_path.Count > 0 && _path.Peek() == n)
+                {
+                    ShowLevel();
+                }
+            }
+            catch (Exception e)
+            {
+                StepText.Text = "Не вдалося отримати список з UUP dump: " + e.Message;
+            }
+        }
+
+        private async Task LoadUupLangAsync(Node n)
+        {
+            StepText.Text = "Запитую мови збірки…";
+            Choices.ItemsSource = null;
+            try
+            {
+                string[] p = n.Param.Split('|');
+                List<UupLang> langs = await UupDump.FetchLangsAsync(_http, p[0], CancellationToken.None);
+                foreach (UupLang l in langs)
+                {
+                    foreach ((string ed, string label) in new[] { ("professional", "Pro"), ("core", "Home") })
+                    {
+                        n.Files.Add(new FileEntry
+                        {
+                            Name = l.Name + " — " + label, Kind = "uup", Url = "uup:" + p[0] + ":" + l.Code + ":" + ed, Arch = p[1], Verified = true,
+                            Source = "https://uupdump.net", Note = "ISO збирається на твоєму ПК з файлів Microsoft (потрібно ~20 ГБ і час)",
+                        });
+                    }
+                }
+                if (_path.Count > 0 && _path.Peek() == n)
+                {
+                    ShowLevel();
+                }
+            }
+            catch (Exception e)
+            {
+                StepText.Text = "Не вдалося отримати мови: " + e.Message;
+            }
+        }
+
+        private async Task LoadCrosAsync(Node n)
+        {
+            StepText.Text = "Завантажую список образів ChromeOS…";
+            Choices.ItemsSource = null;
+            try
+            {
+                string json = await _http.GetStringAsync(CrosCatalog.ListUrl);
+                foreach (CrosImage i in CrosCatalog.Parse(json))
+                {
+                    AddGrouped(n, i.Manufacturer, new FileEntry
+                    {
+                        Name = i.Name, Kind = "iso", Url = i.Url, Verified = true, Unzip = true, Source = "https://chromeos.google",
+                        Note = "образ відновлення для конкретного Chromebook (.bin)",
+                        Checksum = i.Sha1 != null ? new Checksum { Algo = "sha1", Value = i.Sha1 } : null,
+                    });
+                }
+                if (_path.Count > 0 && _path.Peek() == n)
+                {
+                    ShowLevel();
+                }
+            }
+            catch (Exception e)
+            {
+                StepText.Text = "Не вдалося отримати список: " + e.Message;
+            }
+        }
+
         private async Task LoadMsAsync(Node n)
         {
             StepText.Text = "Запитую у Microsoft список мов…";
@@ -386,6 +474,18 @@ namespace OsIsoDownloader.App
                 {
                     await LoadIpswAsync(c.Node);
                 }
+                else if (c.Node.Dynamic == "uup" && c.Node.Files.Count == 0 && !c.Node.HasChildren)
+                {
+                    await LoadUupAsync(c.Node);
+                }
+                else if (c.Node.Dynamic == "uuplang" && c.Node.Files.Count == 0 && !c.Node.HasChildren)
+                {
+                    await LoadUupLangAsync(c.Node);
+                }
+                else if (c.Node.Dynamic == "cros" && c.Node.Files.Count == 0 && !c.Node.HasChildren)
+                {
+                    await LoadCrosAsync(c.Node);
+                }
                 else if (c.Node.Dynamic == "ms" && c.Node.Files.Count == 0 && !c.Node.HasChildren)
                 {
                     await LoadMsAsync(c.Node);
@@ -433,8 +533,67 @@ namespace OsIsoDownloader.App
         {
             var item = new DownloadItem { Entry = entry, Title = title, Folder = _folder, Vm = FindVm() };
             item.IsMac = entry.Kind == "macrecovery";
+            item.IsUup = entry.Kind == "uup";
             _items.Insert(0, item);
-            _ = item.IsMac ? RunMacAsync(item) : RunAsync(item);
+            Launch(item);
+        }
+
+        private void Launch(DownloadItem item)
+        {
+            _ = item.IsMac ? RunMacAsync(item) : item.IsUup ? RunUupAsync(item) : RunAsync(item);
+        }
+
+        private async Task RunUupAsync(DownloadItem item)
+        {
+            item.Cts = new CancellationTokenSource();
+            CancellationToken ct = item.Cts.Token;
+            item.State = DownloadState.Downloading;
+            item.ActionLabel = "Скасувати";
+            try
+            {
+                string dir = Path.Combine(item.Folder, "UUP-" + Downloader.SafeName(item.Entry.Url.Substring(4).Replace(':', '-')));
+                item.Status = "Отримую пакет збірки з UUP dump…";
+                string cmd = await UupDump.PreparePackageAsync(_http, item.Entry.Url, dir, ct);
+                item.Status = "Йде завантаження файлів Microsoft і збірка ISO у вікні консолі (може тривати довго). Не закривай його.";
+                var psi = new System.Diagnostics.ProcessStartInfo("cmd.exe", "/c \"" + cmd + "\"")
+                {
+                    WorkingDirectory = dir, UseShellExecute = true,
+                };
+                using (System.Diagnostics.Process proc = System.Diagnostics.Process.Start(psi))
+                {
+                    using (ct.Register(() => { try { proc.Kill(true); } catch (Exception) { } }))
+                    {
+                        await proc.WaitForExitAsync();
+                    }
+                }
+                ct.ThrowIfCancellationRequested();
+                string iso = null;
+                foreach (string f in Directory.EnumerateFiles(dir, "*.iso"))
+                {
+                    iso = f;
+                }
+                if (iso == null)
+                {
+                    throw new InvalidOperationException("Збірка не створила ISO. Подивись повідомлення у вікні консолі; «Повторити» продовжить із завантажених файлів.");
+                }
+                item.State = DownloadState.Done;
+                item.Percent = 100;
+                item.Path = iso;
+                item.ActionLabel = "Показати";
+                item.Status = "Готово  " + iso;
+                History.Save(_items);
+            }
+            catch (OperationCanceledException)
+            {
+                item.State = DownloadState.Cancelled;
+                item.Status = "Скасовано";
+            }
+            catch (Exception ex)
+            {
+                item.State = DownloadState.Failed;
+                item.Status = "Помилка: " + ex.Message;
+                item.ActionLabel = "Повторити";
+            }
         }
 
         private async Task RunMacAsync(DownloadItem item)
@@ -616,7 +775,7 @@ namespace OsIsoDownloader.App
                 case DownloadState.Paused:
                 case DownloadState.Failed:
                     item.State = DownloadState.Waiting;
-                    _ = item.IsMac ? RunMacAsync(item) : RunAsync(item);
+                    Launch(item);
                     break;
                 case DownloadState.Done:
                     if (item.Path != null)

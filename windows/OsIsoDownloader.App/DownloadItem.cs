@@ -20,6 +20,8 @@ namespace OsIsoDownloader.App
         public VmHint Vm;
         /// <summary>A macOS recovery disk image (.img) made by the app.</summary>
         public bool IsMac;
+        /// <summary>A Windows ISO built on this PC from UUP dump files.</summary>
+        public bool IsUup;
 
         private string _title;
         private string _status = "У черзі";

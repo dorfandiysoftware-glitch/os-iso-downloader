@@ -10,6 +10,27 @@ internal static class Program
 {
     private static async Task<int> Main(string[] args)
     {
+        if (args.Length > 0 && args[0] == "uup")
+        {
+            var h = new HttpClient { Timeout = TimeSpan.FromMinutes(2) };
+            h.DefaultRequestHeaders.UserAgent.ParseAdd("os-iso-downloader/0.1");
+            int bad = 0;
+            foreach (string q in new[] { "Windows 11, version 26H2", "Windows 11, version 25H2", "Windows 11, version 24H2", "Windows 11 Insider Preview", "Windows 10, version 22H2" })
+            {
+                var b = await UupDump.FetchBuildsAsync(h, q, 80, CancellationToken.None);
+                Console.WriteLine("UUP " + q + " -> " + b.Count + " builds" + (b.Count > 0 ? ", newest " + b[0].Build + " " + b[0].Arch + " " + b[0].Date : ""));
+                if (b.Count == 0) bad++;
+            }
+            var one = await UupDump.FetchBuildsAsync(h, "Windows 11, version 26H2", 5, CancellationToken.None);
+            var langs = await UupDump.FetchLangsAsync(h, one[0].Uuid, CancellationToken.None);
+            Console.WriteLine("UUP langs " + langs.Count + " first " + langs[0].Code + " " + langs[0].Name);
+            string dir = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "uup-probe");
+            string cmd = await UupDump.PreparePackageAsync(h, "uup:" + one[0].Uuid + ":en-us:professional", dir, CancellationToken.None);
+            Console.WriteLine("UUP package ok: " + cmd + " files=" + System.IO.Directory.GetFiles(dir).Length);
+            var cros = CrosCatalog.Parse(await h.GetStringAsync(CrosCatalog.ListUrl));
+            Console.WriteLine("CROS " + cros.Count + " images, first " + cros[0].Name);
+            return bad == 0 ? 0 : 1;
+        }
         if (args.Length > 0 && args[0] == "ms")
         {
             var h = new HttpClient { Timeout = TimeSpan.FromMinutes(2) };
