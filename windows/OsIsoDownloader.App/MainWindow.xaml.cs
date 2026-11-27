@@ -264,6 +264,26 @@ namespace OsIsoDownloader.App
             }
         }
 
+        /// <summary>Shows a load problem as a tile in the list (the small text line above is easy to miss) and logs it.</summary>
+        private void ShowLoadError(string what, Exception e)
+        {
+            string detail = e == null ? "" : e.GetType().Name + ": " + e.Message;
+            StepText.Text = what + (detail.Length > 0 ? " — " + detail : "");
+            Choices.ItemsSource = new List<Choice>
+            {
+                new Choice { Title = "⚠ " + what, Subtitle = detail, Initials = "!", Brush = new SolidColorBrush(Color.FromArgb(255, 202, 80, 16)) },
+            };
+            try
+            {
+                string dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "OsIsoDownloader");
+                Directory.CreateDirectory(dir);
+                File.AppendAllText(Path.Combine(dir, "errors.log"), DateTime.Now.ToString("s") + " " + what + " " + (e?.ToString() ?? "") + Environment.NewLine);
+            }
+            catch (Exception)
+            {
+            }
+        }
+
         private static readonly int[] IosMajors = { 1, 2, 3, 4, 5, 6, 7, 16, 26, 27 };
 
         private async Task LoadIosDevicesAsync(Node n)
@@ -284,7 +304,7 @@ namespace OsIsoDownloader.App
             }
             catch (Exception e)
             {
-                StepText.Text = "Не вдалося отримати список: " + e.Message;
+                ShowLoadError("Не вдалося отримати список", e);
             }
         }
 
@@ -299,7 +319,7 @@ namespace OsIsoDownloader.App
                 List<IosFirmware> fws = IosCatalog.ParseFirmwares(json, IosMajors);
                 if (fws.Count == 0)
                 {
-                    StepText.Text = "Для цього пристрою немає прошивок iOS 1–7, 16, 26 чи 27.";
+                    ShowLoadError("Для цього пристрою немає прошивок iOS 1–7, 16, 26 чи 27", null);
                     return;
                 }
                 foreach (IosFirmware f in fws)
@@ -319,7 +339,7 @@ namespace OsIsoDownloader.App
             }
             catch (Exception e)
             {
-                StepText.Text = "Не вдалося отримати прошивки: " + e.Message;
+                ShowLoadError("Не вдалося отримати прошивки", e);
             }
         }
 
@@ -407,7 +427,7 @@ namespace OsIsoDownloader.App
             }
             catch (Exception e)
             {
-                StepText.Text = "Не вдалося отримати список: " + e.Message;
+                ShowLoadError("Не вдалося отримати список", e);
             }
         }
 
@@ -478,7 +498,7 @@ namespace OsIsoDownloader.App
             }
             catch (Exception e)
             {
-                StepText.Text = "Не вдалося отримати список: " + e.Message;
+                ShowLoadError("Не вдалося отримати список", e);
             }
         }
 
@@ -521,6 +541,10 @@ namespace OsIsoDownloader.App
         private async void OnChoice(object sender, ItemClickEventArgs e)
         {
             var c = (Choice)e.ClickedItem;
+            if (c.Node == null && c.File == null)
+            {
+                return;
+            }
             if (c.Node != null)
             {
                 _path.Push(c.Node);
