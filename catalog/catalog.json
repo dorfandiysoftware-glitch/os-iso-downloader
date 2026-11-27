@@ -430,8 +430,8 @@
                   "kind": "archived",
                   "resolve": {
                     "type": "index",
-                    "base": "https://ftp.osuosl.org/pub/lfs-livecd/",
-                    "pattern": "lfslivecd-x86_64-6\\.3-r2160\\.iso$"
+                    "base": "https://ftp.lfs-matrix.net/pub/lfs-livecd/",
+                    "pattern": "lfslivecd-x86_64-6\\.3-r\\d+\\.iso"
                   },
                   "source": "https://www.linuxfromscratch.org/livecd/",
                   "verified": false,
@@ -443,8 +443,8 @@
                   "kind": "archived",
                   "resolve": {
                     "type": "index",
-                    "base": "https://ftp.osuosl.org/pub/lfs-livecd/",
-                    "pattern": "lfslivecd-x86-6\\.3-r2160\\.iso$"
+                    "base": "https://ftp.lfs-matrix.net/pub/lfs-livecd/",
+                    "pattern": "lfslivecd-x86-6\\.3-r\\d+\\.iso"
                   },
                   "source": "https://www.linuxfromscratch.org/livecd/",
                   "verified": false,
