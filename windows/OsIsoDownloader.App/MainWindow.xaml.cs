@@ -555,7 +555,7 @@ namespace OsIsoDownloader.App
                 item.Status = "Отримую пакет збірки з UUP dump…";
                 string cmd = await UupDump.PreparePackageAsync(_http, item.Entry.Url, dir, ct);
                 item.Status = "Йде завантаження файлів Microsoft і збірка ISO у вікні консолі (може тривати довго). Не закривай його.";
-                var psi = new System.Diagnostics.ProcessStartInfo("cmd.exe", "/c \"" + cmd + "\"")
+                var psi = new System.Diagnostics.ProcessStartInfo("cmd.exe", "/c \"\"" + cmd + "\" || pause\"")
                 {
                     WorkingDirectory = dir, UseShellExecute = true,
                 };
@@ -712,7 +712,7 @@ namespace OsIsoDownloader.App
                 if (item.Entry != null && item.Entry.Unzip && r.HashOk != false)
                 {
                     item.Status = "Розпаковую…";
-                    finalPath = await Task.Run(() => Downloader.ExtractZip(r.Path, true));
+                    finalPath = await Task.Run(() => r.Path.EndsWith(".gz", StringComparison.OrdinalIgnoreCase) ? Downloader.ExtractGzip(r.Path, true) : Downloader.ExtractZip(r.Path, true));
                 }
                 item.Percent = 100;
                 item.Path = finalPath;

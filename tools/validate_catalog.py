@@ -22,7 +22,7 @@ def check_file(f, path):
         err(path, "url must be https")
     if has_res:
         r = f["resolve"]
-        if r.get("type", "index") in ("archive", "github"):
+        if r.get("type", "index") in ("archive", "github", "sourceforge", "json"):
             if not r.get("id"):
                 err(path, "archive resolve needs id")
         elif not r.get("base", "").startswith("https://") or not r["base"].endswith("/"):
@@ -35,7 +35,7 @@ def check_file(f, path):
             err(path, f"bad regex: {e}")
     c = f.get("checksum")
     if c:
-        if c.get("algo", "sha256") not in ("sha1", "sha256", "sha512"):
+        if c.get("algo", "sha256") not in ("md5", "sha1", "sha256", "sha512"):
             err(path, "bad checksum algo")
         if not (c.get("value") or c.get("url")):
             err(path, "checksum needs value or url")

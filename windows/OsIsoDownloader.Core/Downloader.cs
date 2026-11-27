@@ -440,9 +440,28 @@ namespace OsIsoDownloader.Core
                     return SHA512.Create();
                 case "sha1":
                     return SHA1.Create();
+                case "md5":
+                    return MD5.Create();
                 default:
                     return SHA256.Create();
             }
+        }
+
+        /// <summary>Unpacks a .gz next to itself (the name without ".gz") and returns the new path.</summary>
+        public static string ExtractGzip(string gzPath, bool deleteGz)
+        {
+            string target = gzPath.Substring(0, gzPath.Length - 3);
+            using (var src = new FileStream(gzPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var gz = new System.IO.Compression.GZipStream(src, System.IO.Compression.CompressionMode.Decompress))
+            using (var dst = new FileStream(target, FileMode.Create, FileAccess.Write))
+            {
+                gz.CopyTo(dst);
+            }
+            if (deleteGz)
+            {
+                File.Delete(gzPath);
+            }
+            return target;
         }
 
         /// <summary>Unpacks a .zip into a folder next to it, returns the first .iso (or the first file).</summary>

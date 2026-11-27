@@ -83,6 +83,23 @@ def resolve(f):
         best = sorted(names, key=natural)[-1]
         url = "https://archive.org/download/" + urllib.parse.quote(r["id"]) + "/" + "/".join(urllib.parse.quote(p) for p in best.split("/"))
         return url, f" -> {best}", names[best].get("sha1")
+    if r.get("type") == "sourceforge":
+        xml = req("https://sourceforge.net/projects/" + r["id"] + "/rss?limit=200&path=" + urllib.parse.quote(r.get("base", "/"), safe="")).read().decode("utf-8", "replace")
+        prefix = "/projects/" + r["id"] + "/files/"
+        rels = []
+        for link in re.findall(r"<link>([^<]+)</link>", xml):
+            i = link.find(prefix)
+            if i >= 0 and link.endswith("/download"):
+                rel = link[i + len(prefix):-len("/download")]
+                if pat.match(rel):
+                    rels.append(rel)
+        if not rels:
+            raise RuntimeError("no file matches " + r["pattern"])
+        best = sorted(set(rels), key=natural)[-1]
+        return "https://downloads.sourceforge.net/project/" + r["id"] + "/" + best, f" -> {best}", None
+    if r.get("type") == "json":
+        d = json.load(req(r["base"]))
+        return d[r["pattern"]], "", d.get(r.get("id")) if r.get("id") else None
     if r.get("type") == "github":
         if r.get("prerelease"):
             rels = json.load(req("https://api.github.com/repos/" + r["id"] + "/releases?per_page=10"))
@@ -126,7 +143,7 @@ for s in d["systems"]:
                     note += " [hash: value]"
                 elif c.get("url"):
                     fname = urllib.parse.unquote(url.rstrip("/").split("/")[-1])
-                    txt = req(c["url"].replace("{file}", fname)).read().decode("utf-8", "replace")
+                    txt = req(c["url"].replace("{file}", fname).replace("{url}", url)).read().decode("utf-8", "replace")
                     h = find_hash(txt, fname, c.get('algo', 'sha256'))
                     if h:
                         note += f" [hash ok {h[:10]}…]"

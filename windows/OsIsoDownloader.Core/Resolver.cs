@@ -71,6 +71,18 @@ namespace OsIsoDownloader.Core
                         url = fromArchive.Url;
                     }
                 }
+                else if (string.Equals(entry.Resolve.Type, "sourceforge", StringComparison.OrdinalIgnoreCase))
+                {
+                    string xml = await http.GetStringAsync("https://sourceforge.net/projects/" + entry.Resolve.Id + "/rss?limit=200&path=" + Uri.EscapeDataString(entry.Resolve.Base ?? "/"), ct).ConfigureAwait(false);
+                    fromArchive = PickFromSourceForge(xml, entry.Resolve);
+                    url = fromArchive.Url;
+                }
+                else if (string.Equals(entry.Resolve.Type, "json", StringComparison.OrdinalIgnoreCase))
+                {
+                    string js = await http.GetStringAsync(entry.Resolve.Base, ct).ConfigureAwait(false);
+                    fromArchive = PickFromJson(js, entry.Resolve);
+                    url = fromArchive.Url;
+                }
                 else if (string.Equals(entry.Resolve.Type, "archive", StringComparison.OrdinalIgnoreCase))
                 {
                     string json = await http.GetStringAsync("https://archive.org/metadata/" + Uri.EscapeDataString(entry.Resolve.Id) + "/files", ct).ConfigureAwait(false);
@@ -100,7 +112,7 @@ namespace OsIsoDownloader.Core
                 }
                 else if (!string.IsNullOrWhiteSpace(sum.Url))
                 {
-                    string sumUrl = sum.Url.Replace("{file}", name);
+                    string sumUrl = sum.Url.Replace("{file}", name).Replace("{url}", url);
                     string text = await http.GetStringAsync(sumUrl, ct).ConfigureAwait(false);
                     result.Hash = ChecksumParser.Find(text, name, result.HashAlgo);
                     if (result.Hash == null)
@@ -110,6 +122,59 @@ namespace OsIsoDownloader.Core
                 }
             }
             return result;
+        }
+
+        /// <summary>SourceForge: the project's RSS lists every file with its path; the newest name that matches wins.</summary>
+        public static ResolvedFile PickFromSourceForge(string xml, Resolve rule)
+        {
+            var pattern = new Regex("^(" + rule.Pattern + ")$", RegexOptions.IgnoreCase);
+            string prefix = "/projects/" + rule.Id + "/files/";
+            var found = new List<string>();
+            foreach (Match m in Regex.Matches(xml, @"<link>([^<]+)</link>"))
+            {
+                string link = m.Groups[1].Value;
+                int i = link.IndexOf(prefix, StringComparison.OrdinalIgnoreCase);
+                if (i < 0 || !link.EndsWith("/download", StringComparison.Ordinal))
+                {
+                    continue;
+                }
+                string rel = link.Substring(i + prefix.Length, link.Length - i - prefix.Length - "/download".Length);
+                if (pattern.IsMatch(rel) && !found.Contains(rel))
+                {
+                    found.Add(rel);
+                }
+            }
+            if (found.Count == 0)
+            {
+                throw new InvalidOperationException("No file in SourceForge project " + rule.Id + " matches " + rule.Pattern + ".");
+            }
+            found.Sort(VersionCompare.Instance.Compare);
+            string best = found[found.Count - 1];
+            return new ResolvedFile { Url = "https://downloads.sourceforge.net/project/" + rule.Id + "/" + best };
+        }
+
+        /// <summary>A small JSON API (Pop!_OS): Pattern is the url property, Id the hash property (sha256).</summary>
+        public static ResolvedFile PickFromJson(string json, Resolve rule)
+        {
+            using (System.Text.Json.JsonDocument doc = System.Text.Json.JsonDocument.Parse(json))
+            {
+                System.Text.Json.JsonElement root = doc.RootElement;
+                if (!root.TryGetProperty(rule.Pattern, out System.Text.Json.JsonElement u) || u.ValueKind != System.Text.Json.JsonValueKind.String)
+                {
+                    throw new InvalidOperationException("The JSON has no " + rule.Pattern + " field.");
+                }
+                var r = new ResolvedFile { Url = u.GetString() };
+                if (!string.IsNullOrEmpty(rule.Id) && root.TryGetProperty(rule.Id, out System.Text.Json.JsonElement h) && h.ValueKind == System.Text.Json.JsonValueKind.String)
+                {
+                    r.Hash = h.GetString().ToLowerInvariant();
+                    r.HashAlgo = "sha256";
+                }
+                if (root.TryGetProperty("size", out System.Text.Json.JsonElement sz) && sz.ValueKind == System.Text.Json.JsonValueKind.Number)
+                {
+                    r.Size = sz.GetInt64();
+                }
+                return r;
+            }
         }
 
         /// <summary>Picks a release asset out of GitHub's "releases/latest" JSON.</summary>
