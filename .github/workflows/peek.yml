@@ -2,10 +2,8 @@ name: peek
 on:
   workflow_dispatch:
 jobs:
-  gh:
+  d:
     runs-on: ubuntu-latest
     steps:
-      - env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          for r in insidegui/VirtualBuddy uxazu/aemulator utmapp/UTM; do echo "## $r"; gh api "repos/$r/releases?per_page=4" --jq '.[]|[.tag_name,.prerelease,([.assets[].name]|join(","))]|@tsv'; done
+      - uses: actions/checkout@v4
+      - run: python3 tools/discover.py
