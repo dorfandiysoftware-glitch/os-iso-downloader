@@ -2,8 +2,10 @@ name: peek
 on:
   workflow_dispatch:
 jobs:
-  lfs:
+  gh:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-          for u in http://ftp.osuosl.org/pub/lfs-livecd/ https://ftp.osuosl.org/pub/lfs-livecd/ http://ftp.lfs-matrix.net/pub/lfs-livecd/ https://ftp.lfs-matrix.net/pub/lfs-livecd/ http://kerrek.linuxfromscratch.org/lfs-livecd/ https://www.linuxfromscratch.org/livecd/; do echo "## $u"; curl -sSL -m 30 "$u" | grep -oE 'href="[^"]*(iso|ISO)[^"]*"' | head -20 || true; done
+      - env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for r in insidegui/VirtualBuddy uxazu/aemulator utmapp/UTM; do echo "## $r"; gh api "repos/$r/releases?per_page=4" --jq '.[]|[.tag_name,.prerelease,([.assets[].name]|join(","))]|@tsv'; done
