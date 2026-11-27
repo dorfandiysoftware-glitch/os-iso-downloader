@@ -734,22 +734,6 @@
                         "algo": "sha256",
                         "url": "https://cdimage.kali.org/current/SHA256SUMS"
                       }
-                    },
-                    {
-                      "name": "Live",
-                      "kind": "iso",
-                      "source": "https://www.kali.org/get-kali/",
-                      "verified": false,
-                      "arch": "amd64",
-                      "resolve": {
-                        "type": "index",
-                        "pattern": "kali-linux-[\\d.]+-live-amd64\\.iso",
-                        "base": "https://cdimage.kali.org/current/"
-                      },
-                      "checksum": {
-                        "algo": "sha256",
-                        "url": "https://cdimage.kali.org/current/SHA256SUMS"
-                      }
                     }
                   ]
                 }
@@ -901,22 +885,6 @@
                   "id": "knoppix-v",
                   "name": "9.1 (2021)",
                   "files": [
-                    {
-                      "name": "DVD (англ.)",
-                      "kind": "iso",
-                      "source": "https://www.knopper.net/knoppix/",
-                      "verified": false,
-                      "arch": "x86",
-                      "resolve": {
-                        "type": "index",
-                        "pattern": "KNOPPIX_V[\\d.]+DVD-[\\d-]+-EN\\.iso",
-                        "base": "https://ftp.halifax.rwth-aachen.de/knoppix/"
-                      },
-                      "checksum": {
-                        "algo": "sha1",
-                        "url": "{url}.sha1"
-                      }
-                    },
                     {
                       "name": "CD (англ.)",
                       "kind": "iso",
@@ -1457,8 +1425,8 @@
                     {
                       "name": "ArcoLinux: сторінка завантаження",
                       "kind": "guide",
-                      "url": "https://arcolinux.com/download/",
-                      "source": "https://arcolinux.com/download/",
+                      "url": "https://arcolinux.info/",
+                      "source": "https://arcolinux.info/",
                       "verified": false,
                       "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
                     }
@@ -2521,11 +2489,7 @@
                   "source": "http://tinycorelinux.net/downloads.html",
                   "verified": false,
                   "arch": "x86",
-                  "url": "https://distro.ibiblio.org/tinycorelinux/16.x/x86/release/Core-current.iso",
-                  "checksum": {
-                    "algo": "md5",
-                    "url": "https://distro.ibiblio.org/tinycorelinux/16.x/x86/release/Core-current.iso.md5.txt"
-                  }
+                  "url": "https://distro.ibiblio.org/tinycorelinux/16.x/x86/release/Core-current.iso"
                 },
                 {
                   "name": "TinyCore (графічний)",
@@ -2533,11 +2497,7 @@
                   "source": "http://tinycorelinux.net/downloads.html",
                   "verified": false,
                   "arch": "x86",
-                  "url": "https://distro.ibiblio.org/tinycorelinux/16.x/x86/release/TinyCore-current.iso",
-                  "checksum": {
-                    "algo": "md5",
-                    "url": "https://distro.ibiblio.org/tinycorelinux/16.x/x86/release/TinyCore-current.iso.md5.txt"
-                  }
+                  "url": "https://distro.ibiblio.org/tinycorelinux/16.x/x86/release/TinyCore-current.iso"
                 },
                 {
                   "name": "CorePlus (з інсталятором)",
@@ -2545,11 +2505,7 @@
                   "source": "http://tinycorelinux.net/downloads.html",
                   "verified": false,
                   "arch": "x86",
-                  "url": "https://distro.ibiblio.org/tinycorelinux/16.x/x86/release/CorePlus-current.iso",
-                  "checksum": {
-                    "algo": "md5",
-                    "url": "https://distro.ibiblio.org/tinycorelinux/16.x/x86/release/CorePlus-current.iso.md5.txt"
-                  }
+                  "url": "https://distro.ibiblio.org/tinycorelinux/16.x/x86/release/CorePlus-current.iso"
                 }
               ]
             }
@@ -2595,8 +2551,8 @@
                 {
                   "name": "Source Mage: сторінка завантаження",
                   "kind": "guide",
-                  "url": "https://sourcemage.org/downloads",
-                  "source": "https://sourcemage.org/downloads",
+                  "url": "https://sourcemage.org/",
+                  "source": "https://sourcemage.org/",
                   "verified": false,
                   "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
                 }
@@ -2853,28 +2809,6 @@
                 }
               ],
               "note": "Спільнотна гілка Mandriva."
-            },
-            {
-              "id": "rosa",
-              "name": "ROSA Linux",
-              "childrenTitle": "Версія",
-              "children": [
-                {
-                  "id": "rosa-v",
-                  "name": "Сторінка завантаження",
-                  "files": [
-                    {
-                      "name": "ROSA Linux: сторінка завантаження",
-                      "kind": "guide",
-                      "url": "https://www.rosalinux.ru/",
-                      "source": "https://www.rosalinux.ru/",
-                      "verified": false,
-                      "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
-                    }
-                  ]
-                }
-              ],
-              "note": "Російська гілка Mandriva."
             }
           ]
         },
@@ -2888,68 +2822,11 @@
               "name": "Актуальна",
               "files": [
                 {
-                  "name": "Budgie",
-                  "kind": "iso",
+                  "name": "Solus: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://getsol.us/download/",
                   "source": "https://getsol.us/download/",
-                  "verified": false,
-                  "arch": "x86_64",
-                  "resolve": {
-                    "type": "index",
-                    "pattern": "Solus-Latest-Budgie\\.iso",
-                    "base": "https://downloads.getsol.us/isos/latest/"
-                  },
-                  "checksum": {
-                    "algo": "sha256",
-                    "url": "{url}.sha256sum"
-                  }
-                },
-                {
-                  "name": "GNOME",
-                  "kind": "iso",
-                  "source": "https://getsol.us/download/",
-                  "verified": false,
-                  "arch": "x86_64",
-                  "resolve": {
-                    "type": "index",
-                    "pattern": "Solus-Latest-GNOME\\.iso",
-                    "base": "https://downloads.getsol.us/isos/latest/"
-                  },
-                  "checksum": {
-                    "algo": "sha256",
-                    "url": "{url}.sha256sum"
-                  }
-                },
-                {
-                  "name": "Plasma",
-                  "kind": "iso",
-                  "source": "https://getsol.us/download/",
-                  "verified": false,
-                  "arch": "x86_64",
-                  "resolve": {
-                    "type": "index",
-                    "pattern": "Solus-Latest-Plasma\\.iso",
-                    "base": "https://downloads.getsol.us/isos/latest/"
-                  },
-                  "checksum": {
-                    "algo": "sha256",
-                    "url": "{url}.sha256sum"
-                  }
-                },
-                {
-                  "name": "Xfce",
-                  "kind": "iso",
-                  "source": "https://getsol.us/download/",
-                  "verified": false,
-                  "arch": "x86_64",
-                  "resolve": {
-                    "type": "index",
-                    "pattern": "Solus-Latest-Xfce\\.iso",
-                    "base": "https://downloads.getsol.us/isos/latest/"
-                  },
-                  "checksum": {
-                    "algo": "sha256",
-                    "url": "{url}.sha256sum"
-                  }
+                  "verified": false
                 }
               ]
             }

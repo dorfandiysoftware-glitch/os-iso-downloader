@@ -84,7 +84,7 @@ def resolve(f):
         url = "https://archive.org/download/" + urllib.parse.quote(r["id"]) + "/" + "/".join(urllib.parse.quote(p) for p in best.split("/"))
         return url, f" -> {best}", names[best].get("sha1")
     if r.get("type") == "sourceforge":
-        xml = req("https://sourceforge.net/projects/" + r["id"] + "/rss?limit=200&path=" + urllib.parse.quote(r.get("base", "/"), safe="")).read().decode("utf-8", "replace")
+        xml = req("https://sourceforge.net/projects/" + r["id"] + "/rss?limit=100&path=" + urllib.parse.quote(r.get("base", "/"), safe="")).read().decode("utf-8", "replace")
         prefix = "/projects/" + r["id"] + "/files/"
         rels = []
         for link in re.findall(r"<link>([^<]+)</link>", xml):

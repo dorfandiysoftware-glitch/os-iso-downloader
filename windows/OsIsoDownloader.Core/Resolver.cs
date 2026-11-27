@@ -73,7 +73,7 @@ namespace OsIsoDownloader.Core
                 }
                 else if (string.Equals(entry.Resolve.Type, "sourceforge", StringComparison.OrdinalIgnoreCase))
                 {
-                    string xml = await http.GetStringAsync("https://sourceforge.net/projects/" + entry.Resolve.Id + "/rss?limit=200&path=" + Uri.EscapeDataString(entry.Resolve.Base ?? "/"), ct).ConfigureAwait(false);
+                    string xml = await http.GetStringAsync("https://sourceforge.net/projects/" + entry.Resolve.Id + "/rss?limit=100&path=" + Uri.EscapeDataString(entry.Resolve.Base ?? "/"), ct).ConfigureAwait(false);
                     fromArchive = PickFromSourceForge(xml, entry.Resolve);
                     url = fromArchive.Url;
                 }
