@@ -11,6 +11,9 @@ UA = {"User-Agent": "os-iso-downloader/0.1"}
 def req(url, method="GET", headers=None):
     h = dict(UA)
     h.update(headers or {})
+    import os
+    if url.startswith("https://api.github.com/") and os.environ.get("GITHUB_TOKEN"):
+        h["Authorization"] = "Bearer " + os.environ["GITHUB_TOKEN"]
     return urllib.request.urlopen(urllib.request.Request(url, headers=h, method=method), timeout=60)
 
 def probe(url, is_download):

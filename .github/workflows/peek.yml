@@ -2,12 +2,8 @@ name: peek
 on:
   workflow_dispatch:
 jobs:
-  uup:
+  lfs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 8.0.x
-      - name: UUP dump and ChromeOS through the real code
-        run: dotnet run --project windows/OsIsoDownloader.Probe -- uup
+      - run: |
+          for u in http://ftp.osuosl.org/pub/lfs-livecd/ https://ftp.osuosl.org/pub/lfs-livecd/ http://ftp.lfs-matrix.net/pub/lfs-livecd/ https://ftp.lfs-matrix.net/pub/lfs-livecd/ http://kerrek.linuxfromscratch.org/lfs-livecd/ https://www.linuxfromscratch.org/livecd/; do echo "## $u"; curl -sSL -m 30 "$u" | grep -oE 'href="[^"]*(iso|ISO)[^"]*"' | head -20 || true; done
