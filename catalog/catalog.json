@@ -1425,8 +1425,8 @@
                     {
                       "name": "ArcoLinux: сторінка завантаження",
                       "kind": "guide",
-                      "url": "https://arcolinux.info/",
-                      "source": "https://arcolinux.info/",
+                      "url": "https://github.com/arcolinux",
+                      "source": "https://github.com/arcolinux",
                       "verified": false,
                       "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
                     }
