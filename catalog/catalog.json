@@ -1865,7 +1865,18 @@
                     "url": "https://download.opensuse.org/tumbleweed/iso/openSUSE-Tumbleweed-DVD-x86_64-Current.iso.sha256"
                   },
                   "source": "https://get.opensuse.org/tumbleweed/?type=desktop",
-                  "verified": true
+                  "verified": false
+                },
+                {
+                  "name": "NET (мережевий інсталятор)",
+                  "arch": "x86_64",
+                  "url": "https://download.opensuse.org/tumbleweed/iso/openSUSE-Tumbleweed-NET-x86_64-Current.iso",
+                  "checksum": {
+                    "algo": "sha256",
+                    "url": "https://download.opensuse.org/tumbleweed/iso/openSUSE-Tumbleweed-NET-x86_64-Current.iso.sha256"
+                  },
+                  "source": "https://get.opensuse.org/tumbleweed/?type=desktop",
+                  "verified": false
                 }
               ],
               "children": []
@@ -4468,7 +4479,7 @@
                   "arch": "x86",
                   "resolve": {
                     "type": "sourceforge",
-                    "pattern": "ReactOS/[\\d.]+/ReactOS-[\\d.]+-iso\\.zip",
+                    "pattern": "[\\d.]+/ReactOS-[\\d.]+-iso\\.zip",
                     "base": "/ReactOS",
                     "id": "reactos"
                   },
@@ -5114,8 +5125,8 @@
                 {
                   "name": "HarmonyOS NEXT: сторінка завантаження",
                   "kind": "guide",
-                  "url": "https://developer.huawei.com/consumer/en/harmonyos/",
-                  "source": "https://developer.huawei.com/consumer/en/harmonyos/",
+                  "url": "https://www.harmonyos.com/",
+                  "source": "https://www.harmonyos.com/",
                   "verified": false,
                   "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
                 }
