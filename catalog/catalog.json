@@ -46,6 +46,60 @@
                     "efi": false,
                     "virtio": true
                   }
+                },
+                {
+                  "id": "debian-12",
+                  "name": "12 (архів)",
+                  "files": [
+                    {
+                      "name": "netinst amd64",
+                      "kind": "archived",
+                      "source": "https://cdimage.debian.org/cdimage/archive/",
+                      "verified": false,
+                      "arch": "amd64",
+                      "url": "https://cdimage.debian.org/cdimage/archive/12.11.0/amd64/iso-cd/debian-12.11.0-amd64-netinst.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://cdimage.debian.org/cdimage/archive/12.11.0/amd64/iso-cd/SHA256SUMS"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "debian-11",
+                  "name": "11 (архів)",
+                  "files": [
+                    {
+                      "name": "netinst amd64",
+                      "kind": "archived",
+                      "source": "https://cdimage.debian.org/cdimage/archive/",
+                      "verified": false,
+                      "arch": "amd64",
+                      "url": "https://cdimage.debian.org/cdimage/archive/11.11.0/amd64/iso-cd/debian-11.11.0-amd64-netinst.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://cdimage.debian.org/cdimage/archive/11.11.0/amd64/iso-cd/SHA256SUMS"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "debian-10",
+                  "name": "10 (архів)",
+                  "files": [
+                    {
+                      "name": "netinst amd64",
+                      "kind": "archived",
+                      "source": "https://cdimage.debian.org/cdimage/archive/",
+                      "verified": false,
+                      "arch": "amd64",
+                      "url": "https://cdimage.debian.org/cdimage/archive/10.13.0/amd64/iso-cd/debian-10.13.0-amd64-netinst.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://cdimage.debian.org/cdimage/archive/10.13.0/amd64/iso-cd/SHA256SUMS"
+                      }
+                    }
+                  ]
                 }
               ]
             },
@@ -86,6 +140,196 @@
                           },
                           "source": "https://ubuntu.com/download/desktop",
                           "verified": false
+                        }
+                      ]
+                    },
+                    {
+                      "id": "ubuntu-2404",
+                      "name": "24.04 LTS (архів)",
+                      "files": [
+                        {
+                          "name": "Desktop amd64",
+                          "kind": "archived",
+                          "source": "https://releases.ubuntu.com/noble/",
+                          "verified": false,
+                          "arch": "amd64",
+                          "resolve": {
+                            "type": "index",
+                            "pattern": "ubuntu-24\\.04(\\.\\d+)?-desktop-amd64\\.iso",
+                            "base": "https://releases.ubuntu.com/noble/"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://releases.ubuntu.com/noble/SHA256SUMS"
+                          }
+                        },
+                        {
+                          "name": "Server (live) amd64",
+                          "kind": "archived",
+                          "source": "https://releases.ubuntu.com/noble/",
+                          "verified": false,
+                          "arch": "amd64",
+                          "resolve": {
+                            "type": "index",
+                            "pattern": "ubuntu-24\\.04(\\.\\d+)?-(live-)?server-amd64\\.iso",
+                            "base": "https://releases.ubuntu.com/noble/"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://releases.ubuntu.com/noble/SHA256SUMS"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "id": "ubuntu-2204",
+                      "name": "22.04 LTS (архів)",
+                      "files": [
+                        {
+                          "name": "Desktop amd64",
+                          "kind": "archived",
+                          "source": "https://releases.ubuntu.com/jammy/",
+                          "verified": false,
+                          "arch": "amd64",
+                          "resolve": {
+                            "type": "index",
+                            "pattern": "ubuntu-22\\.04\\.\\d+-desktop-amd64\\.iso",
+                            "base": "https://releases.ubuntu.com/jammy/"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://releases.ubuntu.com/jammy/SHA256SUMS"
+                          }
+                        },
+                        {
+                          "name": "Server (live) amd64",
+                          "kind": "archived",
+                          "source": "https://releases.ubuntu.com/jammy/",
+                          "verified": false,
+                          "arch": "amd64",
+                          "resolve": {
+                            "type": "index",
+                            "pattern": "ubuntu-22\\.04\\.\\d+-(live-)?server-amd64\\.iso",
+                            "base": "https://releases.ubuntu.com/jammy/"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://releases.ubuntu.com/jammy/SHA256SUMS"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "id": "ubuntu-2004",
+                      "name": "20.04 LTS (архів)",
+                      "files": [
+                        {
+                          "name": "Desktop amd64",
+                          "kind": "archived",
+                          "source": "https://releases.ubuntu.com/focal/",
+                          "verified": false,
+                          "arch": "amd64",
+                          "resolve": {
+                            "type": "index",
+                            "pattern": "ubuntu-20\\.04\\.\\d+-desktop-amd64\\.iso",
+                            "base": "https://releases.ubuntu.com/focal/"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://releases.ubuntu.com/focal/SHA256SUMS"
+                          }
+                        },
+                        {
+                          "name": "Server (live) amd64",
+                          "kind": "archived",
+                          "source": "https://releases.ubuntu.com/focal/",
+                          "verified": false,
+                          "arch": "amd64",
+                          "resolve": {
+                            "type": "index",
+                            "pattern": "ubuntu-20\\.04\\.\\d+-(live-)?server-amd64\\.iso",
+                            "base": "https://releases.ubuntu.com/focal/"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://releases.ubuntu.com/focal/SHA256SUMS"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "id": "ubuntu-1804",
+                      "name": "18.04 LTS (архів)",
+                      "files": [
+                        {
+                          "name": "Desktop amd64",
+                          "kind": "archived",
+                          "source": "https://releases.ubuntu.com/bionic/",
+                          "verified": false,
+                          "arch": "amd64",
+                          "resolve": {
+                            "type": "index",
+                            "pattern": "ubuntu-18\\.04\\.\\d+-desktop-amd64\\.iso",
+                            "base": "https://releases.ubuntu.com/bionic/"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://releases.ubuntu.com/bionic/SHA256SUMS"
+                          }
+                        },
+                        {
+                          "name": "Server (live) amd64",
+                          "kind": "archived",
+                          "source": "https://releases.ubuntu.com/bionic/",
+                          "verified": false,
+                          "arch": "amd64",
+                          "resolve": {
+                            "type": "index",
+                            "pattern": "ubuntu-18\\.04\\.\\d+-(live-)?server-amd64\\.iso",
+                            "base": "https://releases.ubuntu.com/bionic/"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://releases.ubuntu.com/bionic/SHA256SUMS"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "id": "ubuntu-1604",
+                      "name": "16.04 LTS (архів)",
+                      "files": [
+                        {
+                          "name": "Desktop amd64",
+                          "kind": "archived",
+                          "source": "https://releases.ubuntu.com/xenial/",
+                          "verified": false,
+                          "arch": "amd64",
+                          "resolve": {
+                            "type": "index",
+                            "pattern": "ubuntu-16\\.04\\.\\d+-desktop-amd64\\.iso",
+                            "base": "https://releases.ubuntu.com/xenial/"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://releases.ubuntu.com/xenial/SHA256SUMS"
+                          }
+                        },
+                        {
+                          "name": "Server (live) amd64",
+                          "kind": "archived",
+                          "source": "https://releases.ubuntu.com/xenial/",
+                          "verified": false,
+                          "arch": "amd64",
+                          "resolve": {
+                            "type": "index",
+                            "pattern": "ubuntu-16\\.04\\.\\d+-(live-)?server-amd64\\.iso",
+                            "base": "https://releases.ubuntu.com/xenial/"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://releases.ubuntu.com/xenial/SHA256SUMS"
+                          }
                         }
                       ]
                     }
@@ -154,6 +398,114 @@
                           "verified": false
                         }
                       ]
+                    },
+                    {
+                      "id": "mint-222",
+                      "name": "22.2 (архів)",
+                      "files": [
+                        {
+                          "name": "Cinnamon",
+                          "kind": "archived",
+                          "source": "https://mirrors.edge.kernel.org/linuxmint/stable/22.2/",
+                          "verified": false,
+                          "arch": "64-bit",
+                          "resolve": {
+                            "type": "index",
+                            "pattern": "linuxmint-22\\.2-cinnamon-64bit\\.iso",
+                            "base": "https://mirrors.edge.kernel.org/linuxmint/stable/22.2/"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://mirrors.edge.kernel.org/linuxmint/stable/22.2/sha256sum.txt"
+                          }
+                        },
+                        {
+                          "name": "Mate",
+                          "kind": "archived",
+                          "source": "https://mirrors.edge.kernel.org/linuxmint/stable/22.2/",
+                          "verified": false,
+                          "arch": "64-bit",
+                          "resolve": {
+                            "type": "index",
+                            "pattern": "linuxmint-22\\.2-mate-64bit\\.iso",
+                            "base": "https://mirrors.edge.kernel.org/linuxmint/stable/22.2/"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://mirrors.edge.kernel.org/linuxmint/stable/22.2/sha256sum.txt"
+                          }
+                        },
+                        {
+                          "name": "Xfce",
+                          "kind": "archived",
+                          "source": "https://mirrors.edge.kernel.org/linuxmint/stable/22.2/",
+                          "verified": false,
+                          "arch": "64-bit",
+                          "resolve": {
+                            "type": "index",
+                            "pattern": "linuxmint-22\\.2-xfce-64bit\\.iso",
+                            "base": "https://mirrors.edge.kernel.org/linuxmint/stable/22.2/"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://mirrors.edge.kernel.org/linuxmint/stable/22.2/sha256sum.txt"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "id": "mint-213",
+                      "name": "21.3 (архів)",
+                      "files": [
+                        {
+                          "name": "Cinnamon",
+                          "kind": "archived",
+                          "source": "https://mirrors.edge.kernel.org/linuxmint/stable/21.3/",
+                          "verified": false,
+                          "arch": "64-bit",
+                          "resolve": {
+                            "type": "index",
+                            "pattern": "linuxmint-21\\.3-cinnamon-64bit\\.iso",
+                            "base": "https://mirrors.edge.kernel.org/linuxmint/stable/21.3/"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://mirrors.edge.kernel.org/linuxmint/stable/21.3/sha256sum.txt"
+                          }
+                        },
+                        {
+                          "name": "Mate",
+                          "kind": "archived",
+                          "source": "https://mirrors.edge.kernel.org/linuxmint/stable/21.3/",
+                          "verified": false,
+                          "arch": "64-bit",
+                          "resolve": {
+                            "type": "index",
+                            "pattern": "linuxmint-21\\.3-mate-64bit\\.iso",
+                            "base": "https://mirrors.edge.kernel.org/linuxmint/stable/21.3/"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://mirrors.edge.kernel.org/linuxmint/stable/21.3/sha256sum.txt"
+                          }
+                        },
+                        {
+                          "name": "Xfce",
+                          "kind": "archived",
+                          "source": "https://mirrors.edge.kernel.org/linuxmint/stable/21.3/",
+                          "verified": false,
+                          "arch": "64-bit",
+                          "resolve": {
+                            "type": "index",
+                            "pattern": "linuxmint-21\\.3-xfce-64bit\\.iso",
+                            "base": "https://mirrors.edge.kernel.org/linuxmint/stable/21.3/"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://mirrors.edge.kernel.org/linuxmint/stable/21.3/sha256sum.txt"
+                          }
+                        }
+                      ]
                     }
                   ],
                   "note": "Просте перехідне середовище для новачків. Версія 22.3 «Zena».",
@@ -165,8 +517,453 @@
                     "efi": false,
                     "virtio": true
                   }
+                },
+                {
+                  "id": "lubuntu",
+                  "name": "Lubuntu",
+                  "childrenTitle": "Версія",
+                  "children": [
+                    {
+                      "id": "lubuntu-v",
+                      "name": "26.04 LTS",
+                      "files": [
+                        {
+                          "name": "Desktop",
+                          "kind": "iso",
+                          "source": "https://cdimage.ubuntu.com/lubuntu/releases/26.04/release/",
+                          "verified": false,
+                          "arch": "amd64",
+                          "resolve": {
+                            "type": "index",
+                            "pattern": "lubuntu-26\\.04(\\.\\d+)?-desktop-amd64\\.iso",
+                            "base": "https://cdimage.ubuntu.com/lubuntu/releases/26.04/release/"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://cdimage.ubuntu.com/lubuntu/releases/26.04/release/SHA256SUMS"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "note": "Ubuntu з легким LXQt."
+                },
+                {
+                  "id": "kubuntu",
+                  "name": "Kubuntu",
+                  "childrenTitle": "Версія",
+                  "children": [
+                    {
+                      "id": "kubuntu-v",
+                      "name": "26.04 LTS",
+                      "files": [
+                        {
+                          "name": "Desktop",
+                          "kind": "iso",
+                          "source": "https://cdimage.ubuntu.com/kubuntu/releases/26.04/release/",
+                          "verified": false,
+                          "arch": "amd64",
+                          "resolve": {
+                            "type": "index",
+                            "pattern": "kubuntu-26\\.04(\\.\\d+)?-desktop-amd64\\.iso",
+                            "base": "https://cdimage.ubuntu.com/kubuntu/releases/26.04/release/"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://cdimage.ubuntu.com/kubuntu/releases/26.04/release/SHA256SUMS"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "note": "Ubuntu з KDE Plasma."
+                },
+                {
+                  "id": "xubuntu",
+                  "name": "Xubuntu",
+                  "childrenTitle": "Версія",
+                  "children": [
+                    {
+                      "id": "xubuntu-v",
+                      "name": "26.04 LTS",
+                      "files": [
+                        {
+                          "name": "Desktop",
+                          "kind": "iso",
+                          "source": "https://cdimage.ubuntu.com/xubuntu/releases/26.04/release/",
+                          "verified": false,
+                          "arch": "amd64",
+                          "resolve": {
+                            "type": "index",
+                            "pattern": "xubuntu-26\\.04(\\.\\d+)?-desktop-amd64\\.iso",
+                            "base": "https://cdimage.ubuntu.com/xubuntu/releases/26.04/release/"
+                          },
+                          "checksum": {
+                            "algo": "sha256",
+                            "url": "https://cdimage.ubuntu.com/xubuntu/releases/26.04/release/SHA256SUMS"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "note": "Ubuntu з Xfce."
+                },
+                {
+                  "id": "pop",
+                  "name": "Pop!_OS",
+                  "childrenTitle": "Версія",
+                  "children": [
+                    {
+                      "id": "pop-v",
+                      "name": "24.04 LTS",
+                      "files": [
+                        {
+                          "name": "Intel / AMD",
+                          "kind": "iso",
+                          "source": "https://pop.system76.com/",
+                          "verified": false,
+                          "arch": "amd64",
+                          "resolve": {
+                            "type": "json",
+                            "pattern": "url",
+                            "base": "https://api.pop-os.org/builds/24.04/intel",
+                            "id": "sha_sum"
+                          }
+                        },
+                        {
+                          "name": "NVIDIA",
+                          "kind": "iso",
+                          "source": "https://pop.system76.com/",
+                          "verified": false,
+                          "arch": "amd64",
+                          "resolve": {
+                            "type": "json",
+                            "pattern": "url",
+                            "base": "https://api.pop-os.org/builds/24.04/nvidia",
+                            "id": "sha_sum"
+                          }
+                        }
+                      ]
+                    }
+                  ],
+                  "note": "Ubuntu від System76 з власним робочим столом COSMIC."
+                },
+                {
+                  "id": "zorin",
+                  "name": "Zorin OS",
+                  "childrenTitle": "Версія",
+                  "children": [
+                    {
+                      "id": "zorin-v",
+                      "name": "Сторінка завантаження",
+                      "files": [
+                        {
+                          "name": "Zorin OS: сторінка завантаження",
+                          "kind": "guide",
+                          "url": "https://zorin.com/os/download/",
+                          "source": "https://zorin.com/os/download/",
+                          "verified": false,
+                          "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                        }
+                      ]
+                    }
+                  ],
+                  "note": "Ubuntu для переходу з Windows."
+                },
+                {
+                  "id": "elementary",
+                  "name": "elementary OS",
+                  "childrenTitle": "Версія",
+                  "children": [
+                    {
+                      "id": "elementary-v",
+                      "name": "Сторінка завантаження",
+                      "files": [
+                        {
+                          "name": "elementary OS: сторінка завантаження",
+                          "kind": "guide",
+                          "url": "https://elementary.io/",
+                          "source": "https://elementary.io/",
+                          "verified": false,
+                          "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                        }
+                      ]
+                    }
+                  ],
+                  "note": "Ubuntu із простим робочим столом Pantheon."
                 }
               ]
+            },
+            {
+              "id": "kali",
+              "name": "Kali Linux",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "kali-v",
+                  "name": "Актуальна (rolling)",
+                  "files": [
+                    {
+                      "name": "Installer (повний)",
+                      "kind": "iso",
+                      "source": "https://www.kali.org/get-kali/",
+                      "verified": false,
+                      "arch": "amd64",
+                      "resolve": {
+                        "type": "index",
+                        "pattern": "kali-linux-[\\d.]+-installer-amd64\\.iso",
+                        "base": "https://cdimage.kali.org/current/"
+                      },
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://cdimage.kali.org/current/SHA256SUMS"
+                      }
+                    },
+                    {
+                      "name": "Netinst (з інтернету)",
+                      "kind": "iso",
+                      "source": "https://www.kali.org/get-kali/",
+                      "verified": false,
+                      "arch": "amd64",
+                      "resolve": {
+                        "type": "index",
+                        "pattern": "kali-linux-[\\d.]+-installer-netinst-amd64\\.iso",
+                        "base": "https://cdimage.kali.org/current/"
+                      },
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://cdimage.kali.org/current/SHA256SUMS"
+                      }
+                    },
+                    {
+                      "name": "Live",
+                      "kind": "iso",
+                      "source": "https://www.kali.org/get-kali/",
+                      "verified": false,
+                      "arch": "amd64",
+                      "resolve": {
+                        "type": "index",
+                        "pattern": "kali-linux-[\\d.]+-live-amd64\\.iso",
+                        "base": "https://cdimage.kali.org/current/"
+                      },
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://cdimage.kali.org/current/SHA256SUMS"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "note": "Дистрибутив для тестування безпеки на базі Debian."
+            },
+            {
+              "id": "mx",
+              "name": "MX Linux",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "mx-v",
+                  "name": "25.x (актуальна)",
+                  "files": [
+                    {
+                      "name": "Xfce",
+                      "kind": "iso",
+                      "source": "https://mxlinux.org/download-links/",
+                      "verified": false,
+                      "arch": "x64",
+                      "resolve": {
+                        "type": "sourceforge",
+                        "pattern": "Final/Xfce/MX-[\\d.]+_Xfce_x64\\.iso",
+                        "base": "/Final/Xfce",
+                        "id": "mx-linux"
+                      },
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "{url}.sha256"
+                      }
+                    },
+                    {
+                      "name": "Xfce AHS (новий ядро/залізо)",
+                      "kind": "iso",
+                      "source": "https://mxlinux.org/download-links/",
+                      "verified": false,
+                      "arch": "x64",
+                      "resolve": {
+                        "type": "sourceforge",
+                        "pattern": "Final/Xfce/MX-[\\d.]+_Xfce_ahs_x64\\.iso",
+                        "base": "/Final/Xfce",
+                        "id": "mx-linux"
+                      },
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "{url}.sha256"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "note": "Середній між Debian Stable і зручністю."
+            },
+            {
+              "id": "proxmox",
+              "name": "Proxmox VE",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "proxmox-v",
+                  "name": "Актуальна",
+                  "files": [
+                    {
+                      "name": "Proxmox VE ISO",
+                      "kind": "iso",
+                      "source": "https://www.proxmox.com/downloads",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "resolve": {
+                        "type": "index",
+                        "pattern": "proxmox-ve_[\\d.]+-\\d+\\.iso",
+                        "base": "https://enterprise.proxmox.com/iso/"
+                      },
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "{url}.sha256"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "note": "Платформа віртуалізації на базі Debian."
+            },
+            {
+              "id": "tails",
+              "name": "Tails",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "tails-v",
+                  "name": "7.18",
+                  "files": [
+                    {
+                      "name": "ISO",
+                      "kind": "iso",
+                      "source": "https://tails.net/install/",
+                      "verified": false,
+                      "arch": "amd64",
+                      "url": "https://download.tails.net/tails/stable/tails-amd64-7.18/tails-amd64-7.18.iso",
+                      "note": "Версія вказана вручну; свіжішу дивись на tails.net."
+                    },
+                    {
+                      "name": "USB-образ (.img)",
+                      "kind": "iso",
+                      "source": "https://tails.net/install/",
+                      "verified": false,
+                      "arch": "amd64",
+                      "url": "https://download.tails.net/tails/stable/tails-amd64-7.18/tails-amd64-7.18.img"
+                    }
+                  ]
+                }
+              ],
+              "note": "Анонімна система з Tor, що працює з флешки."
+            },
+            {
+              "id": "deepin",
+              "name": "Deepin",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "deepin-v",
+                  "name": "25.3.0",
+                  "files": [
+                    {
+                      "name": "Desktop Community",
+                      "kind": "iso",
+                      "source": "https://www.deepin.org/en/download/",
+                      "verified": false,
+                      "arch": "amd64",
+                      "resolve": {
+                        "type": "index",
+                        "pattern": "deepin-desktop-community-[\\d.]+-amd64\\.iso",
+                        "base": "https://cdimage.deepin.com/releases/25.3.0/amd64/"
+                      },
+                      "note": "Версія каталогу вказана вручну."
+                    }
+                  ]
+                }
+              ],
+              "note": "Китайський дистрибутив із власним робочим столом DDE."
+            },
+            {
+              "id": "knoppix",
+              "name": "KNOPPIX",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "knoppix-v",
+                  "name": "9.1 (2021)",
+                  "files": [
+                    {
+                      "name": "DVD (англ.)",
+                      "kind": "iso",
+                      "source": "https://www.knopper.net/knoppix/",
+                      "verified": false,
+                      "arch": "x86",
+                      "resolve": {
+                        "type": "index",
+                        "pattern": "KNOPPIX_V[\\d.]+DVD-[\\d-]+-EN\\.iso",
+                        "base": "https://ftp.halifax.rwth-aachen.de/knoppix/"
+                      },
+                      "checksum": {
+                        "algo": "sha1",
+                        "url": "{url}.sha1"
+                      }
+                    },
+                    {
+                      "name": "CD (англ.)",
+                      "kind": "iso",
+                      "source": "https://www.knopper.net/knoppix/",
+                      "verified": false,
+                      "arch": "x86",
+                      "resolve": {
+                        "type": "index",
+                        "pattern": "KNOPPIX_V[\\d.]+CD-[\\d-]+-EN\\.iso",
+                        "base": "https://ftp.halifax.rwth-aachen.de/knoppix/"
+                      },
+                      "checksum": {
+                        "algo": "sha1",
+                        "url": "{url}.sha1"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "note": "Перший популярний Live-дистрибутив на базі Debian."
+            },
+            {
+              "id": "hurd",
+              "name": "Debian GNU/Hurd",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "hurd-v",
+                  "name": "Актуальна",
+                  "files": [
+                    {
+                      "name": "Образ диска (.img, i386)",
+                      "kind": "archived",
+                      "source": "https://www.debian.org/ports/hurd/",
+                      "verified": false,
+                      "arch": "i386",
+                      "resolve": {
+                        "type": "index",
+                        "pattern": "debian-hurd-i386-\\d+\\.img",
+                        "base": "https://cdimage.debian.org/cdimage/ports/latest/hurd-i386/"
+                      },
+                      "note": "Готовий образ диска для віртуальної машини, а не ISO."
+                    }
+                  ]
+                }
+              ],
+              "note": "Debian на мікроядрі GNU Hurd."
             }
           ]
         },
@@ -176,32 +973,105 @@
           "childrenTitle": "Версія",
           "children": [
             {
-              "id": "alpine-v",
-              "name": "Актуальна",
-              "files": [
+              "id": "alpine-self",
+              "name": "Alpine Linux",
+              "childrenTitle": "Версія",
+              "children": [
                 {
-                  "name": "standard",
-                  "arch": "x86_64",
-                  "resolve": {
-                    "base": "https://dl-cdn.alpinelinux.org/alpine/latest-stable/releases/x86_64/",
-                    "pattern": "alpine-standard-[\\d.]+-x86_64\\.iso"
-                  },
-                  "checksum": {
-                    "algo": "sha256",
-                    "url": "https://dl-cdn.alpinelinux.org/alpine/latest-stable/releases/x86_64/{file}.sha256"
-                  },
-                  "source": "https://alpinelinux.org/downloads/",
-                  "verified": true
+                  "id": "alpine-v",
+                  "name": "Актуальна",
+                  "files": [
+                    {
+                      "name": "standard",
+                      "arch": "x86_64",
+                      "resolve": {
+                        "base": "https://dl-cdn.alpinelinux.org/alpine/latest-stable/releases/x86_64/",
+                        "pattern": "alpine-standard-[\\d.]+-x86_64\\.iso"
+                      },
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://dl-cdn.alpinelinux.org/alpine/latest-stable/releases/x86_64/{file}.sha256"
+                      },
+                      "source": "https://alpinelinux.org/downloads/",
+                      "verified": true
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "Linux26_64",
+                    "ram": 1024,
+                    "disk": 8,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": true
+                  }
+                },
+                {
+                  "id": "alpine-320",
+                  "name": "3.20 (архів)",
+                  "files": [
+                    {
+                      "name": "standard",
+                      "kind": "archived",
+                      "source": "https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "resolve": {
+                        "type": "index",
+                        "pattern": "alpine-standard-3\\.20\\.\\d+-x86_64\\.iso",
+                        "base": "https://dl-cdn.alpinelinux.org/alpine/v3.20/releases/x86_64/"
+                      },
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "{url}.sha256"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "alpine-319",
+                  "name": "3.19 (архів)",
+                  "files": [
+                    {
+                      "name": "standard",
+                      "kind": "archived",
+                      "source": "https://dl-cdn.alpinelinux.org/alpine/v3.19/releases/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "resolve": {
+                        "type": "index",
+                        "pattern": "alpine-standard-3\\.19\\.\\d+-x86_64\\.iso",
+                        "base": "https://dl-cdn.alpinelinux.org/alpine/v3.19/releases/x86_64/"
+                      },
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "{url}.sha256"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "alpine-318",
+                  "name": "3.18 (архів)",
+                  "files": [
+                    {
+                      "name": "standard",
+                      "kind": "archived",
+                      "source": "https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "resolve": {
+                        "type": "index",
+                        "pattern": "alpine-standard-3\\.18\\.\\d+-x86_64\\.iso",
+                        "base": "https://dl-cdn.alpinelinux.org/alpine/v3.18/releases/x86_64/"
+                      },
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "{url}.sha256"
+                      }
+                    }
+                  ]
                 }
-              ],
-              "vm": {
-                "vboxType": "Linux26_64",
-                "ram": 1024,
-                "disk": 8,
-                "cpus": 2,
-                "efi": false,
-                "virtio": true
-              }
+              ]
             }
           ],
           "note": "Крихітний, для серверів і контейнерів."
@@ -209,32 +1079,459 @@
         {
           "id": "arch",
           "name": "Arch Linux",
-          "childrenTitle": "Версія",
+          "childrenTitle": "Дистрибутив",
           "children": [
             {
-              "id": "arch-v",
-              "name": "Актуальна (щомісячний образ)",
-              "files": [
+              "id": "arch-self",
+              "name": "Arch Linux",
+              "childrenTitle": "Версія",
+              "children": [
                 {
-                  "name": "archlinux-x86_64",
-                  "arch": "x86_64",
-                  "url": "https://geo.mirror.pkgbuild.com/iso/latest/archlinux-x86_64.iso",
-                  "checksum": {
-                    "algo": "sha256",
-                    "url": "https://geo.mirror.pkgbuild.com/iso/latest/sha256sums.txt"
-                  },
-                  "source": "https://archlinux.org/download/",
-                  "verified": false
+                  "id": "arch-v",
+                  "name": "Актуальна (щомісячний образ)",
+                  "files": [
+                    {
+                      "name": "archlinux-x86_64",
+                      "arch": "x86_64",
+                      "url": "https://geo.mirror.pkgbuild.com/iso/latest/archlinux-x86_64.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://geo.mirror.pkgbuild.com/iso/latest/sha256sums.txt"
+                      },
+                      "source": "https://archlinux.org/download/",
+                      "verified": false
+                    }
+                  ],
+                  "vm": {
+                    "vboxType": "ArchLinux_64",
+                    "ram": 2048,
+                    "disk": 20,
+                    "cpus": 2,
+                    "efi": false,
+                    "virtio": true
+                  }
+                }
+              ]
+            },
+            {
+              "id": "garuda",
+              "name": "Garuda Linux",
+              "childrenTitle": "Редакція",
+              "children": [
+                {
+                  "id": "garuda-dr460nized",
+                  "name": "dr460nized",
+                  "files": [
+                    {
+                      "name": "dr460nized",
+                      "kind": "iso",
+                      "source": "https://garudalinux.org/downloads",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "url": "https://iso.builds.garudalinux.org/iso/latest/garuda/dr460nized/latest.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "{url}.sha256"
+                      },
+                      "note": "Файл називається latest.iso."
+                    }
+                  ]
+                },
+                {
+                  "id": "garuda-kdelite",
+                  "name": "kde-lite",
+                  "files": [
+                    {
+                      "name": "kde-lite",
+                      "kind": "iso",
+                      "source": "https://garudalinux.org/downloads",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "url": "https://iso.builds.garudalinux.org/iso/latest/garuda/kde-lite/latest.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "{url}.sha256"
+                      },
+                      "note": "Файл називається latest.iso."
+                    }
+                  ]
+                },
+                {
+                  "id": "garuda-gnome",
+                  "name": "gnome",
+                  "files": [
+                    {
+                      "name": "gnome",
+                      "kind": "iso",
+                      "source": "https://garudalinux.org/downloads",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "url": "https://iso.builds.garudalinux.org/iso/latest/garuda/gnome/latest.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "{url}.sha256"
+                      },
+                      "note": "Файл називається latest.iso."
+                    }
+                  ]
+                },
+                {
+                  "id": "garuda-xfce",
+                  "name": "xfce",
+                  "files": [
+                    {
+                      "name": "xfce",
+                      "kind": "iso",
+                      "source": "https://garudalinux.org/downloads",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "url": "https://iso.builds.garudalinux.org/iso/latest/garuda/xfce/latest.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "{url}.sha256"
+                      },
+                      "note": "Файл називається latest.iso."
+                    }
+                  ]
+                },
+                {
+                  "id": "garuda-cinnamon",
+                  "name": "cinnamon",
+                  "files": [
+                    {
+                      "name": "cinnamon",
+                      "kind": "iso",
+                      "source": "https://garudalinux.org/downloads",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "url": "https://iso.builds.garudalinux.org/iso/latest/garuda/cinnamon/latest.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "{url}.sha256"
+                      },
+                      "note": "Файл називається latest.iso."
+                    }
+                  ]
+                },
+                {
+                  "id": "garuda-i3",
+                  "name": "i3",
+                  "files": [
+                    {
+                      "name": "i3",
+                      "kind": "iso",
+                      "source": "https://garudalinux.org/downloads",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "url": "https://iso.builds.garudalinux.org/iso/latest/garuda/i3/latest.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "{url}.sha256"
+                      },
+                      "note": "Файл називається latest.iso."
+                    }
+                  ]
+                },
+                {
+                  "id": "garuda-hyprland",
+                  "name": "hyprland",
+                  "files": [
+                    {
+                      "name": "hyprland",
+                      "kind": "iso",
+                      "source": "https://garudalinux.org/downloads",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "url": "https://iso.builds.garudalinux.org/iso/latest/garuda/hyprland/latest.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "{url}.sha256"
+                      },
+                      "note": "Файл називається latest.iso."
+                    }
+                  ]
+                },
+                {
+                  "id": "garuda-sway",
+                  "name": "sway",
+                  "files": [
+                    {
+                      "name": "sway",
+                      "kind": "iso",
+                      "source": "https://garudalinux.org/downloads",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "url": "https://iso.builds.garudalinux.org/iso/latest/garuda/sway/latest.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "{url}.sha256"
+                      },
+                      "note": "Файл називається latest.iso."
+                    }
+                  ]
                 }
               ],
-              "vm": {
-                "vboxType": "ArchLinux_64",
-                "ram": 2048,
-                "disk": 20,
-                "cpus": 2,
-                "efi": false,
-                "virtio": true
-              }
+              "note": "Арч для ігор і вигляду; rolling."
+            },
+            {
+              "id": "endeavouros",
+              "name": "EndeavourOS",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "endeavouros-v",
+                  "name": "Остання збірка",
+                  "files": [
+                    {
+                      "name": "ISO",
+                      "kind": "iso",
+                      "source": "https://endeavouros.com/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "resolve": {
+                        "type": "github",
+                        "pattern": "EndeavourOS.*\\.iso",
+                        "id": "endeavouros-team/ISO"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "note": "Дружній до новачків Arch."
+            },
+            {
+              "id": "archcraft",
+              "name": "Archcraft",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "archcraft-v",
+                  "name": "Остання",
+                  "files": [
+                    {
+                      "name": "ISO",
+                      "kind": "iso",
+                      "source": "https://archcraft.io/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "resolve": {
+                        "type": "sourceforge",
+                        "pattern": "v[\\d.]+/archcraft-[\\d.]+-x86_64\\.iso",
+                        "base": "/",
+                        "id": "archcraft"
+                      },
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "{url}.sha256sum"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "note": "Arch з легкими віконними менеджерами."
+            },
+            {
+              "id": "mabox",
+              "name": "Mabox Linux",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "mabox-v",
+                  "name": "Остання",
+                  "files": [
+                    {
+                      "name": "ISO (ядро 6.18)",
+                      "kind": "iso",
+                      "source": "https://maboxlinux.org/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "resolve": {
+                        "type": "sourceforge",
+                        "pattern": "[\\d.]+/mabox-linux-[\\d.]+-[A-Za-z]+-\\d+-linux618\\.iso",
+                        "base": "/",
+                        "id": "mabox-linux"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "note": "Manjaro-подібний Openbox."
+            },
+            {
+              "id": "steamos",
+              "name": "SteamOS",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "steamos-v",
+                  "name": "Сторінка завантаження",
+                  "files": [
+                    {
+                      "name": "SteamOS: сторінка завантаження",
+                      "kind": "guide",
+                      "url": "https://store.steampowered.com/steamos/download/",
+                      "source": "https://store.steampowered.com/steamos/download/",
+                      "verified": false,
+                      "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                    }
+                  ]
+                }
+              ],
+              "note": "Арч-система Valve; образ для Steam Deck. Valve роздає його як .img.bz2."
+            },
+            {
+              "id": "manjaro",
+              "name": "Manjaro",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "manjaro-v",
+                  "name": "Сторінка завантаження",
+                  "files": [
+                    {
+                      "name": "Manjaro: сторінка завантаження",
+                      "kind": "guide",
+                      "url": "https://manjaro.org/products/download/x86",
+                      "source": "https://manjaro.org/products/download/x86",
+                      "verified": false,
+                      "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                    }
+                  ]
+                }
+              ],
+              "note": "Арч з готовим середовищем."
+            },
+            {
+              "id": "cachyos",
+              "name": "CachyOS",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "cachyos-v",
+                  "name": "Сторінка завантаження",
+                  "files": [
+                    {
+                      "name": "CachyOS: сторінка завантаження",
+                      "kind": "guide",
+                      "url": "https://cachyos.org/download/",
+                      "source": "https://cachyos.org/download/",
+                      "verified": false,
+                      "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                    }
+                  ]
+                }
+              ],
+              "note": "Арч, оптимізований для швидкості."
+            },
+            {
+              "id": "artix",
+              "name": "Artix Linux",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "artix-v",
+                  "name": "Сторінка завантаження",
+                  "files": [
+                    {
+                      "name": "Artix Linux: сторінка завантаження",
+                      "kind": "guide",
+                      "url": "https://artixlinux.org/download.php",
+                      "source": "https://artixlinux.org/download.php",
+                      "verified": false,
+                      "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                    }
+                  ]
+                }
+              ],
+              "note": "Арч без systemd."
+            },
+            {
+              "id": "arcolinux",
+              "name": "ArcoLinux",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "arcolinux-v",
+                  "name": "Сторінка завантаження",
+                  "files": [
+                    {
+                      "name": "ArcoLinux: сторінка завантаження",
+                      "kind": "guide",
+                      "url": "https://arcolinux.com/download/",
+                      "source": "https://arcolinux.com/download/",
+                      "verified": false,
+                      "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                    }
+                  ]
+                }
+              ],
+              "note": "Арч для навчання."
+            },
+            {
+              "id": "rebornos",
+              "name": "RebornOS",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "rebornos-v",
+                  "name": "Сторінка завантаження",
+                  "files": [
+                    {
+                      "name": "RebornOS: сторінка завантаження",
+                      "kind": "guide",
+                      "url": "https://rebornos.org/download/",
+                      "source": "https://rebornos.org/download/",
+                      "verified": false,
+                      "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                    }
+                  ]
+                }
+              ],
+              "note": "Арч з інсталятором Calamares."
+            },
+            {
+              "id": "blackarch",
+              "name": "BlackArch Linux",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "blackarch-v",
+                  "name": "Сторінка завантаження",
+                  "files": [
+                    {
+                      "name": "BlackArch Linux: сторінка завантаження",
+                      "kind": "guide",
+                      "url": "https://blackarch.org/downloads.html",
+                      "source": "https://blackarch.org/downloads.html",
+                      "verified": false,
+                      "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                    }
+                  ]
+                }
+              ],
+              "note": "Арч для тестування безпеки."
+            },
+            {
+              "id": "kaos",
+              "name": "KaOS",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "kaos-v",
+                  "name": "Сторінка завантаження",
+                  "files": [
+                    {
+                      "name": "KaOS: сторінка завантаження",
+                      "kind": "guide",
+                      "url": "https://kaosx.us/",
+                      "source": "https://kaosx.us/",
+                      "verified": false,
+                      "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                    }
+                  ]
+                }
+              ],
+              "note": "Незалежна система з KDE (за мотивами Arch)."
             }
           ],
           "note": "Rolling, завжди свіжий образ."
@@ -317,6 +1614,86 @@
                         "url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Fedora/i386/iso/Fedora-11-i386-CHECKSUM"
                       },
                       "note": "Архів Fedora."
+                    },
+                    {
+                      "name": "Live x86_64 (GNOME)",
+                      "kind": "archived",
+                      "source": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Live/x86_64/Fedora-11-x86_64-Live.iso"
+                    },
+                    {
+                      "name": "Live x86_64 (KDE)",
+                      "kind": "archived",
+                      "source": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Live/x86_64/Fedora-11-x86_64-Live-KDE.iso"
+                    },
+                    {
+                      "name": "Live i686 (GNOME)",
+                      "kind": "archived",
+                      "source": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/",
+                      "verified": false,
+                      "arch": "i686",
+                      "url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Live/i686/Fedora-11-i686-Live.iso"
+                    },
+                    {
+                      "name": "Live i686 (KDE)",
+                      "kind": "archived",
+                      "source": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/",
+                      "verified": false,
+                      "arch": "i686",
+                      "url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Live/i686/Fedora-11-i686-Live-KDE.iso"
+                    },
+                    {
+                      "name": "DVD x86_64",
+                      "kind": "archived",
+                      "source": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Fedora/x86_64/iso/Fedora-11-x86_64-DVD.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Fedora/x86_64/iso/Fedora-11-x86_64-CHECKSUM"
+                      }
+                    },
+                    {
+                      "name": "CD 1 x86_64 (install)",
+                      "kind": "archived",
+                      "source": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Fedora/x86_64/iso/Fedora-11-x86_64-disc1.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Fedora/x86_64/iso/Fedora-11-x86_64-CHECKSUM"
+                      }
+                    },
+                    {
+                      "name": "CD 2 x86_64 (install)",
+                      "kind": "archived",
+                      "source": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Fedora/x86_64/iso/Fedora-11-x86_64-disc2.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Fedora/x86_64/iso/Fedora-11-x86_64-CHECKSUM"
+                      }
+                    },
+                    {
+                      "name": "CD 3 x86_64 (install)",
+                      "kind": "archived",
+                      "source": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Fedora/x86_64/iso/Fedora-11-x86_64-disc3.iso",
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Fedora/x86_64/iso/Fedora-11-x86_64-CHECKSUM"
+                      }
                     }
                   ],
                   "vm": {
@@ -365,6 +1742,81 @@
                 }
               ],
               "note": "Північнокорейський Linux 3.0 на базі Fedora 11. Неофіційне джерело: archive.org."
+            },
+            {
+              "id": "qubes",
+              "name": "Qubes OS",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "qubes-v",
+                  "name": "4.3.x",
+                  "files": [
+                    {
+                      "name": "Qubes ISO",
+                      "kind": "iso",
+                      "source": "https://www.qubes-os.org/downloads/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "resolve": {
+                        "type": "index",
+                        "pattern": "Qubes-R[\\d.]+-x86_64\\.iso",
+                        "base": "https://mirrors.edge.kernel.org/qubes/iso/",
+                        "exclude": "rc"
+                      },
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "{url}.DIGESTS"
+                      },
+                      "note": "Система безпеки на Xen з ізоляцією програм по віртуальних машинах."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "nobara",
+              "name": "Nobara Linux",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "nobara-v",
+                  "name": "Сторінка завантаження",
+                  "files": [
+                    {
+                      "name": "Nobara Linux: сторінка завантаження",
+                      "kind": "guide",
+                      "url": "https://nobaraproject.org/download-nobara/",
+                      "source": "https://nobaraproject.org/download-nobara/",
+                      "verified": false,
+                      "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                    }
+                  ]
+                }
+              ],
+              "note": "Fedora з готовими ігровими доповненнями."
+            },
+            {
+              "id": "asahi",
+              "name": "Asahi Linux",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "asahi-v",
+                  "name": "Сторінка завантаження",
+                  "files": [
+                    {
+                      "name": "Asahi Linux: сторінка завантаження",
+                      "kind": "guide",
+                      "url": "https://asahilinux.org/",
+                      "source": "https://asahilinux.org/",
+                      "verified": false,
+                      "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                    }
+                  ]
+                }
+              ],
+              "note": "Fedora для Mac з Apple Silicon: ставиться скриптом з macOS, а не з ISO."
             }
           ],
           "note": "Спільнотний дистрибутив Red Hat. Нижче — дистрибутиви на його базі."
@@ -744,9 +2196,765 @@
                 }
               ],
               "note": "Закрита збірка Google на базі Chromium OS (а той — на Gentoo)."
+            },
+            {
+              "id": "calculate",
+              "name": "Calculate Linux (Scratch Server)",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "calculate-v",
+                  "name": "Сторінка завантаження",
+                  "files": [
+                    {
+                      "name": "Calculate Linux (Scratch Server): сторінка завантаження",
+                      "kind": "guide",
+                      "url": "https://www.calculate-linux.org/main/en/download",
+                      "source": "https://www.calculate-linux.org/main/en/download",
+                      "verified": false,
+                      "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                    }
+                  ]
+                }
+              ],
+              "note": "Система на базі Gentoo."
+            },
+            {
+              "id": "redcore",
+              "name": "Redcore Linux",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "redcore-v",
+                  "name": "Сторінка завантаження",
+                  "files": [
+                    {
+                      "name": "Redcore Linux: сторінка завантаження",
+                      "kind": "guide",
+                      "url": "https://redcorelinux.org/",
+                      "source": "https://redcorelinux.org/",
+                      "verified": false,
+                      "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                    }
+                  ]
+                }
+              ],
+              "note": "Система на базі Gentoo."
             }
           ],
           "note": "Дистрибутив, що збирається з вихідного коду, і системи на його базі."
+        },
+        {
+          "id": "slackware",
+          "name": "Slackware",
+          "childrenTitle": "Версія або похідна",
+          "children": [
+            {
+              "id": "slackware-150",
+              "name": "15.0 (актуальна)",
+              "files": [
+                {
+                  "name": "x86_64 DVD",
+                  "kind": "iso",
+                  "source": "https://mirrors.slackware.com/slackware/slackware-iso/",
+                  "verified": false,
+                  "arch": "x86_64",
+                  "url": "https://mirrors.slackware.com/slackware/slackware-iso/slackware64-15.0-iso/slackware64-15.0-install-dvd.iso",
+                  "checksum": {
+                    "algo": "md5",
+                    "url": "https://mirrors.slackware.com/slackware/slackware-iso/slackware64-15.0-iso/slackware64-15.0-install-dvd.iso.md5"
+                  }
+                },
+                {
+                  "name": "x86 DVD",
+                  "kind": "iso",
+                  "source": "https://mirrors.slackware.com/slackware/slackware-iso/",
+                  "verified": false,
+                  "arch": "x86",
+                  "url": "https://mirrors.slackware.com/slackware/slackware-iso/slackware-15.0-iso/slackware-15.0-install-dvd.iso",
+                  "checksum": {
+                    "algo": "md5",
+                    "url": "https://mirrors.slackware.com/slackware/slackware-iso/slackware-15.0-iso/slackware-15.0-install-dvd.iso.md5"
+                  }
+                }
+              ],
+              "vm": {
+                "vboxType": "Linux26_64",
+                "ram": 2048,
+                "disk": 20,
+                "cpus": 2,
+                "efi": false,
+                "virtio": false
+              }
+            },
+            {
+              "id": "slackware-142",
+              "name": "14.2 (архів)",
+              "files": [
+                {
+                  "name": "x86_64 DVD",
+                  "kind": "archived",
+                  "source": "https://mirrors.slackware.com/slackware/slackware-iso/",
+                  "verified": false,
+                  "arch": "x86_64",
+                  "url": "https://mirrors.slackware.com/slackware/slackware-iso/slackware64-14.2-iso/slackware64-14.2-install-dvd.iso",
+                  "checksum": {
+                    "algo": "md5",
+                    "url": "https://mirrors.slackware.com/slackware/slackware-iso/slackware64-14.2-iso/slackware64-14.2-install-dvd.iso.md5"
+                  }
+                },
+                {
+                  "name": "x86 DVD",
+                  "kind": "archived",
+                  "source": "https://mirrors.slackware.com/slackware/slackware-iso/",
+                  "verified": false,
+                  "arch": "x86",
+                  "url": "https://mirrors.slackware.com/slackware/slackware-iso/slackware-14.2-iso/slackware-14.2-install-dvd.iso",
+                  "checksum": {
+                    "algo": "md5",
+                    "url": "https://mirrors.slackware.com/slackware/slackware-iso/slackware-14.2-iso/slackware-14.2-install-dvd.iso.md5"
+                  }
+                }
+              ],
+              "vm": {
+                "vboxType": "Linux26_64",
+                "ram": 2048,
+                "disk": 20,
+                "cpus": 2,
+                "efi": false,
+                "virtio": false
+              }
+            },
+            {
+              "id": "slackware-141",
+              "name": "14.1 (архів)",
+              "files": [
+                {
+                  "name": "x86_64 DVD",
+                  "kind": "archived",
+                  "source": "https://mirrors.slackware.com/slackware/slackware-iso/",
+                  "verified": false,
+                  "arch": "x86_64",
+                  "url": "https://mirrors.slackware.com/slackware/slackware-iso/slackware64-14.1-iso/slackware64-14.1-install-dvd.iso",
+                  "checksum": {
+                    "algo": "md5",
+                    "url": "https://mirrors.slackware.com/slackware/slackware-iso/slackware64-14.1-iso/slackware64-14.1-install-dvd.iso.md5"
+                  }
+                },
+                {
+                  "name": "x86 DVD",
+                  "kind": "archived",
+                  "source": "https://mirrors.slackware.com/slackware/slackware-iso/",
+                  "verified": false,
+                  "arch": "x86",
+                  "url": "https://mirrors.slackware.com/slackware/slackware-iso/slackware-14.1-iso/slackware-14.1-install-dvd.iso",
+                  "checksum": {
+                    "algo": "md5",
+                    "url": "https://mirrors.slackware.com/slackware/slackware-iso/slackware-14.1-iso/slackware-14.1-install-dvd.iso.md5"
+                  }
+                }
+              ],
+              "vm": {
+                "vboxType": "Linux26_64",
+                "ram": 2048,
+                "disk": 20,
+                "cpus": 2,
+                "efi": false,
+                "virtio": false
+              }
+            },
+            {
+              "id": "absolute",
+              "name": "Absolute Linux",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "absolute-v",
+                  "name": "Сторінка завантаження",
+                  "files": [
+                    {
+                      "name": "Absolute Linux: сторінка завантаження",
+                      "kind": "guide",
+                      "url": "https://www.absolutelinux.org/",
+                      "source": "https://www.absolutelinux.org/",
+                      "verified": false,
+                      "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                    }
+                  ]
+                }
+              ],
+              "note": "Легка система на базі Slackware."
+            }
+          ],
+          "note": "Найстаріший живий дистрибутив."
+        },
+        {
+          "id": "nixos",
+          "name": "NixOS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "nixos-2605",
+              "name": "26.05",
+              "files": [
+                {
+                  "name": "Graphical (GNOME)",
+                  "kind": "iso",
+                  "source": "https://nixos.org/download/",
+                  "verified": false,
+                  "arch": "x86_64",
+                  "url": "https://channels.nixos.org/nixos-26.05/latest-nixos-graphical-x86_64-linux.iso",
+                  "checksum": {
+                    "algo": "sha256",
+                    "url": "https://channels.nixos.org/nixos-26.05/latest-nixos-graphical-x86_64-linux.iso.sha256"
+                  }
+                },
+                {
+                  "name": "Minimal",
+                  "kind": "iso",
+                  "source": "https://nixos.org/download/",
+                  "verified": false,
+                  "arch": "x86_64",
+                  "url": "https://channels.nixos.org/nixos-26.05/latest-nixos-minimal-x86_64-linux.iso",
+                  "checksum": {
+                    "algo": "sha256",
+                    "url": "https://channels.nixos.org/nixos-26.05/latest-nixos-minimal-x86_64-linux.iso.sha256"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "nixos-unstable",
+              "name": "unstable",
+              "files": [
+                {
+                  "name": "Graphical (GNOME)",
+                  "kind": "iso",
+                  "source": "https://nixos.org/download/",
+                  "verified": false,
+                  "arch": "x86_64",
+                  "url": "https://channels.nixos.org/nixos-unstable/latest-nixos-graphical-x86_64-linux.iso",
+                  "checksum": {
+                    "algo": "sha256",
+                    "url": "https://channels.nixos.org/nixos-unstable/latest-nixos-graphical-x86_64-linux.iso.sha256"
+                  }
+                }
+              ]
+            }
+          ],
+          "note": "Декларативна система."
+        },
+        {
+          "id": "void",
+          "name": "Void Linux",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "void-v",
+              "name": "Актуальна",
+              "files": [
+                {
+                  "name": "base (glibc)",
+                  "kind": "iso",
+                  "source": "https://voidlinux.org/download/",
+                  "verified": false,
+                  "arch": "x86_64",
+                  "resolve": {
+                    "type": "index",
+                    "pattern": "void-live-x86_64-\\d+-base\\.iso",
+                    "base": "https://repo-default.voidlinux.org/live/current/"
+                  },
+                  "checksum": {
+                    "algo": "sha256",
+                    "url": "https://repo-default.voidlinux.org/live/current/sha256sum.txt"
+                  }
+                },
+                {
+                  "name": "Xfce (glibc)",
+                  "kind": "iso",
+                  "source": "https://voidlinux.org/download/",
+                  "verified": false,
+                  "arch": "x86_64",
+                  "resolve": {
+                    "type": "index",
+                    "pattern": "void-live-x86_64-\\d+-xfce\\.iso",
+                    "base": "https://repo-default.voidlinux.org/live/current/"
+                  },
+                  "checksum": {
+                    "algo": "sha256",
+                    "url": "https://repo-default.voidlinux.org/live/current/sha256sum.txt"
+                  }
+                },
+                {
+                  "name": "base (musl)",
+                  "kind": "iso",
+                  "source": "https://voidlinux.org/download/",
+                  "verified": false,
+                  "arch": "x86_64",
+                  "resolve": {
+                    "type": "index",
+                    "pattern": "void-live-x86_64-musl-\\d+-base\\.iso",
+                    "base": "https://repo-default.voidlinux.org/live/current/"
+                  },
+                  "checksum": {
+                    "algo": "sha256",
+                    "url": "https://repo-default.voidlinux.org/live/current/sha256sum.txt"
+                  }
+                }
+              ]
+            }
+          ],
+          "note": "Незалежний rolling з runit."
+        },
+        {
+          "id": "tinycore",
+          "name": "Tiny Core Linux",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "tinycore-v",
+              "name": "16.2",
+              "files": [
+                {
+                  "name": "Core (11 МБ, без графіки)",
+                  "kind": "iso",
+                  "source": "http://tinycorelinux.net/downloads.html",
+                  "verified": false,
+                  "arch": "x86",
+                  "url": "https://distro.ibiblio.org/tinycorelinux/16.x/x86/release/Core-current.iso",
+                  "checksum": {
+                    "algo": "md5",
+                    "url": "https://distro.ibiblio.org/tinycorelinux/16.x/x86/release/Core-current.iso.md5.txt"
+                  }
+                },
+                {
+                  "name": "TinyCore (графічний)",
+                  "kind": "iso",
+                  "source": "http://tinycorelinux.net/downloads.html",
+                  "verified": false,
+                  "arch": "x86",
+                  "url": "https://distro.ibiblio.org/tinycorelinux/16.x/x86/release/TinyCore-current.iso",
+                  "checksum": {
+                    "algo": "md5",
+                    "url": "https://distro.ibiblio.org/tinycorelinux/16.x/x86/release/TinyCore-current.iso.md5.txt"
+                  }
+                },
+                {
+                  "name": "CorePlus (з інсталятором)",
+                  "kind": "iso",
+                  "source": "http://tinycorelinux.net/downloads.html",
+                  "verified": false,
+                  "arch": "x86",
+                  "url": "https://distro.ibiblio.org/tinycorelinux/16.x/x86/release/CorePlus-current.iso",
+                  "checksum": {
+                    "algo": "md5",
+                    "url": "https://distro.ibiblio.org/tinycorelinux/16.x/x86/release/CorePlus-current.iso.md5.txt"
+                  }
+                }
+              ]
+            }
+          ],
+          "note": "Дуже мала система: десятки мегабайт."
+        },
+        {
+          "id": "puppy",
+          "name": "Puppy Linux",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "puppy-bookworm",
+              "name": "BookwormPup64 10.0.x (на Debian 12)",
+              "files": [
+                {
+                  "name": "ISO",
+                  "kind": "iso",
+                  "source": "https://puppylinux-woof-ce.github.io/",
+                  "verified": false,
+                  "arch": "x86_64",
+                  "resolve": {
+                    "type": "index",
+                    "pattern": "BookwormPup64_[\\d.]+\\.iso",
+                    "base": "https://distro.ibiblio.org/puppylinux/puppy-bookwormpup/BookwormPup64/10.0.12/"
+                  },
+                  "note": "Версія каталогу вказана вручну."
+                }
+              ]
+            }
+          ],
+          "note": "Легка система, що працює в оперативній пам'яті."
+        },
+        {
+          "id": "sourcemage",
+          "name": "Source Mage",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "sourcemage-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "Source Mage: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://sourcemage.org/downloads",
+                  "source": "https://sourcemage.org/downloads",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Дистрибутив із зборкою з джерел."
+        },
+        {
+          "id": "batocera",
+          "name": "Batocera",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "batocera-v",
+              "name": "Stable",
+              "files": [
+                {
+                  "name": "x86_64 (образ диска .img)",
+                  "kind": "iso",
+                  "source": "https://batocera.org/download",
+                  "verified": false,
+                  "arch": "x86_64",
+                  "resolve": {
+                    "type": "index",
+                    "pattern": "batocera-x86_64-[\\d-]+\\.img\\.gz",
+                    "base": "https://mirrors.o2switch.fr/batocera/x86_64/stable/last/"
+                  },
+                  "note": "Розпаковується в .img; це образ диска для флешки/VM.",
+                  "unzip": true
+                }
+              ]
+            }
+          ],
+          "note": "Ігрова ретро-консоль."
+        },
+        {
+          "id": "adelie",
+          "name": "Adélie Linux",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "adelie-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "Adélie Linux: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://www.adelielinux.org/download/",
+                  "source": "https://www.adelielinux.org/download/",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Легка система без GNU і glibc."
+        },
+        {
+          "id": "mandriva",
+          "name": "Mandriva",
+          "childrenTitle": "Система",
+          "children": [
+            {
+              "id": "mandriva-self",
+              "name": "Mandriva",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "mandriva-2011",
+                  "name": "2011 RC2",
+                  "files": [
+                    {
+                      "name": "i586",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "mandriva-linux-2011-rc2",
+                        "pattern": "Mandriva\\.2011\\.RC2\\.i586\\.2\\.iso"
+                      },
+                      "source": "https://archive.org/details/mandriva-linux-2011-rc2",
+                      "verified": false
+                    },
+                    {
+                      "name": "x86_64",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "mandriva-linux-2011-rc2",
+                        "pattern": "Mandriva\\.2011\\.RC2\\.x86_64\\.2\\.iso"
+                      },
+                      "source": "https://archive.org/details/mandriva-linux-2011-rc2",
+                      "verified": false
+                    },
+                    {
+                      "name": "2011 PWP i586 (DVD)",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "mandriva-linux-2011-pwp",
+                        "pattern": "mandriva2011\\-pwp\\-i586\\.iso"
+                      },
+                      "source": "https://archive.org/details/mandriva-linux-2011-pwp",
+                      "verified": false
+                    },
+                    {
+                      "name": "2011 PWP x86_64 (DVD)",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "mandriva-linux-2011-pwp",
+                        "pattern": "mandriva2011\\-pwp\\-x86_64\\.iso"
+                      },
+                      "source": "https://archive.org/details/mandriva-linux-2011-pwp",
+                      "verified": false
+                    }
+                  ],
+                  "note": "Фінальний реліз 2011; тут реліз-кандидат з archive.org."
+                },
+                {
+                  "id": "mandriva-2008",
+                  "name": "2008.1 (Spring)",
+                  "files": [
+                    {
+                      "name": "Free DVD i586",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "mandriva-linux-2008-spring-alpha1",
+                        "pattern": "mandriva\\-linux\\-2008\\.1\\-free\\-dvd\\-i586\\.iso"
+                      },
+                      "source": "https://archive.org/details/mandriva-linux-2008-spring-alpha1",
+                      "verified": false
+                    }
+                  ]
+                },
+                {
+                  "id": "mandrake-90",
+                  "name": "Mandrake Linux 9.0",
+                  "files": [
+                    {
+                      "name": "Install CD 1",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "mdk90pp",
+                        "pattern": "MandrakeLinux9\\.0inst\\-1CD1\\.iso"
+                      },
+                      "source": "https://archive.org/details/mdk90pp",
+                      "verified": false
+                    },
+                    {
+                      "name": "Install CD 2",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "mdk90pp",
+                        "pattern": "MandrakeLinux9\\.0inst\\-2CD2\\.iso"
+                      },
+                      "source": "https://archive.org/details/mdk90pp",
+                      "verified": false
+                    },
+                    {
+                      "name": "Contrib CD 6",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "mdk90pp",
+                        "pattern": "MandrakeLinux9\\.0contribCD6\\.iso"
+                      },
+                      "source": "https://archive.org/details/mdk90pp",
+                      "verified": false
+                    }
+                  ]
+                },
+                {
+                  "id": "mandrake-70",
+                  "name": "Mandrake Linux 7.0",
+                  "files": [
+                    {
+                      "name": "ISO",
+                      "kind": "archived",
+                      "resolve": {
+                        "type": "archive",
+                        "id": "mandrake-linux-7.0",
+                        "pattern": "Mandrake\\ Linux\\ 7\\.0\\.iso"
+                      },
+                      "source": "https://archive.org/details/mandrake-linux-7.0",
+                      "verified": false
+                    }
+                  ]
+                }
+              ],
+              "note": "Неофіційні копії з archive.org."
+            },
+            {
+              "id": "mageia",
+              "name": "Mageia",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "mageia-10",
+                  "name": "10",
+                  "files": [
+                    {
+                      "name": "Xfce",
+                      "kind": "iso",
+                      "source": "https://www.mageia.org/en/downloads/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "resolve": {
+                        "type": "index",
+                        "pattern": "Mageia-10-Live-Xfce-x86_64\\.iso",
+                        "base": "https://mirrors.kernel.org/mageia/iso/10/Mageia-10-Live-Xfce-x86_64/"
+                      },
+                      "checksum": {
+                        "algo": "sha512",
+                        "url": "{url}.sha512"
+                      }
+                    },
+                    {
+                      "name": "Plasma",
+                      "kind": "iso",
+                      "source": "https://www.mageia.org/en/downloads/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "resolve": {
+                        "type": "index",
+                        "pattern": "Mageia-10-Live-Plasma-x86_64\\.iso",
+                        "base": "https://mirrors.kernel.org/mageia/iso/10/Mageia-10-Live-Plasma-x86_64/"
+                      },
+                      "checksum": {
+                        "algo": "sha512",
+                        "url": "{url}.sha512"
+                      }
+                    },
+                    {
+                      "name": "GNOME",
+                      "kind": "iso",
+                      "source": "https://www.mageia.org/en/downloads/",
+                      "verified": false,
+                      "arch": "x86_64",
+                      "resolve": {
+                        "type": "index",
+                        "pattern": "Mageia-10-Live-GNOME-x86_64\\.iso",
+                        "base": "https://mirrors.kernel.org/mageia/iso/10/Mageia-10-Live-GNOME-x86_64/"
+                      },
+                      "checksum": {
+                        "algo": "sha512",
+                        "url": "{url}.sha512"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "note": "Спільнотна гілка Mandriva."
+            },
+            {
+              "id": "rosa",
+              "name": "ROSA Linux",
+              "childrenTitle": "Версія",
+              "children": [
+                {
+                  "id": "rosa-v",
+                  "name": "Сторінка завантаження",
+                  "files": [
+                    {
+                      "name": "ROSA Linux: сторінка завантаження",
+                      "kind": "guide",
+                      "url": "https://www.rosalinux.ru/",
+                      "source": "https://www.rosalinux.ru/",
+                      "verified": false,
+                      "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                    }
+                  ]
+                }
+              ],
+              "note": "Російська гілка Mandriva."
+            }
+          ]
+        },
+        {
+          "id": "solus",
+          "name": "Solus",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "solus-v",
+              "name": "Актуальна",
+              "files": [
+                {
+                  "name": "Budgie",
+                  "kind": "iso",
+                  "source": "https://getsol.us/download/",
+                  "verified": false,
+                  "arch": "x86_64",
+                  "resolve": {
+                    "type": "index",
+                    "pattern": "Solus-Latest-Budgie\\.iso",
+                    "base": "https://downloads.getsol.us/isos/latest/"
+                  },
+                  "checksum": {
+                    "algo": "sha256",
+                    "url": "{url}.sha256sum"
+                  }
+                },
+                {
+                  "name": "GNOME",
+                  "kind": "iso",
+                  "source": "https://getsol.us/download/",
+                  "verified": false,
+                  "arch": "x86_64",
+                  "resolve": {
+                    "type": "index",
+                    "pattern": "Solus-Latest-GNOME\\.iso",
+                    "base": "https://downloads.getsol.us/isos/latest/"
+                  },
+                  "checksum": {
+                    "algo": "sha256",
+                    "url": "{url}.sha256sum"
+                  }
+                },
+                {
+                  "name": "Plasma",
+                  "kind": "iso",
+                  "source": "https://getsol.us/download/",
+                  "verified": false,
+                  "arch": "x86_64",
+                  "resolve": {
+                    "type": "index",
+                    "pattern": "Solus-Latest-Plasma\\.iso",
+                    "base": "https://downloads.getsol.us/isos/latest/"
+                  },
+                  "checksum": {
+                    "algo": "sha256",
+                    "url": "{url}.sha256sum"
+                  }
+                },
+                {
+                  "name": "Xfce",
+                  "kind": "iso",
+                  "source": "https://getsol.us/download/",
+                  "verified": false,
+                  "arch": "x86_64",
+                  "resolve": {
+                    "type": "index",
+                    "pattern": "Solus-Latest-Xfce\\.iso",
+                    "base": "https://downloads.getsol.us/isos/latest/"
+                  },
+                  "checksum": {
+                    "algo": "sha256",
+                    "url": "{url}.sha256sum"
+                  }
+                }
+              ]
+            }
+          ],
+          "note": "Незалежний дистрибутив із власним Budgie."
         }
       ]
     },
@@ -869,6 +3077,54 @@
             }
           ],
           "note": "Версія 11.1."
+        },
+        {
+          "id": "dragonfly",
+          "name": "DragonFly BSD",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "dragonfly-v",
+              "name": "6.4.x",
+              "files": [
+                {
+                  "name": "ISO (x86_64)",
+                  "kind": "iso",
+                  "source": "https://www.dragonflybsd.org/download/",
+                  "verified": false,
+                  "arch": "x86_64",
+                  "resolve": {
+                    "type": "index",
+                    "pattern": "dfly-x86_64-[\\d.]+_REL\\.iso",
+                    "base": "https://mirror-master.dragonflybsd.org/iso-images/"
+                  }
+                }
+              ]
+            }
+          ],
+          "note": "Гілка FreeBSD з файловою системою HAMMER."
+        },
+        {
+          "id": "nomadbsd",
+          "name": "NomadBSD",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "nomadbsd-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "NomadBSD: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://nomadbsd.org/download.html",
+                  "source": "https://nomadbsd.org/download.html",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "FreeBSD із середовищем для флешки; образи .img.lzma."
         }
       ]
     },
@@ -923,6 +3179,36 @@
             }
           ],
           "note": "Спадкоємець OpenSolaris на ядрі illumos."
+        },
+        {
+          "id": "omnios",
+          "name": "OmniOS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "omnios-v",
+              "name": "Stable (r151060)",
+              "files": [
+                {
+                  "name": "ISO",
+                  "kind": "iso",
+                  "source": "https://omnios.org/download",
+                  "verified": false,
+                  "arch": "x86_64",
+                  "resolve": {
+                    "type": "index",
+                    "pattern": "omnios-r\\d+\\.iso",
+                    "base": "https://downloads.omnios.org/media/stable/"
+                  },
+                  "checksum": {
+                    "algo": "sha256",
+                    "url": "{url}.sha256"
+                  }
+                }
+              ]
+            }
+          ],
+          "note": "Сервер на ядрі illumos."
         }
       ]
     },
@@ -1788,7 +4074,7 @@
                         "type": "github",
                         "id": "uxazu/aemulator",
                         "pattern": "app\\.aemu\\.apk",
-            "prerelease": true
+                        "prerelease": true
                       },
                       "source": "https://github.com/uxazu/aemulator",
                       "verified": false,
@@ -1873,6 +4159,113 @@
             }
           ],
           "note": "Сайт заявляє, що публічні образи призупинені. Відкриється сторінка проєкту."
+        }
+      ]
+    },
+    {
+      "id": "alt",
+      "name": "Незалежні ОС",
+      "childrenTitle": "Система",
+      "children": [
+        {
+          "id": "kolibrios",
+          "name": "KolibriOS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "kolibrios-v",
+              "name": "Нічна збірка",
+              "files": [
+                {
+                  "name": "ISO 0.7.7.0 (9108, англ.)",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "kolibrios-0.7.7.0-9108-g13a9b877f-en_US",
+                    "pattern": "kolibrios\\-0\\.7\\.7\\.0\\-9108\\-g13a9b877f\\-en_US\\.iso"
+                  },
+                  "source": "https://archive.org/details/kolibrios-0.7.7.0-9108-g13a9b877f-en_US",
+                  "verified": false
+                },
+                {
+                  "name": "ISO (у архіві .7z)",
+                  "kind": "iso",
+                  "source": "https://kolibrios.org/en/",
+                  "verified": false,
+                  "arch": "x86",
+                  "url": "https://builds.kolibrios.org/en_US/latest-iso.7z",
+                  "note": "Архів 7z: розпакуй 7-Zip, всередині ISO (~1,5 МБ)."
+                }
+              ]
+            }
+          ],
+          "note": "Асемблерна ОС, що вміщається на дискету."
+        },
+        {
+          "id": "haiku",
+          "name": "Haiku",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "haiku-beta4",
+              "name": "R1/beta4",
+              "files": [
+                {
+                  "name": "anyboot (x86_gcc2h)",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "haiku-r1beta4-x86_gcc2h-anyboot_202512",
+                    "pattern": "haiku\\-r1beta4\\-x86_gcc2h\\-anyboot\\.iso"
+                  },
+                  "source": "https://archive.org/details/haiku-r1beta4-x86_gcc2h-anyboot_202512",
+                  "verified": false
+                }
+              ]
+            },
+            {
+              "id": "haiku-beta3",
+              "name": "R1/beta3",
+              "files": [
+                {
+                  "name": "anyboot x86_64",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "haiku-os-r1-beta3",
+                    "pattern": "haiku\\-r1beta3\\-x86_64\\-anyboot\\.iso"
+                  },
+                  "source": "https://archive.org/details/haiku-os-r1-beta3",
+                  "verified": false
+                },
+                {
+                  "name": "anyboot x86_gcc2h",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "haiku-os-r1-beta3",
+                    "pattern": "haiku\\-r1beta3\\-x86_gcc2h\\-anyboot\\.iso"
+                  },
+                  "source": "https://archive.org/details/haiku-os-r1-beta3",
+                  "verified": false
+                }
+              ]
+            },
+            {
+              "id": "haiku-site",
+              "name": "Свіжі збірки",
+              "files": [
+                {
+                  "name": "Haiku: офіційна сторінка",
+                  "kind": "guide",
+                  "url": "https://www.haiku-os.org/get-haiku/",
+                  "source": "https://www.haiku-os.org/get-haiku/",
+                  "verified": false
+                }
+              ]
+            }
+          ],
+          "note": "Спадкоємець BeOS. Образи beta з archive.org."
         }
       ]
     },
