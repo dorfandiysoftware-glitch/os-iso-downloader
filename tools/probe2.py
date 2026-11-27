@@ -51,3 +51,29 @@ if mode=="distro":
     show("cros recovery json","https://dl.google.com/dl/edgedl/chromeos/recovery/recovery.json",n=300)
     show("fedora11","https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Fedora/i386/iso/")
     show("rhel","https://developers.redhat.com/products/rhel/download")
+if mode=="items":
+    ids="""lh_usa_5048.050401-0536_x86fre_pro-dvd_202002 WindowsLonghornM5Build4020andWindowsLonghornM6Build4032 longhorn-5219 WindowsWhistlerBuild2463 whistler-build-2296 winwhistlerpro2465b2 usa_2428__x86fre.pro_whistler WindowsVistaBeta1Build5112x86DVD win-vista-b2_x86 WinVistaB2Build5231 Windows-Vista-Build5365-Beta2 WindowsVistaBeta2Build5384x86DVD windows-neptune-build-5111 ntc5056 windows-chicago_202211 win98se_201607 win2kproiso enwin2000prosp4_202001 windows-98-se-isofile""".split()
+    for i in ids:
+        s,h,b=get("https://archive.org/metadata/"+i+"/files")
+        try:
+            fs=json.loads(b if len(b)<190000 else b)["result"]
+        except Exception:
+            s,h,b2=get("https://archive.org/metadata/"+i+"/files"); 
+            print(i,"ERR",s); continue
+        for f in fs:
+            n=f.get("name","")
+            if re.search(r"\.(iso|img|bin|vhd|vmdk|7z|zip|rar|ima|mdf|nrg)$",n,re.I) and f.get("source")=="original":
+                print(i,"|",n,"|",f.get("size"),"|",f.get("sha1"))
+if mode=="more":
+    uid="b9f10e04-388a-4841-8524-e65fa8789060"
+    for m,data in (("GET",None),("POST",urllib.parse.urlencode({"autodl":"2","updates":"1","cleanup":"1"}).encode())):
+        u="https://uupdump.net/get.php?id="+uid+"&pack=en-us&edition=professional"+("&autodl=2" if m=="GET" else "")
+        s,h,b=get(u,method=m,data=data)
+        print("### package",m,s,h.get("Content-Type"),h.get("Content-Disposition"),h.get("Content-Length"),repr(b[:100]))
+    show("langs","https://api.uupdump.net/listlangs.php?id="+uid)
+    show("editions","https://api.uupdump.net/listeditions.php?id="+uid+"&lang=en-us")
+    show("listid lh","https://api.uupdump.net/listid.php?search=Windows%2011%20Insider%20Preview&sortByDate=1&fmt=x") 
+    for u in ("https://dl.google.com/chromeos-flex/images/latest.bin.zip","https://dl.google.com/chromeos-flex/images/latest.zip","https://chromeos.google/products/chromeos-flex/"):
+        show("flex",u,rng="bytes=0-0")
+    for d in ("https://download.rockylinux.org/pub/rocky/10/isos/x86_64/","https://repo.almalinux.org/almalinux/10/isos/x86_64/","https://mirror.stream.centos.org/10-stream/BaseOS/x86_64/iso/","https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Fedora/i386/iso/","https://archives.fedoraproject.org/pub/archive/fedora/linux/releases/11/Fedora/x86_64/iso/"):
+        s,h,b=get(d); print("###",d,s,sorted(set(re.findall(r'href="([^"?/][^"]*)"',b)))[:30])

@@ -6,9 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: python3 tools/probe2.py uup
+      - run: python3 tools/probe2.py items
         continue-on-error: true
-      - run: python3 tools/probe2.py archive
-        continue-on-error: true
-      - run: python3 tools/probe2.py distro
+      - run: python3 tools/probe2.py more
         continue-on-error: true
