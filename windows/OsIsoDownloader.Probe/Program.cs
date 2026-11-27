@@ -10,6 +10,26 @@ internal static class Program
 {
     private static async Task<int> Main(string[] args)
     {
+        if (args.Length > 0 && args[0] == "ios")
+        {
+            var h = new HttpClient { Timeout = TimeSpan.FromMinutes(2) };
+            h.DefaultRequestHeaders.UserAgent.ParseAdd("os-iso-downloader/0.1");
+            string devJson = await h.GetStringAsync(IosCatalog.DevicesUrl);
+            int[] majors = { 1, 2, 3, 4, 5, 6, 7, 16, 26, 27 };
+            foreach (string fam in new[] { "iPhone", "iPad", "iPod" })
+            {
+                var devs = IosCatalog.ParseDevices(devJson, fam);
+                int withFw = 0;
+                foreach (IosDevice d in devs)
+                {
+                    var fw = IosCatalog.ParseFirmwares(await h.GetStringAsync(IosCatalog.FirmwareUrl(d.Identifier)), majors);
+                    if (fw.Count > 0) withFw++;
+                    if (devs.IndexOf(d) < 3) Console.WriteLine("IOS   " + d.Identifier + " " + d.Name + " -> " + fw.Count + " fw");
+                }
+                Console.WriteLine("IOS " + fam + ": " + devs.Count + " devices, " + withFw + " with matching firmware");
+            }
+            return 0;
+        }
         if (args.Length > 0 && args[0] == "uup")
         {
             var h = new HttpClient { Timeout = TimeSpan.FromMinutes(2) };
