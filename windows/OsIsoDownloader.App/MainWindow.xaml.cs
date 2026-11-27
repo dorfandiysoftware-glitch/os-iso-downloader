@@ -264,6 +264,65 @@ namespace OsIsoDownloader.App
             }
         }
 
+        private static readonly int[] IosMajors = { 1, 2, 3, 4, 5, 6, 7, 16, 26, 27 };
+
+        private async Task LoadIosDevicesAsync(Node n)
+        {
+            StepText.Text = "Запитую список пристроїв…";
+            Choices.ItemsSource = null;
+            try
+            {
+                string json = await _http.GetStringAsync(IosCatalog.DevicesUrl);
+                foreach (IosDevice d in IosCatalog.ParseDevices(json, n.Param))
+                {
+                    n.Children.Add(new Node { Id = "ios-" + d.Identifier, Name = d.Name, Note = d.Identifier, ChildrenTitle = "Версія", Dynamic = "ios-fw", Param = n.Param + "|" + d.Identifier });
+                }
+                if (_path.Count > 0 && _path.Peek() == n)
+                {
+                    ShowLevel();
+                }
+            }
+            catch (Exception e)
+            {
+                StepText.Text = "Не вдалося отримати список: " + e.Message;
+            }
+        }
+
+        private async Task LoadIosFirmwareAsync(Node n)
+        {
+            StepText.Text = "Запитую прошивки…";
+            Choices.ItemsSource = null;
+            try
+            {
+                string[] p = n.Param.Split('|');
+                string json = await _http.GetStringAsync(IosCatalog.FirmwareUrl(p[1]));
+                List<IosFirmware> fws = IosCatalog.ParseFirmwares(json, IosMajors);
+                if (fws.Count == 0)
+                {
+                    StepText.Text = "Для цього пристрою немає прошивок iOS 1–7, 16, 26 чи 27.";
+                    return;
+                }
+                foreach (IosFirmware f in fws)
+                {
+                    AddGrouped(n, f.GroupName(p[0]), new FileEntry
+                    {
+                        Name = f.Version + " (" + f.Build + ")" + (f.Signed ? " — підписана" : ""), Kind = "iso", Url = f.Url, Size = f.Size, Verified = true,
+                        Source = "https://ipsw.me", Arch = p[1],
+                        Note = "прошивка .ipsw" + (f.Date.HasValue ? ", " + f.Date.Value.ToString("yyyy-MM-dd") : ""),
+                        Checksum = f.Sha256 != null ? new Checksum { Algo = "sha256", Value = f.Sha256 } : f.Sha1 != null ? new Checksum { Algo = "sha1", Value = f.Sha1 } : null,
+                    });
+                }
+                if (_path.Count > 0 && _path.Peek() == n)
+                {
+                    ShowLevel();
+                }
+            }
+            catch (Exception e)
+            {
+                StepText.Text = "Не вдалося отримати прошивки: " + e.Message;
+            }
+        }
+
         private async Task LoadUupAsync(Node n)
         {
             StepText.Text = "Запитую у UUP dump список збірок…";
@@ -473,6 +532,14 @@ namespace OsIsoDownloader.App
                 else if (c.Node.Dynamic == "ipsw" && c.Node.Files.Count == 0 && !c.Node.HasChildren)
                 {
                     await LoadIpswAsync(c.Node);
+                }
+                else if (c.Node.Dynamic == "ios-devices" && c.Node.Files.Count == 0 && !c.Node.HasChildren)
+                {
+                    await LoadIosDevicesAsync(c.Node);
+                }
+                else if (c.Node.Dynamic == "ios-fw" && c.Node.Files.Count == 0 && !c.Node.HasChildren)
+                {
+                    await LoadIosFirmwareAsync(c.Node);
                 }
                 else if (c.Node.Dynamic == "uup" && c.Node.Files.Count == 0 && !c.Node.HasChildren)
                 {

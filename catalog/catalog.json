@@ -4047,6 +4047,38 @@
       ]
     },
     {
+      "id": "ios",
+      "name": "iOS і iPadOS",
+      "childrenTitle": "Сімейство",
+      "note": "Це прошивки (.ipsw) з серверів Apple, а не ISO. Показано версії 1–7, 16, 26 і 27. Запуск у ВМ: для старих — QEMU, для нових — пізніший етап.",
+      "children": [
+        {
+          "id": "ios-iphone",
+          "name": "iPhone",
+          "childrenTitle": "Пристрій",
+          "dynamic": "ios-devices",
+          "param": "iPhone",
+          "note": "Це прошивки (.ipsw) з серверів Apple, а не ISO. Показано версії 1–7, 16, 26 і 27. Запуск у ВМ: для старих — QEMU, для нових — пізніший етап."
+        },
+        {
+          "id": "ios-ipad",
+          "name": "iPad (iPadOS)",
+          "childrenTitle": "Пристрій",
+          "dynamic": "ios-devices",
+          "param": "iPad",
+          "note": "Це прошивки (.ipsw) з серверів Apple, а не ISO. Показано версії 1–7, 16, 26 і 27. Запуск у ВМ: для старих — QEMU, для нових — пізніший етап."
+        },
+        {
+          "id": "ios-ipod",
+          "name": "iPod touch",
+          "childrenTitle": "Пристрій",
+          "dynamic": "ios-devices",
+          "param": "iPod",
+          "note": "Це прошивки (.ipsw) з серверів Apple, а не ISO. Показано версії 1–7, 16, 26 і 27. Запуск у ВМ: для старих — QEMU, для нових — пізніший етап."
+        }
+      ]
+    },
+    {
       "id": "android",
       "name": "Android",
       "childrenTitle": "Проєкт",

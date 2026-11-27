@@ -344,5 +344,16 @@ namespace OsIsoDownloader.Core.Tests
             Assert.Single(l);
             Assert.Equal("Dell", l[0].Manufacturer);
         }
+
+        [Fact]
+        public void IosDevicesAndFirmwares()
+        {
+            var d = IosCatalog.ParseDevices("[{\"name\":\"iPhone 2G\",\"identifier\":\"iPhone1,1\"},{\"name\":\"iPad 1\",\"identifier\":\"iPad1,1\"},{\"name\":\"iPhone\",\"identifier\":\"iPhoneX\"}]", "iPhone");
+            Assert.Single(d);
+            var f = IosCatalog.ParseFirmwares("{\"firmwares\":[{\"version\":\"3.1.3\",\"buildid\":\"7E18\",\"url\":\"https://a/x.ipsw\",\"sha256sum\":\"aa\",\"filesize\":5,\"signed\":false},{\"version\":\"9.0\",\"url\":\"https://a/y.ipsw\"},{\"version\":\"26.1\",\"url\":\"https://a/z.ipsw\",\"signed\":true}]}", new[] { 3, 26 });
+            Assert.Equal(2, f.Count);
+            Assert.Equal("iPhone OS 3", f[0].GroupName("iPhone"));
+            Assert.Equal("iPadOS 26", f[1].GroupName("iPad"));
+        }
     }
 }
