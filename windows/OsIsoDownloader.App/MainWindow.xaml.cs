@@ -316,10 +316,10 @@ namespace OsIsoDownloader.App
             {
                 string[] p = n.Param.Split('|');
                 string json = await _http.GetStringAsync(IosCatalog.FirmwareUrl(p[1]));
-                List<IosFirmware> fws = IosCatalog.ParseFirmwares(json, IosMajors);
+                List<IosFirmware> fws = IosCatalog.ParseFirmwares(json, p[0] == "AppleTV" ? null : IosMajors);
                 if (fws.Count == 0)
                 {
-                    ShowLoadError("Для цього пристрою немає прошивок iOS 1–7, 16, 26 чи 27", null);
+                    ShowLoadError("Для цього пристрою немає потрібних прошивок", null);
                     return;
                 }
                 foreach (IosFirmware f in fws)

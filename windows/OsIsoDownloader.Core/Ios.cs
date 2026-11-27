@@ -31,6 +31,10 @@ namespace OsIsoDownloader.Core
         public string GroupName(string family)
         {
             int m = Major;
+            if (family == "AppleTV")
+            {
+                return (m >= 9 ? "tvOS " : "Apple TV ") + m;
+            }
             if (family == "iPad" && m >= 13)
             {
                 return "iPadOS " + m;

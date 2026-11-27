@@ -45,7 +45,8 @@
                     "cpus": 2,
                     "efi": false,
                     "virtio": true
-                  }
+                  },
+                  "children": []
                 },
                 {
                   "id": "debian-12",
@@ -63,7 +64,8 @@
                         "url": "https://cdimage.debian.org/cdimage/archive/12.11.0/amd64/iso-cd/SHA256SUMS"
                       }
                     }
-                  ]
+                  ],
+                  "children": []
                 },
                 {
                   "id": "debian-11",
@@ -81,7 +83,8 @@
                         "url": "https://cdimage.debian.org/cdimage/archive/11.11.0/amd64/iso-cd/SHA256SUMS"
                       }
                     }
-                  ]
+                  ],
+                  "children": []
                 },
                 {
                   "id": "debian-10",
@@ -99,7 +102,8 @@
                         "url": "https://cdimage.debian.org/cdimage/archive/10.13.0/amd64/iso-cd/SHA256SUMS"
                       }
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ]
             },
@@ -141,7 +145,8 @@
                           "source": "https://ubuntu.com/download/desktop",
                           "verified": false
                         }
-                      ]
+                      ],
+                      "children": []
                     },
                     {
                       "id": "ubuntu-2404",
@@ -179,7 +184,8 @@
                             "url": "https://releases.ubuntu.com/noble/SHA256SUMS"
                           }
                         }
-                      ]
+                      ],
+                      "children": []
                     },
                     {
                       "id": "ubuntu-2204",
@@ -217,7 +223,8 @@
                             "url": "https://releases.ubuntu.com/jammy/SHA256SUMS"
                           }
                         }
-                      ]
+                      ],
+                      "children": []
                     },
                     {
                       "id": "ubuntu-2004",
@@ -255,7 +262,8 @@
                             "url": "https://releases.ubuntu.com/focal/SHA256SUMS"
                           }
                         }
-                      ]
+                      ],
+                      "children": []
                     },
                     {
                       "id": "ubuntu-1804",
@@ -293,7 +301,8 @@
                             "url": "https://releases.ubuntu.com/bionic/SHA256SUMS"
                           }
                         }
-                      ]
+                      ],
+                      "children": []
                     },
                     {
                       "id": "ubuntu-1604",
@@ -331,7 +340,8 @@
                             "url": "https://releases.ubuntu.com/xenial/SHA256SUMS"
                           }
                         }
-                      ]
+                      ],
+                      "children": []
                     }
                   ]
                 },
@@ -397,7 +407,8 @@
                           "source": "https://www.linuxmint.com/download.php",
                           "verified": false
                         }
-                      ]
+                      ],
+                      "children": []
                     },
                     {
                       "id": "mint-222",
@@ -451,7 +462,8 @@
                             "url": "https://mirrors.edge.kernel.org/linuxmint/stable/22.2/sha256sum.txt"
                           }
                         }
-                      ]
+                      ],
+                      "children": []
                     },
                     {
                       "id": "mint-213",
@@ -505,7 +517,8 @@
                             "url": "https://mirrors.edge.kernel.org/linuxmint/stable/21.3/sha256sum.txt"
                           }
                         }
-                      ]
+                      ],
+                      "children": []
                     }
                   ],
                   "note": "Просте перехідне середовище для новачків. Версія 22.3 «Zena».",
@@ -543,7 +556,8 @@
                             "url": "https://cdimage.ubuntu.com/lubuntu/releases/26.04/release/SHA256SUMS"
                           }
                         }
-                      ]
+                      ],
+                      "children": []
                     }
                   ],
                   "note": "Ubuntu з легким LXQt."
@@ -573,7 +587,8 @@
                             "url": "https://cdimage.ubuntu.com/kubuntu/releases/26.04/release/SHA256SUMS"
                           }
                         }
-                      ]
+                      ],
+                      "children": []
                     }
                   ],
                   "note": "Ubuntu з KDE Plasma."
@@ -603,7 +618,8 @@
                             "url": "https://cdimage.ubuntu.com/xubuntu/releases/26.04/release/SHA256SUMS"
                           }
                         }
-                      ]
+                      ],
+                      "children": []
                     }
                   ],
                   "note": "Ubuntu з Xfce."
@@ -643,7 +659,8 @@
                             "id": "sha_sum"
                           }
                         }
-                      ]
+                      ],
+                      "children": []
                     }
                   ],
                   "note": "Ubuntu від System76 з власним робочим столом COSMIC."
@@ -665,7 +682,9 @@
                           "verified": false,
                           "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
                         }
-                      ]
+                      ],
+                      "note": "Pro платна; Core і Education — потрібен e-mail.",
+                      "children": []
                     }
                   ],
                   "note": "Ubuntu для переходу з Windows."
@@ -687,7 +706,9 @@
                           "verified": false,
                           "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
                         }
-                      ]
+                      ],
+                      "note": "Оплата за бажанням (можна 0).",
+                      "children": []
                     }
                   ],
                   "note": "Ubuntu із простим робочим столом Pantheon."
@@ -735,7 +756,8 @@
                         "url": "https://cdimage.kali.org/current/SHA256SUMS"
                       }
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Дистрибутив для тестування безпеки на базі Debian."
@@ -783,7 +805,8 @@
                         "url": "{url}.sha256"
                       }
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Середній між Debian Stable і зручністю."
@@ -813,7 +836,8 @@
                         "url": "{url}.sha256"
                       }
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Платформа віртуалізації на базі Debian."
@@ -844,7 +868,8 @@
                       "arch": "amd64",
                       "url": "https://download.tails.net/tails/stable/tails-amd64-7.18/tails-amd64-7.18.img"
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Анонімна система з Tor, що працює з флешки."
@@ -871,7 +896,8 @@
                       },
                       "note": "Версія каталогу вказана вручну."
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Китайський дистрибутив із власним робочим столом DDE."
@@ -901,7 +927,8 @@
                         "url": "{url}.sha1"
                       }
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Перший популярний Live-дистрибутив на базі Debian."
@@ -928,7 +955,8 @@
                       },
                       "note": "Готовий образ диска для віртуальної машини, а не ISO."
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Debian на мікроядрі GNU Hurd."
@@ -971,7 +999,8 @@
                     "cpus": 2,
                     "efi": false,
                     "virtio": true
-                  }
+                  },
+                  "children": []
                 },
                 {
                   "id": "alpine-320",
@@ -993,7 +1022,8 @@
                         "url": "{url}.sha256"
                       }
                     }
-                  ]
+                  ],
+                  "children": []
                 },
                 {
                   "id": "alpine-319",
@@ -1015,7 +1045,8 @@
                         "url": "{url}.sha256"
                       }
                     }
-                  ]
+                  ],
+                  "children": []
                 },
                 {
                   "id": "alpine-318",
@@ -1037,7 +1068,8 @@
                         "url": "{url}.sha256"
                       }
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ]
             }
@@ -1077,7 +1109,8 @@
                     "cpus": 2,
                     "efi": false,
                     "virtio": true
-                  }
+                  },
+                  "children": []
                 }
               ]
             },
@@ -1103,7 +1136,8 @@
                       },
                       "note": "Файл називається latest.iso."
                     }
-                  ]
+                  ],
+                  "children": []
                 },
                 {
                   "id": "garuda-kdelite",
@@ -1122,7 +1156,8 @@
                       },
                       "note": "Файл називається latest.iso."
                     }
-                  ]
+                  ],
+                  "children": []
                 },
                 {
                   "id": "garuda-gnome",
@@ -1141,7 +1176,8 @@
                       },
                       "note": "Файл називається latest.iso."
                     }
-                  ]
+                  ],
+                  "children": []
                 },
                 {
                   "id": "garuda-xfce",
@@ -1160,7 +1196,8 @@
                       },
                       "note": "Файл називається latest.iso."
                     }
-                  ]
+                  ],
+                  "children": []
                 },
                 {
                   "id": "garuda-cinnamon",
@@ -1179,7 +1216,8 @@
                       },
                       "note": "Файл називається latest.iso."
                     }
-                  ]
+                  ],
+                  "children": []
                 },
                 {
                   "id": "garuda-i3",
@@ -1198,7 +1236,8 @@
                       },
                       "note": "Файл називається latest.iso."
                     }
-                  ]
+                  ],
+                  "children": []
                 },
                 {
                   "id": "garuda-hyprland",
@@ -1217,7 +1256,8 @@
                       },
                       "note": "Файл називається latest.iso."
                     }
-                  ]
+                  ],
+                  "children": []
                 },
                 {
                   "id": "garuda-sway",
@@ -1236,7 +1276,8 @@
                       },
                       "note": "Файл називається latest.iso."
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Арч для ігор і вигляду; rolling."
@@ -1262,7 +1303,8 @@
                         "id": "endeavouros-team/ISO"
                       }
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Дружній до новачків Arch."
@@ -1293,7 +1335,8 @@
                         "url": "{url}.sha256sum"
                       }
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Arch з легкими віконними менеджерами."
@@ -1320,7 +1363,8 @@
                         "id": "mabox-linux"
                       }
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Manjaro-подібний Openbox."
@@ -1337,12 +1381,13 @@
                     {
                       "name": "SteamOS: сторінка завантаження",
                       "kind": "guide",
-                      "url": "https://store.steampowered.com/steamos/download/",
-                      "source": "https://store.steampowered.com/steamos/download/",
+                      "url": "https://store.steampowered.com/steamos/download?ver=steamdeck",
+                      "source": "https://store.steampowered.com/steamos/download?ver=steamdeck",
                       "verified": false,
                       "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Арч-система Valve; образ для Steam Deck. Valve роздає його як .img.bz2."
@@ -1364,7 +1409,9 @@
                       "verified": false,
                       "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
                     }
-                  ]
+                  ],
+                  "note": "Є KDE Plasma, Xfce і GNOME.",
+                  "children": []
                 }
               ],
               "note": "Арч з готовим середовищем."
@@ -1376,15 +1423,24 @@
               "children": [
                 {
                   "id": "cachyos-v",
-                  "name": "Сторінка завантаження",
+                  "name": "Актуальна",
                   "files": [
                     {
-                      "name": "CachyOS: сторінка завантаження",
-                      "kind": "guide",
-                      "url": "https://cachyos.org/download/",
+                      "name": "Desktop (графічний інсталятор)",
+                      "kind": "iso",
                       "source": "https://cachyos.org/download/",
                       "verified": false,
-                      "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                      "arch": "x86_64",
+                      "resolve": {
+                        "type": "sourceforge",
+                        "pattern": "gui-installer/desktop/\\d+/cachyos-desktop-linux-\\d+\\.iso",
+                        "base": "/",
+                        "id": "cachyos-arch"
+                      },
+                      "checksum": {
+                        "algo": "sha256",
+                        "url": "{url}.sha256"
+                      }
                     }
                   ]
                 }
@@ -1408,32 +1464,11 @@
                       "verified": false,
                       "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Арч без systemd."
-            },
-            {
-              "id": "arcolinux",
-              "name": "ArcoLinux",
-              "childrenTitle": "Версія",
-              "children": [
-                {
-                  "id": "arcolinux-v",
-                  "name": "Сторінка завантаження",
-                  "files": [
-                    {
-                      "name": "ArcoLinux: сторінка завантаження",
-                      "kind": "guide",
-                      "url": "https://github.com/arcolinux",
-                      "source": "https://github.com/arcolinux",
-                      "verified": false,
-                      "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
-                    }
-                  ]
-                }
-              ],
-              "note": "Арч для навчання."
             },
             {
               "id": "rebornos",
@@ -1447,12 +1482,13 @@
                     {
                       "name": "RebornOS: сторінка завантаження",
                       "kind": "guide",
-                      "url": "https://rebornos.org/download/",
-                      "source": "https://rebornos.org/download/",
+                      "url": "https://sourceforge.net/projects/rebornos/files/latest/download",
+                      "source": "https://sourceforge.net/projects/rebornos/files/latest/download",
                       "verified": false,
                       "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Арч з інсталятором Calamares."
@@ -1469,12 +1505,13 @@
                     {
                       "name": "BlackArch Linux: сторінка завантаження",
                       "kind": "guide",
-                      "url": "https://blackarch.org/downloads.html",
-                      "source": "https://blackarch.org/downloads.html",
+                      "url": "https://www.blackarch.org/downloads.html",
+                      "source": "https://www.blackarch.org/downloads.html",
                       "verified": false,
                       "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Арч для тестування безпеки."
@@ -1486,20 +1523,25 @@
               "children": [
                 {
                   "id": "kaos-v",
-                  "name": "Сторінка завантаження",
+                  "name": "Остання",
                   "files": [
                     {
-                      "name": "KaOS: сторінка завантаження",
-                      "kind": "guide",
-                      "url": "https://kaosx.us/",
+                      "name": "ISO",
+                      "kind": "iso",
                       "source": "https://kaosx.us/",
                       "verified": false,
-                      "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                      "arch": "x86_64",
+                      "resolve": {
+                        "type": "sourceforge",
+                        "pattern": "ISO/KaOS-[\\d.]+-x86_64\\.iso",
+                        "base": "/ISO",
+                        "id": "kaosx"
+                      }
                     }
                   ]
                 }
               ],
-              "note": "Незалежна система з KDE (за мотивами Arch)."
+              "note": "Незалежна система з KDE."
             }
           ],
           "note": "Rolling, завжди свіжий образ."
@@ -1538,7 +1580,8 @@
                       "source": "https://fedoraproject.org/kde/download/",
                       "verified": true
                     }
-                  ]
+                  ],
+                  "children": []
                 },
                 {
                   "id": "fedora-11",
@@ -1672,7 +1715,8 @@
                     "efi": false,
                     "virtio": false,
                     "legacy": true
-                  }
+                  },
+                  "children": []
                 }
               ]
             },
@@ -1706,7 +1750,8 @@
                       "note": "Неофіційне джерело: archive.org.",
                       "arch": "x86_64"
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Північнокорейський Linux 3.0 на базі Fedora 11. Неофіційне джерело: archive.org."
@@ -1738,7 +1783,8 @@
                       },
                       "note": "Система безпеки на Xen з ізоляцією програм по віртуальних машинах."
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ]
             },
@@ -1754,12 +1800,14 @@
                     {
                       "name": "Nobara Linux: сторінка завантаження",
                       "kind": "guide",
-                      "url": "https://nobaraproject.org/download-nobara/",
-                      "source": "https://nobaraproject.org/download-nobara/",
+                      "url": "https://nobaraproject.org/download.html",
+                      "source": "https://nobaraproject.org/download.html",
                       "verified": false,
                       "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
                     }
-                  ]
+                  ],
+                  "note": "5 редакцій.",
+                  "children": []
                 }
               ],
               "note": "Fedora з готовими ігровими доповненнями."
@@ -1776,12 +1824,13 @@
                     {
                       "name": "Asahi Linux: сторінка завантаження",
                       "kind": "guide",
-                      "url": "https://asahilinux.org/",
-                      "source": "https://asahilinux.org/",
+                      "url": "https://asahilinux.org/fedora/",
+                      "source": "https://asahilinux.org/fedora/",
                       "verified": false,
                       "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Fedora для Mac з Apple Silicon: ставиться скриптом з macOS, а не з ISO."
@@ -1818,7 +1867,8 @@
                   "source": "https://get.opensuse.org/tumbleweed/?type=desktop",
                   "verified": true
                 }
-              ]
+              ],
+              "children": []
             }
           ]
         },
@@ -1838,7 +1888,8 @@
                   "source": "https://www.linuxfromscratch.org/lfs/",
                   "verified": true
                 }
-              ]
+              ],
+              "children": []
             },
             {
               "id": "lfs-livecd",
@@ -1870,7 +1921,8 @@
                   "verified": false,
                   "note": "Старий образ (~2007), контрольних сум немає."
                 }
-              ]
+              ],
+              "children": []
             }
           ],
           "note": "Офіційного ISO для нових версій немає: збірка вручну за книгою."
@@ -1897,7 +1949,8 @@
                       "verified": true,
                       "note": "Red Hat віддає ISO лише після входу в акаунт Developer."
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ]
             },
@@ -1942,7 +1995,8 @@
                     "cpus": 2,
                     "efi": false,
                     "virtio": true
-                  }
+                  },
+                  "children": []
                 }
               ],
               "note": "Безкоштовна збірка RHEL від спільноти."
@@ -2000,7 +2054,8 @@
                     "cpus": 2,
                     "efi": false,
                     "virtio": true
-                  }
+                  },
+                  "children": []
                 }
               ],
               "note": "Безкоштовна збірка RHEL."
@@ -2054,7 +2109,8 @@
                     "cpus": 2,
                     "efi": false,
                     "virtio": true
-                  }
+                  },
+                  "children": []
                 }
               ],
               "note": "Попередній випуск RHEL."
@@ -2101,7 +2157,8 @@
                     "cpus": 2,
                     "efi": false,
                     "virtio": true
-                  }
+                  },
+                  "children": []
                 }
               ]
             },
@@ -2122,7 +2179,8 @@
                       "verified": false,
                       "note": "Готових офіційних образів Chromium OS немає: система збирається з джерел (на Gentoo-інструментах)."
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Відкрита основа ChromeOS, зроблена на Gentoo."
@@ -2151,7 +2209,8 @@
                           "verified": true,
                           "note": "ChromeOS для звичайних ПК (~1,4 ГБ). Це дисковий образ, а не ISO; хеш Google не публікує."
                         }
-                      ]
+                      ],
+                      "children": []
                     }
                   ]
                 },
@@ -2160,7 +2219,8 @@
                   "name": "Образи відновлення Chromebook",
                   "note": "Окремий образ для кожної моделі Chromebook.",
                   "dynamic": "cros",
-                  "childrenTitle": "Виробник"
+                  "childrenTitle": "Виробник",
+                  "children": []
                 }
               ],
               "note": "Закрита збірка Google на базі Chromium OS (а той — на Gentoo)."
@@ -2177,12 +2237,14 @@
                     {
                       "name": "Calculate Linux (Scratch Server): сторінка завантаження",
                       "kind": "guide",
-                      "url": "https://www.calculate-linux.org/main/en/download",
-                      "source": "https://www.calculate-linux.org/main/en/download",
+                      "url": "https://www.calculate-linux.org/",
+                      "source": "https://www.calculate-linux.org/",
                       "verified": false,
                       "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
                     }
-                  ]
+                  ],
+                  "note": "Сайт блокує українські IP — може знадобитися VPN. Кілька редакцій.",
+                  "children": []
                 }
               ],
               "note": "Система на базі Gentoo."
@@ -2199,12 +2261,13 @@
                     {
                       "name": "Redcore Linux: сторінка завантаження",
                       "kind": "guide",
-                      "url": "https://redcorelinux.org/",
-                      "source": "https://redcorelinux.org/",
+                      "url": "https://redcorelinux.org/download",
+                      "source": "https://redcorelinux.org/download",
                       "verified": false,
                       "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Система на базі Gentoo."
@@ -2253,7 +2316,8 @@
                 "cpus": 2,
                 "efi": false,
                 "virtio": false
-              }
+              },
+              "children": []
             },
             {
               "id": "slackware-142",
@@ -2291,7 +2355,8 @@
                 "cpus": 2,
                 "efi": false,
                 "virtio": false
-              }
+              },
+              "children": []
             },
             {
               "id": "slackware-141",
@@ -2329,7 +2394,8 @@
                 "cpus": 2,
                 "efi": false,
                 "virtio": false
-              }
+              },
+              "children": []
             },
             {
               "id": "absolute",
@@ -2338,15 +2404,20 @@
               "children": [
                 {
                   "id": "absolute-v",
-                  "name": "Сторінка завантаження",
+                  "name": "Snapshot",
                   "files": [
                     {
-                      "name": "Absolute Linux: сторінка завантаження",
-                      "kind": "guide",
-                      "url": "https://www.absolutelinux.org/",
-                      "source": "https://www.absolutelinux.org/",
+                      "name": "Absolute64 (snapshot)",
+                      "kind": "iso",
+                      "source": "https://sourceforge.net/projects/absolute-linux/",
                       "verified": false,
-                      "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                      "arch": "x86_64",
+                      "resolve": {
+                        "type": "sourceforge",
+                        "pattern": "Absolute64-snapshot/absolute64-\\d+\\.iso",
+                        "base": "/",
+                        "id": "absolute-linux"
+                      }
                     }
                   ]
                 }
@@ -2389,7 +2460,8 @@
                     "url": "https://channels.nixos.org/nixos-26.05/latest-nixos-minimal-x86_64-linux.iso.sha256"
                   }
                 }
-              ]
+              ],
+              "children": []
             },
             {
               "id": "nixos-unstable",
@@ -2407,7 +2479,8 @@
                     "url": "https://channels.nixos.org/nixos-unstable/latest-nixos-graphical-x86_64-linux.iso.sha256"
                   }
                 }
-              ]
+              ],
+              "children": []
             }
           ],
           "note": "Декларативна система."
@@ -2469,7 +2542,8 @@
                     "url": "https://repo-default.voidlinux.org/live/current/sha256sum.txt"
                   }
                 }
-              ]
+              ],
+              "children": []
             }
           ],
           "note": "Незалежний rolling з runit."
@@ -2507,7 +2581,8 @@
                   "arch": "x86",
                   "url": "https://distro.ibiblio.org/tinycorelinux/16.x/x86/release/CorePlus-current.iso"
                 }
-              ]
+              ],
+              "children": []
             }
           ],
           "note": "Дуже мала система: десятки мегабайт."
@@ -2534,7 +2609,8 @@
                   },
                   "note": "Версія каталогу вказана вручну."
                 }
-              ]
+              ],
+              "children": []
             }
           ],
           "note": "Легка система, що працює в оперативній пам'яті."
@@ -2551,12 +2627,13 @@
                 {
                   "name": "Source Mage: сторінка завантаження",
                   "kind": "guide",
-                  "url": "https://sourcemage.org/",
-                  "source": "https://sourcemage.org/",
+                  "url": "https://sourcemage.org/Download",
+                  "source": "https://sourcemage.org/Download",
                   "verified": false,
                   "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
                 }
-              ]
+              ],
+              "children": []
             }
           ],
           "note": "Дистрибутив із зборкою з джерел."
@@ -2584,7 +2661,8 @@
                   "note": "Розпаковується в .img; це образ диска для флешки/VM.",
                   "unzip": true
                 }
-              ]
+              ],
+              "children": []
             }
           ],
           "note": "Ігрова ретро-консоль."
@@ -2606,7 +2684,8 @@
                   "verified": false,
                   "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
                 }
-              ]
+              ],
+              "children": []
             }
           ],
           "note": "Легка система без GNU і glibc."
@@ -2670,7 +2749,8 @@
                       "verified": false
                     }
                   ],
-                  "note": "Фінальний реліз 2011; тут реліз-кандидат з archive.org."
+                  "note": "Фінальний реліз 2011; тут реліз-кандидат з archive.org.",
+                  "children": []
                 },
                 {
                   "id": "mandriva-2008",
@@ -2687,7 +2767,8 @@
                       "source": "https://archive.org/details/mandriva-linux-2008-spring-alpha1",
                       "verified": false
                     }
-                  ]
+                  ],
+                  "children": []
                 },
                 {
                   "id": "mandrake-90",
@@ -2726,7 +2807,8 @@
                       "source": "https://archive.org/details/mdk90pp",
                       "verified": false
                     }
-                  ]
+                  ],
+                  "children": []
                 },
                 {
                   "id": "mandrake-70",
@@ -2743,7 +2825,8 @@
                       "source": "https://archive.org/details/mandrake-linux-7.0",
                       "verified": false
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Неофіційні копії з archive.org."
@@ -2805,7 +2888,8 @@
                         "url": "{url}.sha512"
                       }
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Спільнотна гілка Mandriva."
@@ -2828,10 +2912,144 @@
                   "source": "https://getsol.us/download/",
                   "verified": false
                 }
-              ]
+              ],
+              "note": "4 редакції.",
+              "children": []
             }
           ],
           "note": "Незалежний дистрибутив із власним Budgie."
+        },
+        {
+          "id": "altlinux",
+          "name": "ALT Linux",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "altlinux-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "ALT Linux: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://getalt.org/ru/",
+                  "source": "https://getalt.org/ru/",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Російський дистрибутив; 9 редакцій на сторінці."
+        },
+        {
+          "id": "redos",
+          "name": "РЕД ОС",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "redos-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "РЕД ОС: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://redos.red-soft.ru/product/downloads/",
+                  "source": "https://redos.red-soft.ru/product/downloads/",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Сайт блокує українські IP — може знадобитися VPN."
+        },
+        {
+          "id": "derive",
+          "name": "Derive Linux",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "derive-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "Derive Linux: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://derivelinux.org/releases/",
+                  "source": "https://derivelinux.org/releases/",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Директорія релізів."
+        },
+        {
+          "id": "archhurd",
+          "name": "Arch Hurd",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "archhurd-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "Arch Hurd: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://archhurd.org/",
+                  "source": "https://archhurd.org/",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Arch на мікроядрі GNU Hurd."
+        },
+        {
+          "id": "rosa",
+          "name": "ROSA Linux",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "rosa-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "ROSA Linux: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://rosa.ru/chrome/",
+                  "source": "https://rosa.ru/chrome/",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Сайт блокує українські IP — може знадобитися VPN."
+        },
+        {
+          "id": "parrot",
+          "name": "Parrot OS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "parrot-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "Parrot OS: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://parrotsec.org/download/",
+                  "source": "https://parrotsec.org/download/",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Кілька редакцій (Security, Home…)."
         }
       ]
     },
@@ -2867,7 +3085,8 @@
                 "cpus": 2,
                 "efi": false,
                 "virtio": false
-              }
+              },
+              "children": []
             }
           ]
         },
@@ -2917,7 +3136,8 @@
                   "source": "https://www.openbsd.org/faq/faq4.html",
                   "verified": true
                 }
-              ]
+              ],
+              "children": []
             }
           ],
           "note": "Версія 8.0. Для інших версій змінити каталог."
@@ -2950,7 +3170,8 @@
                   "source": "https://www.netbsd.org/",
                   "verified": false
                 }
-              ]
+              ],
+              "children": []
             }
           ],
           "note": "Версія 11.1."
@@ -2976,7 +3197,8 @@
                     "base": "https://mirror-master.dragonflybsd.org/iso-images/"
                   }
                 }
-              ]
+              ],
+              "children": []
             }
           ],
           "note": "Гілка FreeBSD з файловою системою HAMMER."
@@ -2998,7 +3220,8 @@
                   "verified": false,
                   "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
                 }
-              ]
+              ],
+              "children": []
             }
           ],
           "note": "FreeBSD із середовищем для флешки; образи .img.lzma."
@@ -3052,7 +3275,8 @@
                   "source": "https://openindiana.org/downloads",
                   "verified": true
                 }
-              ]
+              ],
+              "children": []
             }
           ],
           "note": "Спадкоємець OpenSolaris на ядрі illumos."
@@ -3082,7 +3306,8 @@
                     "url": "{url}.sha256"
                   }
                 }
-              ]
+              ],
+              "children": []
             }
           ],
           "note": "Сервер на ядрі illumos."
@@ -3110,7 +3335,8 @@
                   "childrenTitle": "Мова та архітектура",
                   "dynamic": "ms",
                   "param": "11",
-                  "note": "Офіційні сервери Microsoft: посилання діють ~24 год, але додаток бере свіже щоразу. Хеш Microsoft не публікує."
+                  "note": "Офіційні сервери Microsoft: посилання діють ~24 год, але додаток бере свіже щоразу. Хеш Microsoft не публікує.",
+                  "children": []
                 },
                 {
                   "id": "win11-26h2-uup",
@@ -3118,7 +3344,8 @@
                   "childrenTitle": "Збірка",
                   "dynamic": "uup",
                   "param": "Windows 11, version 26H2",
-                  "note": "Збірки з UUP dump: ISO збирається на твоєму ПК з файлів Microsoft."
+                  "note": "Збірки з UUP dump: ISO збирається на твоєму ПК з файлів Microsoft.",
+                  "children": []
                 }
               ],
               "note": "Microsoft віддає лише останню збірку; вибір інших білдів буде окремим етапом."
@@ -3129,7 +3356,8 @@
               "childrenTitle": "Збірка",
               "dynamic": "uup",
               "param": "Windows 11, version 25H2",
-              "note": "Збірки з UUP dump: ISO збирається на твоєму ПК з файлів Microsoft."
+              "note": "Збірки з UUP dump: ISO збирається на твоєму ПК з файлів Microsoft.",
+              "children": []
             },
             {
               "id": "win11-24h2",
@@ -3137,7 +3365,8 @@
               "childrenTitle": "Збірка",
               "dynamic": "uup",
               "param": "Windows 11, version 24H2",
-              "note": "Збірки з UUP dump: ISO збирається на твоєму ПК з файлів Microsoft."
+              "note": "Збірки з UUP dump: ISO збирається на твоєму ПК з файлів Microsoft.",
+              "children": []
             },
             {
               "id": "win11-insider",
@@ -3145,7 +3374,8 @@
               "childrenTitle": "Збірка",
               "dynamic": "uup",
               "param": "Windows 11 Insider Preview",
-              "note": "Прев'ю-збірки Windows Insider. Нестабільні."
+              "note": "Прев'ю-збірки Windows Insider. Нестабільні.",
+              "children": []
             }
           ]
         },
@@ -3165,7 +3395,8 @@
                   "childrenTitle": "Мова та архітектура",
                   "dynamic": "ms",
                   "param": "10",
-                  "note": "Офіційні сервери Microsoft (22H2). Хеш Microsoft не публікує."
+                  "note": "Офіційні сервери Microsoft (22H2). Хеш Microsoft не публікує.",
+                  "children": []
                 },
                 {
                   "id": "win10-22h2-uup",
@@ -3173,7 +3404,8 @@
                   "childrenTitle": "Збірка",
                   "dynamic": "uup",
                   "param": "Windows 10, version 22H2",
-                  "note": "Збірки з UUP dump: ISO збирається на твоєму ПК з файлів Microsoft."
+                  "note": "Збірки з UUP dump: ISO збирається на твоєму ПК з файлів Microsoft.",
+                  "children": []
                 }
               ],
               "note": "Microsoft віддає лише останню збірку; вибір інших білдів буде окремим етапом."
@@ -3236,7 +3468,8 @@
                   "note": "Неофіційне джерело: archive.org. Без медіа-компонентів.",
                   "arch": "x64"
                 }
-              ]
+              ],
+              "children": []
             }
           ],
           "note": "Microsoft образи не роздає, тож це копії на archive.org."
@@ -3275,7 +3508,8 @@
                     "value": "08f6b9f1876bf6c41492d92a15046b45eaf431263b8714b95d64d99ea5ac0bbd"
                   }
                 }
-              ]
+              ],
+              "children": []
             }
           ],
           "note": "Home Basic, Home Premium, Professional, Ultimate в одному образі."
@@ -3311,7 +3545,8 @@
                   "note": "Неофіційне джерело: archive.org.",
                   "arch": "x86"
                 }
-              ]
+              ],
+              "children": []
             }
           ],
           "note": "Копії на archive.org."
@@ -3345,7 +3580,8 @@
                 "efi": false,
                 "virtio": false,
                 "legacy": true
-              }
+              },
+              "children": []
             }
           ]
         },
@@ -3378,7 +3614,8 @@
                 "efi": false,
                 "virtio": false,
                 "legacy": true
-              }
+              },
+              "children": []
             }
           ]
         },
@@ -3415,7 +3652,8 @@
                     "cpus": 2,
                     "efi": false,
                     "virtio": false
-                  }
+                  },
+                  "children": []
                 },
                 {
                   "id": "lh-4032",
@@ -3440,7 +3678,8 @@
                     "cpus": 2,
                     "efi": false,
                     "virtio": false
-                  }
+                  },
+                  "children": []
                 },
                 {
                   "id": "lh-5048",
@@ -3465,7 +3704,8 @@
                     "cpus": 2,
                     "efi": false,
                     "virtio": false
-                  }
+                  },
+                  "children": []
                 },
                 {
                   "id": "lh-5112",
@@ -3490,7 +3730,8 @@
                     "cpus": 2,
                     "efi": false,
                     "virtio": false
-                  }
+                  },
+                  "children": []
                 },
                 {
                   "id": "lh-5219",
@@ -3515,7 +3756,8 @@
                     "cpus": 2,
                     "efi": false,
                     "virtio": false
-                  }
+                  },
+                  "children": []
                 },
                 {
                   "id": "lh-5231",
@@ -3540,7 +3782,8 @@
                     "cpus": 2,
                     "efi": false,
                     "virtio": false
-                  }
+                  },
+                  "children": []
                 },
                 {
                   "id": "lh-5365",
@@ -3565,7 +3808,8 @@
                     "cpus": 2,
                     "efi": false,
                     "virtio": false
-                  }
+                  },
+                  "children": []
                 },
                 {
                   "id": "lh-5384",
@@ -3590,7 +3834,8 @@
                     "cpus": 2,
                     "efi": false,
                     "virtio": false
-                  }
+                  },
+                  "children": []
                 }
               ],
               "note": "Неофіційні копії з archive.org."
@@ -3624,7 +3869,8 @@
                     "efi": false,
                     "virtio": false,
                     "legacy": true
-                  }
+                  },
+                  "children": []
                 },
                 {
                   "id": "wh-2428",
@@ -3650,7 +3896,8 @@
                     "efi": false,
                     "virtio": false,
                     "legacy": true
-                  }
+                  },
+                  "children": []
                 },
                 {
                   "id": "wh-2463",
@@ -3676,7 +3923,8 @@
                     "efi": false,
                     "virtio": false,
                     "legacy": true
-                  }
+                  },
+                  "children": []
                 },
                 {
                   "id": "wh-2465",
@@ -3702,7 +3950,8 @@
                     "efi": false,
                     "virtio": false,
                     "legacy": true
-                  }
+                  },
+                  "children": []
                 }
               ],
               "note": "Неофіційні копії з archive.org."
@@ -3736,7 +3985,8 @@
                     "efi": false,
                     "virtio": false,
                     "legacy": true
-                  }
+                  },
+                  "children": []
                 },
                 {
                   "id": "nep-5111",
@@ -3762,7 +4012,8 @@
                     "efi": false,
                     "virtio": false,
                     "legacy": true
-                  }
+                  },
+                  "children": []
                 }
               ],
               "note": "Неофіційні копії з archive.org."
@@ -3797,7 +4048,8 @@
                     "virtio": false,
                     "legacy": true
                   },
-                  "note": "Образ, а не ISO."
+                  "note": "Образ, а не ISO.",
+                  "children": []
                 }
               ],
               "note": "Неофіційні копії з archive.org."
@@ -3822,19 +4074,22 @@
               "id": "macos-installers",
               "name": "Повні інсталятори (з серверів Apple)",
               "note": "Список береться з офіційного каталогу Apple під час відкриття. Файл InstallAssistant.pkg (10–17 ГБ). Ліцензія Apple дозволяє macOS лише на комп'ютерах Apple.",
-              "dynamic": "apple"
+              "dynamic": "apple",
+              "children": []
             },
             {
               "id": "macos-recovery",
               "name": "Образ відновлення для ВМ (Big Sur, Monterey, Catalina)",
               "note": "Малий завантажувальний образ з сервера Internet Recovery від Apple. Застосунок перевіряє його за списком контрольних сум Apple і перетворює на диск для VirtualBox. Це не ISO: macOS докачається з серверів Apple під час інсталяції.",
-              "dynamic": "macrecovery"
+              "dynamic": "macrecovery",
+              "children": []
             },
             {
               "id": "macos-arm-ipsw",
               "name": "Apple Silicon (.ipsw)",
               "note": "Файл відкривається у UTM / VirtualBuddy / Tart на Mac з Apple Silicon.",
-              "dynamic": "ipsw"
+              "dynamic": "ipsw",
+              "children": []
             },
             {
               "id": "macos-arm-tools",
@@ -3870,7 +4125,8 @@
                   "verified": true,
                   "note": "Встановлюється через Homebrew (brew install cirruslabs/cli/tart)."
                 }
-              ]
+              ],
+              "children": []
             }
           ]
         },
@@ -3915,7 +4171,8 @@
                       "source": "https://github.com/kholia/OSX-KVM",
                       "verified": true
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ]
             }
@@ -3935,7 +4192,8 @@
           "childrenTitle": "Пристрій",
           "dynamic": "ios-devices",
           "param": "iPhone",
-          "note": "Це прошивки (.ipsw) з серверів Apple, а не ISO. Показано версії 1–7, 16, 26 і 27. Запуск у ВМ: для старих — QEMU, для нових — пізніший етап."
+          "note": "Це прошивки (.ipsw) з серверів Apple, а не ISO. Показано версії 1–7, 16, 26 і 27. Запуск у ВМ: для старих — QEMU, для нових — пізніший етап.",
+          "children": []
         },
         {
           "id": "ios-ipad",
@@ -3943,7 +4201,8 @@
           "childrenTitle": "Пристрій",
           "dynamic": "ios-devices",
           "param": "iPad",
-          "note": "Це прошивки (.ipsw) з серверів Apple, а не ISO. Показано версії 1–7, 16, 26 і 27. Запуск у ВМ: для старих — QEMU, для нових — пізніший етап."
+          "note": "Це прошивки (.ipsw) з серверів Apple, а не ISO. Показано версії 1–7, 16, 26 і 27. Запуск у ВМ: для старих — QEMU, для нових — пізніший етап.",
+          "children": []
         },
         {
           "id": "ios-ipod",
@@ -3951,7 +4210,16 @@
           "childrenTitle": "Пристрій",
           "dynamic": "ios-devices",
           "param": "iPod",
-          "note": "Це прошивки (.ipsw) з серверів Apple, а не ISO. Показано версії 1–7, 16, 26 і 27. Запуск у ВМ: для старих — QEMU, для нових — пізніший етап."
+          "note": "Це прошивки (.ipsw) з серверів Apple, а не ISO. Показано версії 1–7, 16, 26 і 27. Запуск у ВМ: для старих — QEMU, для нових — пізніший етап.",
+          "children": []
+        },
+        {
+          "id": "ios-appletv",
+          "name": "Apple TV (tvOS)",
+          "childrenTitle": "Пристрій",
+          "dynamic": "ios-devices",
+          "param": "AppleTV",
+          "note": "Прошивки .ipsw усіх версій."
         }
       ]
     },
@@ -3996,7 +4264,8 @@
                       "source": "https://github.com/uxazu/aemulator",
                       "verified": true
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ],
               "note": "Це застосунок для Android-телефона (arm64, Android 8+), який запускає старі прошивки. Не для ПК."
@@ -4043,7 +4312,8 @@
                   "source": "https://www.android-x86.org/releases/releasenote-9-0-r2",
                   "verified": false
                 }
-              ]
+              ],
+              "children": []
             }
           ],
           "note": "Android для ПК. Хеші SHA-1 з офіційної сторінки релізу. Хост: SourceForge."
@@ -4064,7 +4334,8 @@
                   "source": "https://blissos.org",
                   "verified": true
                 }
-              ]
+              ],
+              "children": []
             }
           ],
           "note": "Сайт заявляє, що публічні образи призупинені. Відкриється сторінка проєкту."
@@ -4105,7 +4376,8 @@
                   "url": "https://builds.kolibrios.org/en_US/latest-iso.7z",
                   "note": "Архів 7z: розпакуй 7-Zip, всередині ISO (~1,5 МБ)."
                 }
-              ]
+              ],
+              "children": []
             }
           ],
           "note": "Асемблерна ОС, що вміщається на дискету."
@@ -4130,7 +4402,8 @@
                   "source": "https://archive.org/details/haiku-r1beta4-x86_gcc2h-anyboot_202512",
                   "verified": false
                 }
-              ]
+              ],
+              "children": []
             },
             {
               "id": "haiku-beta3",
@@ -4158,7 +4431,8 @@
                   "source": "https://archive.org/details/haiku-os-r1-beta3",
                   "verified": false
                 }
-              ]
+              ],
+              "children": []
             },
             {
               "id": "haiku-site",
@@ -4171,10 +4445,816 @@
                   "source": "https://www.haiku-os.org/get-haiku/",
                   "verified": false
                 }
-              ]
+              ],
+              "children": []
             }
           ],
           "note": "Спадкоємець BeOS. Образи beta з archive.org."
+        },
+        {
+          "id": "reactos",
+          "name": "ReactOS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "reactos-v",
+              "name": "Остання",
+              "files": [
+                {
+                  "name": "ISO (у zip)",
+                  "kind": "iso",
+                  "source": "https://reactos.org/download/",
+                  "verified": false,
+                  "arch": "x86",
+                  "resolve": {
+                    "type": "sourceforge",
+                    "pattern": "ReactOS/[\\d.]+/ReactOS-[\\d.]+-iso\\.zip",
+                    "base": "/ReactOS",
+                    "id": "reactos"
+                  },
+                  "unzip": true
+                }
+              ]
+            }
+          ],
+          "note": "Вільна ОС, сумісна з Windows NT."
+        },
+        {
+          "id": "helenos",
+          "name": "HelenOS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "helenos-v",
+              "name": "0.14.x",
+              "files": [
+                {
+                  "name": "amd64",
+                  "kind": "iso",
+                  "source": "https://www.helenos.org/wiki/Download",
+                  "verified": false,
+                  "arch": "amd64",
+                  "resolve": {
+                    "type": "index",
+                    "pattern": "HelenOS-0\\.14\\.\\d+-amd64\\.iso",
+                    "base": "https://www.helenos.org/releases/"
+                  }
+                },
+                {
+                  "name": "ia32",
+                  "kind": "iso",
+                  "source": "https://www.helenos.org/wiki/Download",
+                  "verified": false,
+                  "arch": "ia32",
+                  "resolve": {
+                    "type": "index",
+                    "pattern": "HelenOS-0\\.14\\.\\d+-ia32\\.iso",
+                    "base": "https://www.helenos.org/releases/"
+                  }
+                },
+                {
+                  "name": "arm64 (virt)",
+                  "kind": "iso",
+                  "source": "https://www.helenos.org/wiki/Download",
+                  "verified": false,
+                  "arch": "arm64",
+                  "resolve": {
+                    "type": "index",
+                    "pattern": "HelenOS-0\\.14\\.\\d+-arm64-virt\\.iso",
+                    "base": "https://www.helenos.org/releases/"
+                  }
+                }
+              ]
+            }
+          ],
+          "note": "Мікроядерна ОС."
+        },
+        {
+          "id": "9front",
+          "name": "9front",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "9front-v",
+              "name": "Остання",
+              "files": [
+                {
+                  "name": "amd64 (qcow2.gz)",
+                  "kind": "iso",
+                  "source": "https://9front.org/",
+                  "verified": false,
+                  "arch": "amd64",
+                  "resolve": {
+                    "type": "index",
+                    "pattern": "9front-\\d+\\.amd64\\.qcow2\\.gz",
+                    "base": "https://9front.org/iso/"
+                  },
+                  "note": "Розпаковується в образ qcow2 для QEMU.",
+                  "unzip": true
+                }
+              ]
+            }
+          ],
+          "note": "Форк Plan 9 from Bell Labs."
+        },
+        {
+          "id": "toaruos",
+          "name": "ToaruOS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "toaruos-v",
+              "name": "Остання",
+              "files": [
+                {
+                  "name": "ISO",
+                  "kind": "iso",
+                  "resolve": {
+                    "type": "github",
+                    "id": "klange/toaruos",
+                    "pattern": "image\\.iso",
+                    "prerelease": true
+                  },
+                  "source": "https://toaruos.org/",
+                  "verified": false
+                }
+              ]
+            }
+          ],
+          "note": "Хобі-ОС з нуля."
+        },
+        {
+          "id": "menuetos",
+          "name": "MenuetOS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "menuetos-v",
+              "name": "1.x/64-біт (архів)",
+              "files": [
+                {
+                  "name": "M64 образ дискети (.IMG)",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "menuetos",
+                    "pattern": "M6413640\\.IMG"
+                  },
+                  "source": "https://archive.org/details/menuetos",
+                  "verified": false
+                },
+                {
+                  "name": "MenuetOS.7z (архів)",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "menuetos_202110",
+                    "pattern": "MenuetOS\\.7z"
+                  },
+                  "source": "https://archive.org/details/menuetos_202110",
+                  "verified": false,
+                  "note": "Архів 7z — розпакуй 7-Zip."
+                }
+              ]
+            }
+          ],
+          "note": "Асемблерна ОС на дискеті."
+        },
+        {
+          "id": "redox",
+          "name": "Redox OS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "redox-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "Redox OS: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://www.redox-os.org/",
+                  "source": "https://www.redox-os.org/",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "ОС на Rust. Образи роздаються у .zst."
+        },
+        {
+          "id": "serenity",
+          "name": "SerenityOS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "serenity-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "SerenityOS: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://serenityos.org/",
+                  "source": "https://serenityos.org/",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Збирається з вихідного коду."
+        },
+        {
+          "id": "sortix",
+          "name": "Sortix",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "sortix-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "Sortix: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://sortix.org/",
+                  "source": "https://sortix.org/",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Образи в .xz."
+        },
+        {
+          "id": "genode",
+          "name": "Genode OS Framework",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "genode-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "Genode OS Framework: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://genode.org/download/sculpt",
+                  "source": "https://genode.org/download/sculpt",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Sculpt OS."
+        },
+        {
+          "id": "minix",
+          "name": "MINIX 3",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "minix-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "MINIX 3: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://www.minix3.org/",
+                  "source": "https://www.minix3.org/",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Образи в .bz2."
+        },
+        {
+          "id": "plan9",
+          "name": "Plan 9 from Bell Labs",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "plan9-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "Plan 9 from Bell Labs: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://9p.io/plan9/",
+                  "source": "https://9p.io/plan9/",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Образ у .bz2."
+        },
+        {
+          "id": "inferno",
+          "name": "Inferno",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "inferno-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "Inferno: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://github.com/inferno-os/inferno-os",
+                  "source": "https://github.com/inferno-os/inferno-os",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "ОС від Bell Labs."
+        },
+        {
+          "id": "fuchsia",
+          "name": "Fuchsia",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "fuchsia-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "Fuchsia: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://fuchsia.dev/",
+                  "source": "https://fuchsia.dev/",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Збирається з вихідного коду."
+        },
+        {
+          "id": "sel4",
+          "name": "seL4",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "sel4-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "seL4: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://sel4.systems/",
+                  "source": "https://sel4.systems/",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Верифіковане мікроядро."
+        }
+      ]
+    },
+    {
+      "id": "mobile",
+      "name": "Мобільні та вбудовані",
+      "childrenTitle": "Система",
+      "children": [
+        {
+          "id": "webos",
+          "name": "webOS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "webos-v",
+              "name": "Open webOS desktop",
+              "files": [
+                {
+                  "name": "ISO (desktop)",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "openwebos-desktop-1005",
+                    "pattern": "openwebos\\-desktop\\-1005\\.iso"
+                  },
+                  "source": "https://archive.org/details/openwebos-desktop-1005",
+                  "verified": false
+                }
+              ]
+            },
+            {
+              "id": "webos-ose",
+              "name": "webOS OSE (сучасна)",
+              "files": [
+                {
+                  "name": "webOS OSE: сторінка проєкту",
+                  "kind": "guide",
+                  "url": "https://www.webosose.org/",
+                  "source": "https://www.webosose.org/",
+                  "verified": false,
+                  "note": "Образи QEMU роздаються у .tar.bz2 на GitHub."
+                }
+              ]
+            }
+          ],
+          "note": "ОС від Palm/HP/LG."
+        },
+        {
+          "id": "meego",
+          "name": "MeeGo",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "meego-v",
+              "name": "1.2 Netbook",
+              "files": [
+                {
+                  "name": "Образ диска .img",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "meego-netbook-ia32-1.2.0",
+                    "pattern": "meego\\-netbook\\-ia32\\-1\\.2\\.0\\.img"
+                  },
+                  "source": "https://archive.org/details/meego-netbook-ia32-1.2.0",
+                  "verified": false
+                }
+              ]
+            }
+          ],
+          "note": "Nokia/Intel, наступник Maemo."
+        },
+        {
+          "id": "symbian",
+          "name": "Symbian OS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "symbian-v",
+              "name": "ROM-образи",
+              "files": [
+                {
+                  "name": "Symbian OS ROMs (zip)",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "symbian-os-roms_202010",
+                    "pattern": "Symbian\\ OS\\ ROMs\\.zip"
+                  },
+                  "source": "https://archive.org/details/symbian-os-roms_202010",
+                  "verified": false
+                }
+              ]
+            }
+          ],
+          "note": "Для емуляторів; не завантажувальний ISO."
+        },
+        {
+          "id": "firefoxos",
+          "name": "Firefox OS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "ffos-v",
+              "name": "B2G desktop 44",
+              "files": [
+                {
+                  "name": "b2g desktop (Windows, zip)",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "b2g-44.0a1.en-US.win32",
+                    "pattern": "b2g\\-44\\.0a1\\.en\\-US\\.win32\\.zip"
+                  },
+                  "source": "https://archive.org/details/b2g-44.0a1.en-US.win32",
+                  "verified": false
+                }
+              ]
+            }
+          ],
+          "note": "Емулятор для ПК."
+        },
+        {
+          "id": "bb10",
+          "name": "BlackBerry 10",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "bb10-v",
+              "name": "Симулятор 10.0.10 (Linux)",
+              "files": [
+                {
+                  "name": "Симулятор .bin",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "blackberry10-device-simulator",
+                    "pattern": "BlackBerry10Simulator\\-Installer\\-BB10_0_10\\-822\\-Linux\\-201303151933\\.bin"
+                  },
+                  "source": "https://archive.org/details/blackberry10-device-simulator",
+                  "verified": false
+                }
+              ]
+            }
+          ],
+          "note": "Симулятор для VMware/VirtualBox."
+        },
+        {
+          "id": "maemo",
+          "name": "Maemo",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "maemo-v",
+              "name": "SDK (Lucid desktop)",
+              "files": [
+                {
+                  "name": "Віртуальний образ SDK (7z)",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "maemo_dev_env_downloads",
+                    "pattern": "maemo_dev_env_downloads/Maemo_Ubuntu_Lucid_Desktop_SDK_Virtual_Image_Final\\.7z"
+                  },
+                  "source": "https://archive.org/details/maemo_dev_env_downloads",
+                  "verified": false
+                }
+              ]
+            }
+          ],
+          "note": "ОС Nokia N900."
+        },
+        {
+          "id": "tizen",
+          "name": "Tizen",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "tizen-v",
+              "name": "SDK 2.2 (Lubuntu, ISO)",
+              "files": [
+                {
+                  "name": "ISO",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "tizen-sdk-2.2_lubuntu-13.04_x64_2013-08-12",
+                    "pattern": "tizen\\-sdk\\-2\\.2_lubuntu\\-13\\.04_x64_2013\\-08\\-12\\.iso"
+                  },
+                  "source": "https://archive.org/details/tizen-sdk-2.2_lubuntu-13.04_x64_2013-08-12",
+                  "verified": false
+                }
+              ]
+            }
+          ],
+          "note": "ОС Samsung; нові образи — на tizen.org."
+        },
+        {
+          "id": "sailfish",
+          "name": "Sailfish OS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "sailfish-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "Sailfish OS: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://sailfishos.org/",
+                  "source": "https://sailfishos.org/",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Образи для пристроїв і SDK."
+        },
+        {
+          "id": "kaios",
+          "name": "KaiOS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "kaios-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "KaiOS: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://www.kaiostech.com/",
+                  "source": "https://www.kaiostech.com/",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Лише для пристроїв партнерів."
+        },
+        {
+          "id": "wearos",
+          "name": "Wear OS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "wearos-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "Wear OS: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://developer.android.com/training/wearables",
+                  "source": "https://developer.android.com/training/wearables",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Емулятор у складі Android Studio."
+        },
+        {
+          "id": "openharmony",
+          "name": "OpenHarmony",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "openharmony-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "OpenHarmony: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://www.openharmony.cn/",
+                  "source": "https://www.openharmony.cn/",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Вихідний код і SDK."
+        },
+        {
+          "id": "harmonyos",
+          "name": "HarmonyOS NEXT",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "harmonyos-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "HarmonyOS NEXT: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://developer.huawei.com/consumer/en/harmonyos/",
+                  "source": "https://developer.huawei.com/consumer/en/harmonyos/",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Емулятор у DevEco Studio."
+        },
+        {
+          "id": "fydeos",
+          "name": "FydeOS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "fydeos-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "FydeOS: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://fydeos.io/download/",
+                  "source": "https://fydeos.io/download/",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Chromium OS для ПК."
+        },
+        {
+          "id": "qnx",
+          "name": "QNX",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "qnx-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "QNX: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://www.qnx.com/download/",
+                  "source": "https://www.qnx.com/download/",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Потрібен акаунт."
+        },
+        {
+          "id": "vxworks",
+          "name": "VxWorks",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "vxworks-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "VxWorks: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://www.windriver.com/products/vxworks",
+                  "source": "https://www.windriver.com/products/vxworks",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Комерційна; є пробна версія."
+        },
+        {
+          "id": "freertos",
+          "name": "FreeRTOS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "freertos-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "FreeRTOS: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://github.com/FreeRTOS/FreeRTOS/releases",
+                  "source": "https://github.com/FreeRTOS/FreeRTOS/releases",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Це RTOS-ядро з вихідним кодом, а не ISO."
+        },
+        {
+          "id": "zephyr",
+          "name": "Zephyr",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "zephyr-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "Zephyr: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://github.com/zephyrproject-rtos/zephyr/releases",
+                  "source": "https://github.com/zephyrproject-rtos/zephyr/releases",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Це RTOS з вихідним кодом, а не ISO."
+        },
+        {
+          "id": "palmos",
+          "name": "Palm OS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "palmos-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "Palm OS: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://archive.org/details/palm_os",
+                  "source": "https://archive.org/details/palm_os",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Колекція програм і ROM на archive.org."
         }
       ]
     },
@@ -4244,7 +5324,8 @@
                       "source": "https://freedos.org/download/",
                       "verified": true
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ]
             },
@@ -4280,7 +5361,8 @@
                       "note": "Неофіційне джерело: archive.org.",
                       "arch": "x86"
                     }
-                  ]
+                  ],
+                  "children": []
                 }
               ]
             }
@@ -4315,7 +5397,8 @@
                 "efi": false,
                 "virtio": false,
                 "legacy": true
-              }
+              },
+              "children": []
             },
             {
               "id": "templeos-500",
@@ -4340,10 +5423,123 @@
                 "efi": false,
                 "virtio": false,
                 "legacy": true
-              }
+              },
+              "children": []
             }
           ],
           "note": "ОС Террі Девіса. Образи з архіву Інтернету."
+        },
+        {
+          "id": "beos",
+          "name": "BeOS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "beos-5",
+              "name": "R5 Personal Edition",
+              "files": [
+                {
+                  "name": "BeOS 5 PE (ISO)",
+                  "kind": "archived",
+                  "resolve": {
+                    "type": "archive",
+                    "id": "Beos5.0screen",
+                    "pattern": "BeOs\\ 5\\ PE\\.iso"
+                  },
+                  "source": "https://archive.org/details/Beos5.0screen",
+                  "verified": false
+                }
+              ]
+            }
+          ],
+          "note": "Попередник Haiku."
+        },
+        {
+          "id": "os2",
+          "name": "OS/2",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "os2-v",
+              "name": "Пошук на archive.org",
+              "files": [
+                {
+                  "name": "OS/2 Warp: архів Інтернету",
+                  "kind": "guide",
+                  "url": "https://archive.org/search?query=OS%2F2+Warp",
+                  "source": "https://archive.org/search?query=OS%2F2+Warp",
+                  "verified": false
+                }
+              ]
+            }
+          ],
+          "note": "Образи залишаються на archive.org."
+        },
+        {
+          "id": "arcaos",
+          "name": "ArcaOS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "arcaos-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "ArcaOS: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://www.arcanoae.com/arcaos/",
+                  "source": "https://www.arcanoae.com/arcaos/",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Комерційний наступник OS/2."
+        },
+        {
+          "id": "riscos",
+          "name": "RISC OS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "riscos-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "RISC OS: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://www.riscosopen.org/content/downloads",
+                  "source": "https://www.riscosopen.org/content/downloads",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Образи для Raspberry Pi та емуляторів."
+        },
+        {
+          "id": "zos",
+          "name": "z/OS",
+          "childrenTitle": "Версія",
+          "children": [
+            {
+              "id": "zos-v",
+              "name": "Сторінка завантаження",
+              "files": [
+                {
+                  "name": "z/OS: сторінка завантаження",
+                  "kind": "guide",
+                  "url": "https://www.ibm.com/products/zos",
+                  "source": "https://www.ibm.com/products/zos",
+                  "verified": false,
+                  "note": "Прямого стабільного посилання на образ немає — відкриється офіційна сторінка."
+                }
+              ]
+            }
+          ],
+          "note": "Публічних образів немає."
         }
       ]
     }
